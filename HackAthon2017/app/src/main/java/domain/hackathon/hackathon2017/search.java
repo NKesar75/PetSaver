@@ -13,7 +13,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.Switch;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -201,8 +200,6 @@ public class search extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-
-                shoData(dataSnapshot);
             }
 
             @Override
@@ -300,23 +297,253 @@ public class search extends AppCompatActivity {
                 mRootRef.child(USerid).child("Search").child("locationrb").setValue(citystatefb);
                 mRootRef.child(USerid).child("Search").child("locationtxt").setValue(localtxtfb);
 
-                startActivity(new Intent(this,Home.class));
+                startActivity(new Intent(search.this,Home.class));
             }
         });
 
     }
 
-    private void shoData(DataSnapshot dataSnapshot) {
-
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
-    }
 
-    @Override
+        mbreed.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+
+                if (Temp.equals("true")) {
+                    breedtxt.setText(Temp);
+                    breedtxt.setVisibility(View.VISIBLE);
+                } else if (Temp.equals("false")) {
+                    breedtxt.setText(Temp);
+                    breedtxt.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        manimaltype.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+
+                if (Temp.equals("true")) {
+                    animaltypespinner.setVisibility(View.VISIBLE);
+                } else if (Temp.equals("false")) {
+                    animaltypespinner.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mgender.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+
+                if (Temp.equals("true")) {
+                    Genderspinner.setVisibility(View.VISIBLE);
+                } else if (Temp.equals("false")) {
+                    Genderspinner.setVisibility(View.GONE);
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        mage.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+
+                if (Temp.equals("true")) {
+                    Agespinner.setVisibility(View.VISIBLE);
+                } else if (Temp.equals("false")) {
+                    Agespinner.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        msize.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+
+                if (Temp.equals("true")) {
+                    Sizespinner.setVisibility(View.VISIBLE);
+                } else if (Temp.equals("false")) {
+                    Sizespinner.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mlocation.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+
+                if (Temp.equals("true")) {
+                    localtxt.setText(Temp);
+                    citystate.setVisibility(View.VISIBLE);
+                    Zipcode.setVisibility(View.VISIBLE);
+                    localtxt.setVisibility(View.VISIBLE);
+                } else if (Temp.equals("false")) {
+                    localtxt.setText(Temp);
+                    citystate.setVisibility(View.GONE);
+                    Zipcode.setVisibility(View.GONE);
+                    localtxt.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+        magetxt.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+                for (int i = 0; i < Agespinner.getCount(); i++) {
+                    if (Agespinner.getItemAtPosition(i).equals(Temp)) {
+                        Agespinner.setSelection(i);
+                        break;
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        msizetxt.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+                for (int i = 0; i < Sizespinner.getCount(); i++) {
+                    if (Sizespinner.getItemAtPosition(i).equals(Temp)) {
+                        Sizespinner.setSelection(i);
+                        break;
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mgendertxt.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+                for (int i = 0; i < Genderspinner.getCount(); i++) {
+                    if (Genderspinner.getItemAtPosition(i).equals(Temp)) {
+                        Genderspinner.setSelection(i);
+                        break;
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        manimaltypetext.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+                for (int i = 0; i < animaltypespinner.getCount(); i++) {
+                    if (animaltypespinner.getItemAtPosition(i).equals(Temp)) {
+                        animaltypespinner.setSelection(i);
+                        break;
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mlocationrandiobutton.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+
+                if (Temp.equals("true")) {
+                    citystate.setChecked(true);
+                    Zipcode.setChecked(false);
+                } else if (Temp.equals("false")) {
+                    citystate.setChecked(false);
+                    Zipcode.setChecked(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mlocationtxt.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+                localtxt.setText(Temp);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mbreedtext.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+                breedtxt.setText(Temp);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+        @Override
     public void onStop() {
         super.onStop();
         if (mAuthListener != null) {
