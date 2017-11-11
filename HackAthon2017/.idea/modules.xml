@@ -3,9 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/HackAthon2017.iml" filepath="$PROJECT_DIR$/HackAthon2017.iml" />
-      <module fileurl="file://C:\Users\andy1\Desktop\NewHaccathonGItHub\HackAthon2017\HackAthon2017.iml" filepath="C:\Users\andy1\Desktop\NewHaccathonGItHub\HackAthon2017\HackAthon2017.iml" />
+
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\andy1\Desktop\NewHaccathonGItHub\HackAthon2017\app\app.iml" filepath="C:\Users\andy1\Desktop\NewHaccathonGItHub\HackAthon2017\app\app.iml" />
+
     </modules>
   </component>
 </project>

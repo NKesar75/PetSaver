@@ -3,9 +3,14 @@ package domain.hackathon.hackathon2017;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Size;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,7 +18,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.Switch;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,7 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class search extends AppCompatActivity {
+public class search extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "search";
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -63,6 +68,9 @@ public class search extends AppCompatActivity {
     private Spinner Genderspinner;
     private Spinner animaltypespinner;
     private Button Search;
+
+    private DrawerLayout draw;
+    private ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,8 +209,6 @@ public class search extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-
-                shoData(dataSnapshot);
             }
 
             @Override
@@ -300,27 +306,325 @@ public class search extends AppCompatActivity {
                 mRootRef.child(USerid).child("Search").child("locationrb").setValue(citystatefb);
                 mRootRef.child(USerid).child("Search").child("locationtxt").setValue(localtxtfb);
 
-                startActivity(new Intent(this,Home.class));
+                startActivity(new Intent(search.this,Home.class));
+            }
+        });
+
+        draw = (DrawerLayout) findViewById(R.id.activity_search);
+        toggle = new ActionBarDrawerToggle(this, draw, R.string.open, R.string.close);
+        draw.addDrawerListener(toggle);
+        toggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        NavigationView navigation = (NavigationView) findViewById(R.id.nav_view);
+        navigation.setNavigationItemSelectedListener(this);
+
+    }
+
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+
+        mbreed.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+
+                if (Temp.equals("true")) {
+                    breedtxt.setText(Temp);
+                    breedtxt.setVisibility(View.VISIBLE);
+                } else if (Temp.equals("false")) {
+                    breedtxt.setText(Temp);
+                    breedtxt.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        manimaltype.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+
+                if (Temp.equals("true")) {
+                    animaltypespinner.setVisibility(View.VISIBLE);
+                } else if (Temp.equals("false")) {
+                    animaltypespinner.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mgender.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+
+                if (Temp.equals("true")) {
+                    Genderspinner.setVisibility(View.VISIBLE);
+                } else if (Temp.equals("false")) {
+                    Genderspinner.setVisibility(View.GONE);
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        mage.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+
+                if (Temp.equals("true")) {
+                    Agespinner.setVisibility(View.VISIBLE);
+                } else if (Temp.equals("false")) {
+                    Agespinner.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        msize.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+
+                if (Temp.equals("true")) {
+                    Sizespinner.setVisibility(View.VISIBLE);
+                } else if (Temp.equals("false")) {
+                    Sizespinner.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mlocation.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+
+                if (Temp.equals("true")) {
+                    localtxt.setText(Temp);
+                    citystate.setVisibility(View.VISIBLE);
+                    Zipcode.setVisibility(View.VISIBLE);
+                    localtxt.setVisibility(View.VISIBLE);
+                } else if (Temp.equals("false")) {
+                    localtxt.setText(Temp);
+                    citystate.setVisibility(View.GONE);
+                    Zipcode.setVisibility(View.GONE);
+                    localtxt.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+        magetxt.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+                for (int i = 0; i < Agespinner.getCount(); i++) {
+                    if (Agespinner.getItemAtPosition(i).equals(Temp)) {
+                        Agespinner.setSelection(i);
+                        break;
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        msizetxt.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+                for (int i = 0; i < Sizespinner.getCount(); i++) {
+                    if (Sizespinner.getItemAtPosition(i).equals(Temp)) {
+                        Sizespinner.setSelection(i);
+                        break;
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mgendertxt.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+                for (int i = 0; i < Genderspinner.getCount(); i++) {
+                    if (Genderspinner.getItemAtPosition(i).equals(Temp)) {
+                        Genderspinner.setSelection(i);
+                        break;
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        manimaltypetext.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+                for (int i = 0; i < animaltypespinner.getCount(); i++) {
+                    if (animaltypespinner.getItemAtPosition(i).equals(Temp)) {
+                        animaltypespinner.setSelection(i);
+                        break;
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mlocationrandiobutton.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+
+                if (Temp.equals("true")) {
+                    citystate.setChecked(true);
+                    Zipcode.setChecked(false);
+                } else if (Temp.equals("false")) {
+                    citystate.setChecked(false);
+                    Zipcode.setChecked(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mlocationtxt.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+                localtxt.setText(Temp);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mbreedtext.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String Temp = dataSnapshot.getValue(String.class);
+                breedtxt.setText(Temp);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 
     }
-
-    private void shoData(DataSnapshot dataSnapshot) {
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
+        @Override
     public void onStop() {
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.nav_home:
+                return true;
+            case R.id.nav_Search:
+                return true;
+            case R.id.nav_favorite:
+                return true;
+            case R.id.nav_logout:
+                return true;
+        }
+        if(toggle.onOptionsItemSelected(item))
+        {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.activity_search);
+        if(drawerLayout.isDrawerOpen((GravityCompat.START)))
+            drawerLayout.closeDrawer(GravityCompat.START);
+        else
+            super.onBackPressed();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item)
+    {
+        int id = item.getItemId();
+
+        if(id==R.id.nav_home)
+        {
+            startActivity(new Intent(search.this,Home.class));
+        }
+        else if(id==R.id.nav_Search)
+        {
+            DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.activity_search);
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else if(id == R.id.nav_favorite)
+        {
+            startActivity(new Intent(search.this,Favorite.class));
+        }
+
+        else if(id== R.id.nav_logout)
+        {
+            //startActivity(new Intent(Home.this,Profile.class));
+
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.activity_search);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
