@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:drawableLeft="@mipmap/ic_launcher_round"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_Search"
+            android:drawableLeft="@mipmap/ic_launcher_round"
+            android:title="Search" />
+        <item
+            android:id="@+id/nav_favorite"
+            android:drawableLeft="@mipmap/ic_launcher_round"
+            android:title="Favorites" />
+        <item
+            android:id="@+id/nav_logout"
+            android:drawableLeft="@mipmap/ic_launcher_round"
+            android:title="Log Out" />
+    </group>
+</menu>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="domain.hackathon.hackathon2017.search">
+
+    <ScrollView
+        android:layout_width="377dp"
+        android:layout_height="501dp"
+        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteY="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <CheckBox
+                android:id="@+id/Breed_CB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Breed" />
+
+            <EditText
+                android:id="@+id/Breed_Search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Type in Breed Name"
+                android:inputType="textPersonName"
+                android:textAlignment="center" />
+
+            <CheckBox
+                android:id="@+id/Animal_Type_CB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Animal Type" />
+
+            <Spinner
+                android:id="@+id/Animal_Type_SP"
+                android:layout_width="match_parent"
+                android:layout_height="37dp" />
+
+            <CheckBox
+                android:id="@+id/Gender_CB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gender" />
+
+            <Spinner
+                android:id="@+id/Gender_SP"
+                android:layout_width="match_parent"
+                android:layout_height="38dp" />
+
+            <CheckBox
+                android:id="@+id/Age_CB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Age" />
+
+            <Spinner
+                android:id="@+id/Age_SP"
+                android:layout_width="match_parent"
+                android:layout_height="39dp" />
+
+            <CheckBox
+                android:id="@+id/Size_CB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SIze" />
+
+            <Spinner
+                android:id="@+id/SIZE_SP"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+            <CheckBox
+                android:id="@+id/Location_CB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <RadioButton
+                    android:id="@+id/CAS_RB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CITY AND STATE" />
+
+                <RadioButton
+                    android:id="@+id/ZIPCODE_RB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ZIpcode" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/Location_Txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Zipcode or City and State"
+                android:inputType="textPersonName"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/Search_BTN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Search" />
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
