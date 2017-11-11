@@ -14,9 +14,6 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 
-/**
- * Created by andy1 on 11/11/2017.
- */
 
 public class GPS extends Activity {
     private LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
