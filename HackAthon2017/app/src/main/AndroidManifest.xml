@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".search" />
         <activity android:name=".Pet_description" />
-        <activity android:name=".ShelterInfo"></activity>
+        <activity android:name=".ShelterInfo" />
+        <activity android:name=".Favorite"></activity>
     </application>
 
 </manifest>
