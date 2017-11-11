@@ -16,7 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".search"></activity>
+        <activity android:name=".search" />
+        <activity android:name=".Pet_description" />
+        <activity android:name=".ShelterInfo" />
+        <activity android:name=".Favorite"></activity>
     </application>
 
 </manifest>
