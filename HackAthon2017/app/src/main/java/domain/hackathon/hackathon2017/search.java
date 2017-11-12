@@ -676,6 +676,8 @@ public class search extends AppCompatActivity
                 return true;
             case R.id.nav_logout:
                 return true;
+            case R.id.nav_info:
+                return true;
         }
         if (toggle.onOptionsItemSelected(item)) {
             return true;
@@ -717,6 +719,10 @@ public class search extends AppCompatActivity
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
 
+        }
+        else if(id == R.id.nav_info)
+        {
+            startActivity(new Intent(search.this, info.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.activity_search);
         drawer.closeDrawer(GravityCompat.START);
