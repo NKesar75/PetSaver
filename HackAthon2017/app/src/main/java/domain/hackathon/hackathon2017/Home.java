@@ -60,6 +60,9 @@ public class Home extends AppCompatActivity
     private DrawerLayout draw;
     private ActionBarDrawerToggle toggle;
 
+    int refreshcount = 0;
+    DataSnapshot mdatasnapshot;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +105,7 @@ public class Home extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+                mdatasnapshot = dataSnapshot;
                 showdata(dataSnapshot);
             }
 
@@ -113,79 +117,85 @@ public class Home extends AppCompatActivity
         });
     }
 
+    private void refresh() {
+        refreshcount = 0;
+        showdata(mdatasnapshot);
+    }
+
     private void showdata(DataSnapshot dataSnapshot) {
 
+if(refreshcount == 0) {
+    String breedfb;
+    String animaltypefb;
+    String genderfb;
+    String agefb;
+    String sizefb;
+    String localfb;
+    String citystatefb;
+    String breedtxtfb;
+    String CityFb;
+    String StateFB;
+    String ZipCodeFB;
+    String agetxtfb;
+    String sizetxtfb;
+    String gendertxtfb;
+    String animaltypetxtfb;
 
-        String breedfb;
-        String animaltypefb;
-        String genderfb;
-        String agefb;
-        String sizefb;
-        String localfb;
-        String citystatefb;
-        String breedtxtfb;
-        String CityFb;
-        String StateFB;
-        String ZipCodeFB;
-        String agetxtfb;
-        String sizetxtfb;
-        String gendertxtfb;
-        String animaltypetxtfb;
+    breedfb = dataSnapshot.child(USerid).child("Search").child("breedcb").getValue(String.class).toString();
+    breedtxtfb = dataSnapshot.child(USerid).child("Search").child("breedtext").getValue(String.class).toString();
+    animaltypefb = dataSnapshot.child(USerid).child("Search").child("animaltypecb").getValue(String.class).toString();
+    animaltypetxtfb = dataSnapshot.child(USerid).child("Search").child("animaltypetext").getValue(String.class).toString();
+    genderfb = dataSnapshot.child(USerid).child("Search").child("gendercb").getValue(String.class).toString();
+    gendertxtfb = dataSnapshot.child(USerid).child("Search").child("gendertxt").getValue(String.class).toString();
+    agefb = dataSnapshot.child(USerid).child("Search").child("agecb").getValue(String.class).toString();
+    agetxtfb = dataSnapshot.child(USerid).child("Search").child("agetxt").getValue(String.class).toString();
+    sizefb = dataSnapshot.child(USerid).child("Search").child("sizecb").getValue(String.class).toString();
+    sizetxtfb = dataSnapshot.child(USerid).child("Search").child("sizetxt").getValue(String.class).toString();
+    localfb = dataSnapshot.child(USerid).child("Search").child("locationcb").getValue(String.class).toString();
+    citystatefb = dataSnapshot.child(USerid).child("Search").child("locationrb").getValue(String.class).toString();
+    CityFb = dataSnapshot.child(USerid).child("Search").child("Citytxt").getValue(String.class).toString();
+    StateFB = dataSnapshot.child(USerid).child("Search").child("Statetxt").getValue(String.class).toString();
+    ZipCodeFB = dataSnapshot.child(USerid).child("Search").child("Zipcodetxt").getValue(String.class).toString();
 
-        breedfb = dataSnapshot.child(USerid).child("Search").child("breedcb").getValue(String.class).toString();
-        breedtxtfb = dataSnapshot.child(USerid).child("Search").child("breedtext").getValue(String.class).toString();
-        animaltypefb = dataSnapshot.child(USerid).child("Search").child("animaltypecb").getValue(String.class).toString();
-        animaltypetxtfb = dataSnapshot.child(USerid).child("Search").child("animaltypetext").getValue(String.class).toString();
-        genderfb = dataSnapshot.child(USerid).child("Search").child("gendercb").getValue(String.class).toString();
-        gendertxtfb = dataSnapshot.child(USerid).child("Search").child("gendertxt").getValue(String.class).toString();
-        agefb = dataSnapshot.child(USerid).child("Search").child("agecb").getValue(String.class).toString();
-        agetxtfb = dataSnapshot.child(USerid).child("Search").child("agetxt").getValue(String.class).toString();
-        sizefb = dataSnapshot.child(USerid).child("Search").child("sizecb").getValue(String.class).toString();
-        sizetxtfb = dataSnapshot.child(USerid).child("Search").child("sizetxt").getValue(String.class).toString();
-        localfb = dataSnapshot.child(USerid).child("Search").child("locationcb").getValue(String.class).toString();
-        citystatefb = dataSnapshot.child(USerid).child("Search").child("locationrb").getValue(String.class).toString();
-        CityFb = dataSnapshot.child(USerid).child("Search").child("Citytxt").getValue(String.class).toString();
-        StateFB = dataSnapshot.child(USerid).child("Search").child("Statetxt").getValue(String.class).toString();
-        ZipCodeFB = dataSnapshot.child(USerid).child("Search").child("Zipcodetxt").getValue(String.class).toString();
-
-        if (breedfb.equals("true")) {
-            urlargforpetrecord += "&breed=" + breedtxtfb;
-        }
-        if (animaltypefb.equals("true")) {
-            urlargforpetrecord += "&animal=" + animaltypetxtfb;
-        }
-        if (genderfb.equals("true")) {
-            urlargforpetrecord += "&sex=" + gendertxtfb;
-        }
-        if (agefb.equals("true")) {
-            urlargforpetrecord += "&age=" + agetxtfb;
-        }
-        if (sizefb.equals("true")) {
-            urlargforpetrecord += "&size=" + sizetxtfb;
-        }
-        if (citystatefb.equals("true")) {
-            urlargforpetrecord += "&location=" + CityFb + ',' + StateFB;
-        } else {
-            urlargforpetrecord += "&location=" + ZipCodeFB;
-        }
-        petList.clear();
-        urlargforpetrecord += "&count=";
-        offestformuiltplerecords += 9;
-        urlargforpetrecord += offestformuiltplerecords;
-        if (offestformuiltplerecords <= 9) {
-            Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
-            petObj.FetchXml();
-            while (petObj.parsingcomplete) ;
-            gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
-            gridView.setAdapter(gridViewAdapter);
-        } else {
-            Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
-            petObj.FetchXml();
-            while (petObj.parsingcomplete);
-            gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
-            gridView.setAdapter(gridViewAdapter);
-        }
-
+    if (breedfb.equals("true")) {
+        urlargforpetrecord += "&breed=" + breedtxtfb;
+    }
+    if (animaltypefb.equals("true")) {
+        urlargforpetrecord += "&animal=" + animaltypetxtfb;
+    }
+    if (genderfb.equals("true")) {
+        urlargforpetrecord += "&sex=" + gendertxtfb;
+    }
+    if (agefb.equals("true")) {
+        urlargforpetrecord += "&age=" + agetxtfb;
+    }
+    if (sizefb.equals("true")) {
+        urlargforpetrecord += "&size=" + sizetxtfb;
+    }
+    if (citystatefb.equals("true")) {
+        urlargforpetrecord += "&location=" + CityFb + ',' + StateFB;
+    } else {
+        urlargforpetrecord += "&location=" + ZipCodeFB;
+    }
+    petList.clear();
+    urlargforpetrecord += "&count=";
+    offestformuiltplerecords += 9;
+    urlargforpetrecord += offestformuiltplerecords;
+    if (offestformuiltplerecords <= 9) {
+        Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
+        petObj.FetchXml();
+        while (petObj.parsingcomplete) ;
+        gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
+        gridView.setAdapter(gridViewAdapter);
+    } else {
+        Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
+        petObj.FetchXml();
+        while (petObj.parsingcomplete) ;
+        gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
+        gridView.setAdapter(gridViewAdapter);
+    }
+    refreshcount = 1;
+}
     }
 
     AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
@@ -209,11 +219,12 @@ public class Home extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.home_next:
                 offestformuiltplerecords += 9;
+                refresh();
                 break;
             case home_back:
                 if (offestformuiltplerecords >=18) {
                     offestformuiltplerecords -= 9;
-
+                    refresh();
                 }
                 break;
         }

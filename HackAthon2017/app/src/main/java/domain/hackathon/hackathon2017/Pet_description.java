@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -136,12 +137,14 @@ public class Pet_description extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.fav_btn:
                 myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).setValue(Home.petNumber);
+                Toast.makeText(Pet_description.this, "Added to Favorites!!!",
+                        Toast.LENGTH_SHORT).show();
                 break;
         }
 
         if(item.getItemId()==android.R.id.home)
             finish();
-        
+
         return super.onOptionsItemSelected(item);
     }
 }
