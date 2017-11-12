@@ -56,7 +56,7 @@ public class Favorite extends AppCompatActivity
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             petNumber = petList.get(position).getPetnumber();
-            //startActivity(new Intent(Home.this, Description.class));
+            startActivity(new Intent(Favorite.this, Pet_description.class));
         }
     };
 
