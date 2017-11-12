@@ -31,7 +31,7 @@ import java.util.List;
 public class Favorite extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
-    public static int petNumber;
+    public static int petNumber1;
     private static final String TAG = "Favorite";
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase mFirebaseDatabase;
@@ -44,7 +44,6 @@ public class Favorite extends AppCompatActivity
     private GridViewAdapter gridViewAdapter;
 
     public static List<PetInfo> petList = new ArrayList<>();
-    public  static PetInfo temppet;
     private DrawerLayout draw;
     private ActionBarDrawerToggle toggle;
 
@@ -121,7 +120,7 @@ public class Favorite extends AppCompatActivity
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            petNumber = petList.get(position).getPetnumber();
+            petNumber1 = petList.get(position).getPetnumber();
             startActivity(new Intent(Favorite.this, Fav_Desc.class));
         }
     };
