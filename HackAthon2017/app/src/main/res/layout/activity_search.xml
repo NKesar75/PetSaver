@@ -101,13 +101,29 @@
             </RadioGroup>
 
             <EditText
-                android:id="@+id/Location_Txt"
+                android:id="@+id/Zipcode_Txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Zipcode or City and State"
                 android:inputType="textPersonName"
                 android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/City_Txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="City"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/State_Txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="State Abbrevation"
+                android:inputType="textPersonName" />
 
             <Button
                 android:id="@+id/Search_BTN"
