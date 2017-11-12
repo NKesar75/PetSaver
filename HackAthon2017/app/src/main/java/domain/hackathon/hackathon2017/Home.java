@@ -125,13 +125,13 @@ public class Home extends AppCompatActivity
     private void showdata(DataSnapshot dataSnapshot) {
 
 if(refreshcount == 0) {
-    String breedfb;
-    String animaltypefb;
-    String genderfb;
-    String agefb;
-    String sizefb;
-    String localfb;
-    String citystatefb;
+   boolean breedfb;
+   boolean animaltypefb;
+   boolean genderfb;
+   boolean agefb;
+   boolean sizefb;
+   boolean localfb;
+   boolean citystatefb;
     String breedtxtfb;
     String CityFb;
     String StateFB;
@@ -141,48 +141,48 @@ if(refreshcount == 0) {
     String gendertxtfb;
     String animaltypetxtfb;
 
-    breedfb = dataSnapshot.child(USerid).child("Search").child("breedcb").getValue(String.class).toString();
+    breedfb = dataSnapshot.child(USerid).child("Search").child("breedcb").getValue(boolean.class).booleanValue();
     breedtxtfb = dataSnapshot.child(USerid).child("Search").child("breedtext").getValue(String.class).toString();
-    animaltypefb = dataSnapshot.child(USerid).child("Search").child("animaltypecb").getValue(String.class).toString();
+    animaltypefb = dataSnapshot.child(USerid).child("Search").child("animaltypecb").getValue(boolean.class).booleanValue();
     animaltypetxtfb = dataSnapshot.child(USerid).child("Search").child("animaltypetext").getValue(String.class).toString();
-    genderfb = dataSnapshot.child(USerid).child("Search").child("gendercb").getValue(String.class).toString();
+    genderfb = dataSnapshot.child(USerid).child("Search").child("gendercb").getValue(boolean.class).booleanValue();
     gendertxtfb = dataSnapshot.child(USerid).child("Search").child("gendertxt").getValue(String.class).toString();
-    agefb = dataSnapshot.child(USerid).child("Search").child("agecb").getValue(String.class).toString();
+    agefb = dataSnapshot.child(USerid).child("Search").child("agecb").getValue(boolean.class).booleanValue();
     agetxtfb = dataSnapshot.child(USerid).child("Search").child("agetxt").getValue(String.class).toString();
-    sizefb = dataSnapshot.child(USerid).child("Search").child("sizecb").getValue(String.class).toString();
+    sizefb = dataSnapshot.child(USerid).child("Search").child("sizecb").getValue(boolean.class).booleanValue();
     sizetxtfb = dataSnapshot.child(USerid).child("Search").child("sizetxt").getValue(String.class).toString();
-    localfb = dataSnapshot.child(USerid).child("Search").child("locationcb").getValue(String.class).toString();
-    citystatefb = dataSnapshot.child(USerid).child("Search").child("locationrb").getValue(String.class).toString();
+    localfb = dataSnapshot.child(USerid).child("Search").child("locationcb").getValue(boolean.class).booleanValue();
+    citystatefb = dataSnapshot.child(USerid).child("Search").child("locationrb").getValue(boolean.class).booleanValue();
     CityFb = dataSnapshot.child(USerid).child("Search").child("Citytxt").getValue(String.class).toString();
     StateFB = dataSnapshot.child(USerid).child("Search").child("Statetxt").getValue(String.class).toString();
     ZipCodeFB = dataSnapshot.child(USerid).child("Search").child("Zipcodetxt").getValue(String.class).toString();
 
-    if (breedfb.equals("true")) {
-        urlargforpetrecord += "&breed=" + breedtxtfb.toString();
+    if (breedfb){//.equals("true")) {
+        urlargforpetrecord += "&breed=" + breedtxtfb;
     }
-    if (animaltypefb.equals("true")) {
+    if (animaltypefb){//.equals("true")) {
         urlargforpetrecord += "&animal=" + animaltypetxtfb.toString();
     }
-    if (genderfb.equals("true")) {
+    if (genderfb){//.equals("true")) {
         urlargforpetrecord += "&sex=" + gendertxtfb.toString();
     }
-    if (agefb.equals("true")) {
+    if (agefb){//.equals("true")) {
         urlargforpetrecord += "&age=" + agetxtfb.toString();
     }
-    if (sizefb.equals("true")) {
+    if (sizefb){//.equals("true")) {
         urlargforpetrecord += "&size=" + sizetxtfb.toString();
     }
-    if (localfb.equals("true")) {
+    if (localfb){//.equals("true")) {
 
 
-        if (citystatefb.equals("true")) {
+        if (citystatefb){//.equals("true")) {
             urlargforpetrecord += "&location=" + CityFb.toString() + ',' + StateFB.toString();
         } else {
             urlargforpetrecord += "&location=" + ZipCodeFB.toString();
         }
     }
     else{
-        urlargforpetrecord += "&location=" + CityFb.toString() + ',' + StateFB.toString();
+        urlargforpetrecord += "&location=" + ZipCodeFB.toString();
     }
     petList.clear();
     urlargforpetrecord += "&count=";
@@ -225,12 +225,12 @@ if(refreshcount == 0) {
 
         switch (item.getItemId()) {
             case R.id.home_next:
-                offestformuiltplerecords += 9;
+                offestformuiltplerecords += 12;
                 refresh();
                 break;
             case home_back:
-                if (offestformuiltplerecords >=18) {
-                    offestformuiltplerecords -= 9;
+                if (offestformuiltplerecords >=24) {
+                    offestformuiltplerecords -= 12;
                     refresh();
                 }
                 break;

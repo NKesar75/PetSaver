@@ -382,13 +382,13 @@ public class search extends AppCompatActivity
         mbreed.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String Temp = dataSnapshot.getValue(String.class);
+                boolean Temp = dataSnapshot.getValue(boolean.class);
 
-                if (Temp.equals("true")) {
-                    breedtxt.setText(Temp);
+                if (Temp){//.equals("true")) {
+                    //breedtxt.setText(Temp);
                     breedtxt.setVisibility(View.VISIBLE);
-                } else if (Temp.equals("false")) {
-                    breedtxt.setText(Temp);
+                } else if (!Temp){//.equals("false")) {
+                    //breedtxt.setText(Temp);
                     breedtxt.setVisibility(View.GONE);
                 }
             }
@@ -402,11 +402,11 @@ public class search extends AppCompatActivity
         manimaltype.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String Temp = dataSnapshot.getValue(String.class);
+                boolean Temp = dataSnapshot.getValue(boolean.class);
 
-                if (Temp.equals("true")) {
+                if (Temp){//.equals("true")) {
                     animaltypespinner.setVisibility(View.VISIBLE);
-                } else if (Temp.equals("false")) {
+                } else if (!Temp){//.equals("false")) {
                     animaltypespinner.setVisibility(View.GONE);
                 }
             }
@@ -420,11 +420,11 @@ public class search extends AppCompatActivity
         mgender.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String Temp = dataSnapshot.getValue(String.class);
+                boolean Temp = dataSnapshot.getValue(boolean.class);
 
-                if (Temp.equals("true")) {
+                if (Temp){//.equals("true")) {
                     Genderspinner.setVisibility(View.VISIBLE);
-                } else if (Temp.equals("false")) {
+                } else if (!Temp){//.equals("false")) {
                     Genderspinner.setVisibility(View.GONE);
                 }
 
@@ -440,11 +440,11 @@ public class search extends AppCompatActivity
         mage.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String Temp = dataSnapshot.getValue(String.class);
+                boolean Temp = dataSnapshot.getValue(boolean.class);
 
-                if (Temp.equals("true")) {
+                if (Temp){//.equals("true")) {
                     Agespinner.setVisibility(View.VISIBLE);
-                } else if (Temp.equals("false")) {
+                } else if (!Temp){//.equals("false")) {
                     Agespinner.setVisibility(View.GONE);
                 }
             }
@@ -457,11 +457,11 @@ public class search extends AppCompatActivity
         msize.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String Temp = dataSnapshot.getValue(String.class);
+                boolean Temp = dataSnapshot.getValue(boolean.class);
 
-                if (Temp.equals("true")) {
+                if (Temp){//.equals("true")) {
                     Sizespinner.setVisibility(View.VISIBLE);
-                } else if (Temp.equals("false")) {
+                } else if (!Temp){//.equals("false")) {
                     Sizespinner.setVisibility(View.GONE);
                 }
             }
@@ -475,12 +475,12 @@ public class search extends AppCompatActivity
         mlocation.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String Temp = dataSnapshot.getValue(String.class);
+                boolean Temp = dataSnapshot.getValue(boolean.class);
 
-                if (Temp.equals("true")) {
+                if (Temp){//.equals("true")) {
                     citystate.setVisibility(View.VISIBLE);
                     Zipcode.setVisibility(View.VISIBLE);
-                } else if (Temp.equals("false")) {
+                } else if (!Temp){//.equals("false")) {
                     Citytxt.setVisibility(View.GONE);
                     Statetxt.setVisibility(View.GONE);
                     ZipcodetxtED.setVisibility(View.GONE);
@@ -600,15 +600,15 @@ public class search extends AppCompatActivity
         mlocationrandiobutton.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String Temp = dataSnapshot.getValue(String.class);
+                boolean Temp = dataSnapshot.getValue(boolean.class);
                 if (local.isChecked()) {
-                    if (Temp.equals("true")) {
+                    if (Temp){//.equals("true")) {
                         citystate.setChecked(true);
                         Zipcode.setChecked(false);
                         Citytxt.setVisibility(View.VISIBLE);
                         Statetxt.setVisibility(View.VISIBLE);
                         ZipcodetxtED.setVisibility(View.GONE);
-                    } else if (Temp.equals("false")) {
+                    } else if (!Temp){//.equals("false")) {
                         citystate.setChecked(false);
                         Zipcode.setChecked(true);
                         Citytxt.setVisibility(View.GONE);
