@@ -80,7 +80,8 @@
                 <RadioButton
                     android:id="@+id/CAS_RB"
                     style="@style/Radiobtn_style"
-                    android:text="CITY AND STATE" />
+                    android:text="CITY AND STATE"
+                    android:checked="true"/>
 
                 <RadioButton
                     android:id="@+id/ZIPCODE_RB"

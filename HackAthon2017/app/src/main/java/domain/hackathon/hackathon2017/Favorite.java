@@ -139,6 +139,8 @@ public class Favorite extends AppCompatActivity
                 return true;
             case R.id.nav_logout:
                 return true;
+            case R.id.nav_info:
+                return true;
         }
         if(toggle.onOptionsItemSelected(item))
         {
@@ -190,6 +192,10 @@ public class Favorite extends AppCompatActivity
                     .setNegativeButton("Cancel",null);
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
+        }
+        else if(id == R.id.nav_info)
+        {
+            startActivity(new Intent(Favorite.this,info.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.activity_favorite);
         drawer.closeDrawer(GravityCompat.START);
