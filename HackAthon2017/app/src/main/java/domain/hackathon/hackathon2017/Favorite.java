@@ -143,7 +143,7 @@ public class Favorite extends AppCompatActivity
             case R.id.nav_info:
                 return true;
         }
-        
+
         if(toggle.onOptionsItemSelected(item))
         {
             return true;
