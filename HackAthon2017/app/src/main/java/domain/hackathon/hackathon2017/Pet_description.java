@@ -87,6 +87,10 @@ public class Pet_description extends AppCompatActivity {
             }
         });
 
+        Pet_image.setFocusable(true);
+        Pet_image.setFocusableInTouchMode(true);
+        Pet_image.requestFocus();
+
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference();
         mAuth = FirebaseAuth.getInstance();

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class ShelterInfo extends AppCompatActivity {
@@ -28,7 +29,11 @@ public class ShelterInfo extends AppCompatActivity {
         sCity = (EditText)findViewById(R.id.City_State_Zip_SI);
         sNumber = (EditText)findViewById(R.id.Number_SI);
         sEmail = (EditText)findViewById(R.id.Email_SI);
-
+        Button hider = (Button)findViewById(R.id.Invisible_Shelter);
+        hider.setFocusable(true);
+        hider.setFocusableInTouchMode(true);
+        hider.requestFocus();
+        hider.setVisibility(View.GONE);
         HandlexmlShelter obj = new HandlexmlShelter(urlShelter + Pet_description.shelterid);
         obj.FetchXml();
         while(obj.parsingcomplete);

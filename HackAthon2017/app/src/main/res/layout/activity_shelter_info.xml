@@ -48,6 +48,12 @@
             android:editable="false"
             android:hint="youremail@example.com" />
 
+        <Button
+            android:id="@+id/Invisible_Shelter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
     </LinearLayout>
 
 </RelativeLayout>
