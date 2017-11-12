@@ -143,7 +143,7 @@ public class Home extends AppCompatActivity
        citystatefb = dataSnapshot.child(USerid).child("Search").child("locationrb").getValue(boolean.class).booleanValue();
        localtxtfb = dataSnapshot.child(USerid).child("Search").child("locationtxt").getValue(String.class).toString();
 
-        
+                
 
     }
 
