@@ -11,7 +11,7 @@ public class PetInfo
     private int petnumber;
     private String breed = "";
     private String animalname = "";
-    private int shelterid = 0;
+    private String shelterid = "";
     private String animaltype = "";
     private String gender = "";
     private String Size = "";
@@ -24,7 +24,7 @@ public class PetInfo
         return animalname;
     }
 
-    public int getShelterid() {
+    public String getShelterid() {
         return shelterid;
     }
 
@@ -76,7 +76,7 @@ public class PetInfo
         this.age = age;
         this.petnumber = petnumber;
     }
-    public PetInfo(String imageid, String age, int petnumber, String breed, String animalname, int shleterid, String animaltype, String gender, String size)
+    public PetInfo(String imageid, String age, int petnumber, String breed, String animalname, String shleterid, String animaltype, String gender, String size)
     {
         this.imageid = imageid;
         this.age = age;

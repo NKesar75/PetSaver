@@ -111,10 +111,16 @@ public class HandlexmlDesc {
                                 petid = text;
                                 hasbeencalledimage = false;
                                 break;
+                            case "size":
+                                Size = text;
+                                break;
+                            case "sex":
+                                gender = text;
+                                break;
                             case "photo":
                                 if (hasbeencalledimage == false) {
                                     image = text;
-                                    Pet_description.petdescinfo = new PetInfo(image,age,Integer.parseInt(petid),breed,animalname,Integer.parseInt(shelterid),animaltype,gender,Size);
+                                    Pet_description.petdescinfo = new PetInfo(image,age,Integer.parseInt(petid),breed,animalname,shelterid,animaltype,gender,Size);
                                     hasbeencalledimage = true;
                                 }
                                 break;

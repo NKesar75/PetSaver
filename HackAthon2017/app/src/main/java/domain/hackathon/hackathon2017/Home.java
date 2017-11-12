@@ -44,7 +44,6 @@ public class Home extends AppCompatActivity
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     String USerid = user.getUid();
-    private Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
     public static int petNumber;
     public static List<PetInfo> petList = new ArrayList<>();
 
@@ -111,7 +110,7 @@ public class Home extends AppCompatActivity
 
     private void showdata(DataSnapshot dataSnapshot) {
 
-        petList.clear();
+
         String breedfb;
         String animaltypefb;
         String genderfb;
@@ -164,20 +163,22 @@ public class Home extends AppCompatActivity
         } else {
             urlargforpetrecord += "&location=" + ZipCodeFB;
         }
+        petList.clear();
         urlargforpetrecord += "&count=9";
         offestformuiltplerecords += 9;
         if (offestformuiltplerecords <= 9) {
             Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
             petObj.FetchXml();
             while (petObj.parsingcomplete) ;
+            gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
+            gridView.setAdapter(gridViewAdapter);
         } else {
             Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
             petObj.FetchXml();
             while (petObj.parsingcomplete) ;
+            gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
+            gridView.setAdapter(gridViewAdapter);
         }
-
-        gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
-        gridView.setAdapter(gridViewAdapter);
 
     }
 
@@ -186,7 +187,6 @@ public class Home extends AppCompatActivity
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             petNumber = petList.get(position).getPetnumber();
-
             startActivity(new Intent(Home.this, Pet_description.class));
         }
     };

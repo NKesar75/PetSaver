@@ -44,14 +44,14 @@ public class Pet_description extends AppCompatActivity {
     long amountofchildren = 0;
 
     public static PetInfo petdescinfo;
-    public static int shelterid;
+    public static String shelterid;
 
 
     private String urlbase = "http://api.petfinder.com/"; //base url
     private String urlkey = "key=58fe2e272bebddbc0f5e66901f239055"; //key for api
     private String urlmethodfindmuiltplerecords = "pet.get?"; //used for getting a random pet
     private int offestformuiltplerecords = 0; //used to get more records if they want to keep looking
-    private String urlargforpetrecord = "&output=basic"; //argumentpassedintoparmaert
+    private String urlargforpetrecord = ""; //argumentpassedintoparmaert
     private String urlShelter = "http://api.petfinder.com/shelter.get?key=58fe2e272bebddbc0f5e66901f239055&id=";
 
     @Override
@@ -66,8 +66,8 @@ public class Pet_description extends AppCompatActivity {
         Pet_size   = (EditText)findViewById(R.id.Size_pd);
         Pet_breed  = (EditText)findViewById(R.id.Breed_pd);
         Shelterinfobtn = (Button)findViewById(R.id.Shelter_Info);
-
-        Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord + Home.petNumber);
+        urlargforpetrecord += "&id="+ Home.petNumber;
+        HandlexmlDesc petObj = new HandlexmlDesc(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
         petObj.FetchXml();
         while(petObj.parsingcomplete);
         shelterid = petdescinfo.getShelterid();

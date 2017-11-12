@@ -29,35 +29,35 @@ public class ShelterInfo extends AppCompatActivity {
         obj.FetchXml();
         while(obj.parsingcomplete);
 
-        if (!tempholder.getSheletername().equals("")) {
+        if (!tempholder.getSheletername().equals(null)) {
             sname.setText(tempholder.getSheletername());
         }
         else{
             sname.setText("N/A");
         }
 
-        if (!tempholder.getAdress().equals("")) {
+        if (!tempholder.getAdress().equals(null)) {
             sAddress.setText(tempholder.getAdress());
         }
         else{
             sAddress.setText("N/A");
         }
 
-        if (!tempholder.getCity().equals("")|| !tempholder.getState().equals("")) {
+        if (!tempholder.getCity().equals(null)|| !tempholder.getState().equals("")) {
             sCity.setText(tempholder.getCity()+", " + tempholder.getState() + " " + tempholder.getZipcode());
         }
         else{
             sCity.setText("N/A");
         }
 
-        if (!tempholder.getPhonenumber().equals("")) {
+        if (!tempholder.getPhonenumber().equals(null)) {
             sNumber.setText(tempholder.getPhonenumber());
         }
         else{
             sNumber.setText("N/A");
         }
 
-        if (!tempholder.getEmailaccount().equals("")) {
+        if (!tempholder.getEmailaccount().equals(null)) {
             sEmail.setText(tempholder.getEmailaccount());
         }
         else{
