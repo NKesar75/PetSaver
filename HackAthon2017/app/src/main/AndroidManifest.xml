@@ -8,9 +8,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/app_logo"
+        android:label="Pet Saver"
+        android:roundIcon="@mipmap/app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Login">
@@ -24,7 +24,10 @@
         <activity android:name=".Pet_description" />
         <activity android:name=".ShelterInfo" />
         <activity android:name=".Favorite" />
-        <activity android:name=".Home"></activity>
+        <activity android:name=".Home" />
+        <activity android:name=".Fav_Desc" />
+        <activity android:name=".createLoginatstart" />
+        <activity android:name=".resetpassword" />
     </application>
 
 </manifest>

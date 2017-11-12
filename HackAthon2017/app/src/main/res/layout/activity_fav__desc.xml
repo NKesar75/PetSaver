@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:background="@color/colorPrimaryDark"
+    tools:context="domain.hackathon.hackathon2017.Fav_Desc">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+            <ImageView
+                android:id="@+id/image_fav"
+                style="@style/image_style"/>
+
+            <EditText
+                android:id="@+id/Name_fav"
+                style="@style/EditText_style"
+                android:hint="Name"
+                android:enabled="false"/>
+
+            <EditText
+                android:id="@+id/Age_fav"
+                style="@style/EditText_style"
+                android:hint="Age"
+                android:enabled="false"/>
+
+            <EditText
+                android:id="@+id/Gender_fav"
+                android:hint="M/F"
+                style="@style/EditText_style"
+                android:enabled="false" />
+
+
+            <EditText
+                android:id="@+id/Type_fav"
+                style="@style/EditText_style"
+                android:enabled="false"
+                android:hint="Type"/>
+
+            <EditText
+                android:id="@+id/Size_fav"
+                style="@style/EditText_style"
+                android:enabled="false"
+                android:hint="Size"/>
+
+            <EditText
+                android:id="@+id/Breed_fav"
+                style="@style/EditText_style"
+                android:enabled="false"
+                android:hint="Breed"/>
+
+
+            <Button
+                android:id="@+id/Shelter_Info_fav"
+                style="@style/button_style"
+                android:text="Shelter Info"/>
+</LinearLayout>
+    </ScrollView>>
+</RelativeLayout>
