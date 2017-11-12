@@ -66,7 +66,7 @@ public class Fav_Desc extends AppCompatActivity {
         Shelterinfobtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Fav_Desc.this,ShelterInfo.class));
+                startActivity(new Intent(Fav_Desc.this,Fav_ShelterInfo.class));
             }
         });
 
