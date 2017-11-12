@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="domain.hackathon.hackathon2017.createLoginatstart"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="100dp"
+    android:paddingLeft="48dp"
+    android:paddingRight="48dp"
+    android:paddingTop="100dp"
+    android:background="@color/colorPrimaryDark">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:text="CREATE LOGIN "
+            style="@style/txtview_style"
+            android:textSize="30sp"/>
+
+        <EditText
+            android:id="@+id/EMAIL_TXT"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            style="@style/EditText_style"/>
+
+        <EditText
+            android:id="@+id/PASS_TXT"
+            android:hint="Password"
+            android:inputType="textPassword"
+            style="@style/EditText_style"/>
+
+        <EditText
+            android:id="@+id/REPASS_TXT"
+            android:hint="Repeat Password"
+            android:inputType="textPassword"
+            style="@style/EditText_style"/>
+
+        <Button
+            android:id="@+id/Create_account_btn"
+            android:text="Next"
+            style="@style/button_style"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

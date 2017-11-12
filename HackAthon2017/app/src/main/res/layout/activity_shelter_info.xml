@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="domain.hackathon.hackathon2017.ShelterInfo">
+    tools:context="domain.hackathon.hackathon2017.ShelterInfo"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:background="@color/colorPrimaryDark">
 
 
     <LinearLayout
@@ -14,54 +19,34 @@
 
         <EditText
             android:id="@+id/Name_SI"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Name"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="84dp"
-            tools:layout_editor_absoluteY="152dp" />
+            style="@style/EditText_style"
+            android:enabled="false"
+            android:hint="Name" />
 
         <EditText
             android:id="@+id/Address_SI"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Address"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="85dp"
-            tools:layout_editor_absoluteY="206dp" />
+            style="@style/EditText_style"
+            android:enabled="false"
+            android:hint="Address" />
 
         <EditText
             android:id="@+id/City_State_Zip_SI"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="City State Zip"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="85dp"
-            tools:layout_editor_absoluteY="259dp" />
+            style="@style/EditText_style"
+            android:enabled="false"
+            android:hint="City State Zip"/>
 
         <EditText
             android:id="@+id/Number_SI"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
+            style="@style/EditText_style"
+            android:enabled="false"
             android:hint="(800) 000-0000"
-            android:inputType="textPersonName"
-            android:textColor="@android:color/holo_blue_light"
-            tools:layout_editor_absoluteX="85dp"
-            tools:layout_editor_absoluteY="313dp" />
+            android:textColor="@android:color/holo_blue_light"/>
 
         <EditText
             android:id="@+id/Email_SI"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="xxx@xxx.com"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="85dp"
-            tools:layout_editor_absoluteY="367dp" />
+            style="@style/EditText_style"
+            android:enabled="false"
+            android:hint="youremail@example.com" />
 
     </LinearLayout>
 

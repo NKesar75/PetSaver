@@ -5,13 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="domain.hackathon.hackathon2017.search"
-    android:id="@+id/activity_search">
+    android:id="@+id/activity_search"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:background="@color/colorPrimaryDark">
 
     <ScrollView
-        android:layout_width="377dp"
-        android:layout_height="501dp"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="5dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,67 +23,54 @@
 
             <CheckBox
                 android:id="@+id/Breed_CB"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/checkbox_style"
                 android:text="Breed" />
 
             <EditText
                 android:id="@+id/Breed_Search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
+                style="@style/EditText_style"
                 android:hint="Type in Breed Name"
-                android:inputType="textPersonName"
-                android:textAlignment="center" />
+                android:inputType="textPersonName"/>
 
             <CheckBox
                 android:id="@+id/Animal_Type_CB"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/checkbox_style"
                 android:text="Animal Type" />
 
             <Spinner
                 android:id="@+id/Animal_Type_SP"
-                android:layout_width="match_parent"
-                android:layout_height="37dp" />
+                style="@style/Spinner_Style"/>
 
             <CheckBox
                 android:id="@+id/Gender_CB"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/checkbox_style"
                 android:text="Gender" />
 
             <Spinner
                 android:id="@+id/Gender_SP"
-                android:layout_width="match_parent"
-                android:layout_height="38dp" />
+                style="@style/Spinner_Style"/>
 
             <CheckBox
                 android:id="@+id/Age_CB"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/checkbox_style"
                 android:text="Age" />
 
             <Spinner
                 android:id="@+id/Age_SP"
-                android:layout_width="match_parent"
-                android:layout_height="39dp" />
+                style="@style/Spinner_Style"/>
 
             <CheckBox
                 android:id="@+id/Size_CB"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/checkbox_style"
                 android:text="SIze" />
 
             <Spinner
                 android:id="@+id/SIZE_SP"
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                style="@style/Spinner_Style"/>
 
             <CheckBox
                 android:id="@+id/Location_CB"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/checkbox_style"
                 android:text="Location" />
 
             <RadioGroup
@@ -89,46 +79,37 @@
 
                 <RadioButton
                     android:id="@+id/CAS_RB"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/Radiobtn_style"
                     android:text="CITY AND STATE" />
 
                 <RadioButton
                     android:id="@+id/ZIPCODE_RB"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/Radiobtn_style"
                     android:text="ZIpcode" />
             </RadioGroup>
 
             <EditText
                 android:id="@+id/Zipcode_Txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
+                style="@style/EditText_style"
                 android:hint="Zipcode or City and State"
                 android:inputType="textPersonName"
                 android:textAlignment="center" />
 
             <EditText
                 android:id="@+id/City_Txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
+                style="@style/EditText_style"
                 android:hint="City"
                 android:inputType="textPersonName" />
 
             <EditText
                 android:id="@+id/State_Txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
+                style="@style/EditText_style"
                 android:hint="State Abbrevation"
                 android:inputType="textPersonName" />
 
             <Button
                 android:id="@+id/Search_BTN"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/button_style"
                 android:text="Search" />
 
         </LinearLayout>

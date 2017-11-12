@@ -1,11 +1,8 @@
 package domain.hackathon.hackathon2017;
 
+import android.*;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Geocoder;
-import android.location.Address;
-import android.location.Location;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -14,9 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,29 +19,32 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Geocoder;
+import android.location.Address;
+import android.location.Location;
+import android.location.LocationManager;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class Login extends AppCompatActivity {
+public class createLoginatstart extends AppCompatActivity {
 
-    private Button mlogin;
-    private TextView mcreate;
-    private TextView mReset;
+    private static final String TAG = "createLoginatstart";
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-
-    private static final String TAG = "Login";
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
+
+
+    public Button Create;
+    public static String Email;
+    public static String Pass;
+    public static String Repass;
 
     static final int REQUEST_LOCATION = 1;
     LocationManager locationManager;
@@ -61,33 +59,21 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        mlogin = (Button) findViewById(R.id.Login_Button);
-        mcreate = (TextView) findViewById(R.id.createacc_txt_btn);
-        mReset = (TextView) findViewById(R.id.Resetpassword);
-        final EditText Email = (EditText) findViewById(R.id.Email_txt);
-        final EditText Password = (EditText) findViewById(R.id.Password_txxt);
-        mlogin.setFocusable(true);
-        mlogin.setFocusableInTouchMode(true);///add this line
-        mlogin.requestFocus();
+        setContentView(R.layout.activity_create_loginatstart);
+        final EditText EmailAccount = (EditText) findViewById(R.id.EMAIL_TXT);
+        final EditText Password = (EditText) findViewById(R.id.PASS_TXT);
+        final EditText Repassword = (EditText) findViewById(R.id.REPASS_TXT);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference();
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        getLocation();
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-
                     // User is signed in
-                    startActivity(new Intent(Login.this,Home.class));
-                    Toast.makeText(Login.this, "Successfully logged in",
-                            Toast.LENGTH_SHORT).show();
-                    Log.d(TAG,"Logged in");
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -95,71 +81,76 @@ public class Login extends AppCompatActivity {
                 // ...
             }
         };
-        mlogin.setOnClickListener(new View.OnClickListener() {
+
+        Create = (Button) findViewById(R.id.Create_account_btn);
+        Create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Mail = Email.getText().toString();
-                String Pass = Password.getText().toString();
 
-                if (!Mail.equals("") && !Pass.equals("")) {
-                    if (!Mail.contains(" ")) {
-                        mAuth.signInWithEmailAndPassword(Mail, Pass).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+                Email = EmailAccount.getText().toString();
+                Pass = Password.getText().toString();
+                Repass = Repassword.getText().toString();
+                if (Pass.length() >= 8) {
+                    if (!Email.equals("") && !Pass.equals("") && !Repass.equals("")) {
+                        if (Pass.equals(Repass)) {
+                            if (!Email.contains(" ")) {
+                                mAuth.createUserWithEmailAndPassword(Email, Pass)
+                                        .addOnCompleteListener(createLoginatstart.this, new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (task.isSuccessful()) {
+                                                    FirebaseUser user = mAuth.getCurrentUser();
+                                                    String userID = user.getUid();
+                                                    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                                                    getLocation();
+                                                    myRef.child(userID).child("Search").child("breedcb").setValue("false");
+                                                    myRef.child(userID).child("Search").child("breedtext").setValue("");
+                                                    myRef.child(userID).child("Search").child("animaltypecb").setValue("false");
+                                                    myRef.child(userID).child("Search").child("animaltypetext").setValue("barnyard");
+                                                    myRef.child(userID).child("Search").child("gendercb").setValue("false");
+                                                    myRef.child(userID).child("Search").child("gendertxt").setValue("F");
+                                                    myRef.child(userID).child("Search").child("agecb").setValue("false");
+                                                    myRef.child(userID).child("Search").child("agetxt").setValue("Baby");
+                                                    myRef.child(userID).child("Search").child("sizecb").setValue("false");
+                                                    myRef.child(userID).child("Search").child("sizetxt").setValue("S");
+                                                    myRef.child(userID).child("Search").child("locationcb").setValue("false");
+                                                    myRef.child(userID).child("Search").child("locationrb").setValue("false");
+                                                    myRef.child(userID).child("Search").child("Zipcodetxt").setValue(Zipcode.toString());
+                                                    myRef.child(userID).child("Search").child("Citytxt").setValue(city.toString());
+                                                    myRef.child(userID).child("Search").child("Statetxt").setValue(state.toString());
 
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                String userID = user.getUid();
-                                locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                                getLocation();
+                                                    Intent changepage = new Intent(createLoginatstart.this, Home.class);
+                                                    startActivity(changepage);
+                                                } else {
+                                                    EmailAccount.setError("Account already exists");
+                                                    EmailAccount.requestFocus();
+                                                }
 
-                                if (!task.isSuccessful()) {
-                                    Log.w(TAG, "signInWithEmail:failed", task.getException());
-                                    Email.setError("Email or Password is invalid");
-                                    Email.requestFocus();
+                                                // ...
+                                            }
 
-                                }
+                                        });
+
+                            } else {
+                                EmailAccount.setError("Email can not contain a space");
+                                EmailAccount.requestFocus();
                             }
+                        } else {
+                            Password.setError("Passwords do not match");
+                            Password.requestFocus();
 
-
-                        });
+                        }
+                    } else {
+                        EmailAccount.setError("Missing some information");
+                        EmailAccount.requestFocus();
                     }
-                    else {
-                        Email.setError("Email can not contain spaces");
-                        Email.requestFocus();
-                    }
+                }
+                else{
+                    Password.setError("Passwords must be atleast 8 Characters");
+                    Password.requestFocus();
                 }
             }
         });
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-
-        mReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent changepage2 = new Intent(Login.this, resetpassword.class);
-                startActivity(changepage2);
-            }
-        });
-
-        mcreate.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent changepage2 = new Intent(Login.this, createLoginatstart.class);
-                startActivity(changepage2);
-            }
-        }));
-
     }
     @Override
     public void onStart() {
@@ -176,11 +167,11 @@ public class Login extends AppCompatActivity {
 
     void getLocation()
     {
-        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+        if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED)
         {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
         }
         else
         {
@@ -430,6 +421,4 @@ public class Login extends AppCompatActivity {
                 break;
         }
     }
-
 }
-
