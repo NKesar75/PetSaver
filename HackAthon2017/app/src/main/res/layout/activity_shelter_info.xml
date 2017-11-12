@@ -49,6 +49,7 @@
             android:ems="10"
             android:hint="(800) 000-0000"
             android:inputType="textPersonName"
+            android:textColor="@android:color/holo_blue_light"
             tools:layout_editor_absoluteX="85dp"
             tools:layout_editor_absoluteY="313dp" />
 

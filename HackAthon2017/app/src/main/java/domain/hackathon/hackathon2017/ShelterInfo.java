@@ -1,7 +1,10 @@
 package domain.hackathon.hackathon2017;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 
 public class ShelterInfo extends AppCompatActivity {
@@ -63,5 +66,15 @@ public class ShelterInfo extends AppCompatActivity {
         else{
             sEmail.setText("N/A");
         }
+        sNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!sNumber.equals("N/A")){
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + tempholder.getPhonenumber()));
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }

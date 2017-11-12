@@ -71,12 +71,12 @@ public class Pet_description extends AppCompatActivity {
         petObj.FetchXml();
         while(petObj.parsingcomplete);
         shelterid = petdescinfo.getShelterid();
-        Pet_name.setText(petdescinfo.getAnimalname());
-        Pet_age.setText(petdescinfo.getAge());
-        Pet_gender.setText(petdescinfo.getGender());
-        Pet_type.setText(petdescinfo.getAnimaltype());
-        Pet_size.setText(petdescinfo.getSize());
-        Pet_breed.setText(petdescinfo.getBreed());
+        Pet_name.setText("NAME: "+ petdescinfo.getAnimalname());
+        Pet_age.setText("AGE: "+ petdescinfo.getAge());
+        Pet_gender.setText("GENDER: "+ petdescinfo.getGender());
+        Pet_type.setText("TYPE: "+ petdescinfo.getAnimaltype());
+        Pet_size.setText("SIZE: "+ petdescinfo.getSize());
+        Pet_breed.setText("BREED: "+ petdescinfo.getBreed());
         Glide.with(Pet_description.this).load(petdescinfo.getImageid().toString()).into(Pet_image);
 
         Shelterinfobtn.setOnClickListener(new View.OnClickListener() {
