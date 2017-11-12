@@ -6,6 +6,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Hector on 11/11/2017.
@@ -17,6 +19,7 @@ public class Handlexml {
     private String animalname = "";
     private String shelterid = "";
     private String animaltype = "";
+    private String petid = "";
     private String gender = "";
     private String Size = "";
     private String image = "";
@@ -26,12 +29,30 @@ public class Handlexml {
     XmlPullParserFactory xmlfactoryobj;
     public volatile boolean parsingcomplete = true;
 
+
+
     public Handlexml(String url) {
         urlstring = url;
     }
 
     public String getBreed() {
         return breed;
+    }
+
+    public String getPetid() {
+        return petid;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getSize() {
+        return Size;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public String getAge() {
@@ -72,6 +93,7 @@ public class Handlexml {
                             case "breed":
                                 if (hasbeencalledbreed == false) {
                                     breed += text; //text;
+                                    hasbeencalledbreed = true;
                                     break;
                                 } else {
                                     breed += " " + "and " + text;
@@ -86,9 +108,15 @@ public class Handlexml {
                             case "animal":
                                 animaltype = text;
                                 break;
-                            case "photo id=\"1\" size=\"pnt\"":
+                            case "id":
+                                petid = text;
+                                hasbeencalledimage = false;
+                                break;
+                            case "photo":
                                 if (hasbeencalledimage == false) {
                                     image = text;
+                                    Home.petList.add(new PetInfo(image,age,Integer.parseInt(petid)));
+                                    hasbeencalledimage = true;
                                 }
                                 break;
                             default:
@@ -130,5 +158,7 @@ public class Handlexml {
         });
         thread.start();
     }
+
+
 
 }
