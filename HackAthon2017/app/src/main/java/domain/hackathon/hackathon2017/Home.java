@@ -199,7 +199,7 @@ public class Home extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.favorite_menu, menu);
+        getMenuInflater().inflate(R.menu.home_changepage, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
