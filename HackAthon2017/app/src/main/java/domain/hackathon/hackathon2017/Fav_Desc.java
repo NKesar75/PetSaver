@@ -63,6 +63,10 @@ public class Fav_Desc extends AppCompatActivity {
         Pet_breed.setText("BREED: "+ petdescinfo.getBreed());
         Glide.with(Fav_Desc.this).load(petdescinfo.getImageid().toString()).into(Pet_image);
 
+        Pet_image.setFocusable(true);
+        Pet_image.setFocusableInTouchMode(true);
+        Pet_image.requestFocus();
+
         Shelterinfobtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
