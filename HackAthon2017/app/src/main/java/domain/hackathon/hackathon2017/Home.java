@@ -158,30 +158,37 @@ if(refreshcount == 0) {
     ZipCodeFB = dataSnapshot.child(USerid).child("Search").child("Zipcodetxt").getValue(String.class).toString();
 
     if (breedfb.equals("true")) {
-        urlargforpetrecord += "&breed=" + breedtxtfb;
+        urlargforpetrecord += "&breed=" + breedtxtfb.toString();
     }
     if (animaltypefb.equals("true")) {
-        urlargforpetrecord += "&animal=" + animaltypetxtfb;
+        urlargforpetrecord += "&animal=" + animaltypetxtfb.toString();
     }
     if (genderfb.equals("true")) {
-        urlargforpetrecord += "&sex=" + gendertxtfb;
+        urlargforpetrecord += "&sex=" + gendertxtfb.toString();
     }
     if (agefb.equals("true")) {
-        urlargforpetrecord += "&age=" + agetxtfb;
+        urlargforpetrecord += "&age=" + agetxtfb.toString();
     }
     if (sizefb.equals("true")) {
-        urlargforpetrecord += "&size=" + sizetxtfb;
+        urlargforpetrecord += "&size=" + sizetxtfb.toString();
     }
-    if (citystatefb.equals("true")) {
-        urlargforpetrecord += "&location=" + CityFb + ',' + StateFB;
-    } else {
-        urlargforpetrecord += "&location=" + ZipCodeFB;
+    if (localfb.equals("true")) {
+
+
+        if (citystatefb.equals("true")) {
+            urlargforpetrecord += "&location=" + CityFb.toString() + ',' + StateFB.toString();
+        } else {
+            urlargforpetrecord += "&location=" + ZipCodeFB.toString();
+        }
+    }
+    else{
+        urlargforpetrecord += "&location=" + CityFb.toString() + ',' + StateFB.toString();
     }
     petList.clear();
     urlargforpetrecord += "&count=";
-    offestformuiltplerecords += 9;
+    offestformuiltplerecords += 12;
     urlargforpetrecord += offestformuiltplerecords;
-    if (offestformuiltplerecords <= 9) {
+    if (offestformuiltplerecords <= 12) {
         Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
         petObj.FetchXml();
         while (petObj.parsingcomplete) ;
