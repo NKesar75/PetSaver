@@ -15,7 +15,7 @@
         android:horizontalSpacing="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="20dp"
-        android:numColumns="3"
+        android:numColumns="4"
         android:stretchMode="spacingWidth"
         android:verticalSpacing="20dp"
         android:visibility="visible"/>

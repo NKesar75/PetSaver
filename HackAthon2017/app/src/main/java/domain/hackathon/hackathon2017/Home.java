@@ -186,9 +186,9 @@ if(refreshcount == 0) {
     }
     petList.clear();
     urlargforpetrecord += "&count=";
-    offestformuiltplerecords += 12;
+    offestformuiltplerecords += 20;
     urlargforpetrecord += offestformuiltplerecords;
-    if (offestformuiltplerecords <= 12) {
+    if (offestformuiltplerecords <= 20) {
         Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
         petObj.FetchXml();
         while (petObj.parsingcomplete) ;
@@ -225,12 +225,12 @@ if(refreshcount == 0) {
 
         switch (item.getItemId()) {
             case R.id.home_next:
-                offestformuiltplerecords += 12;
+                offestformuiltplerecords += 20;
                 refresh();
                 break;
             case home_back:
-                if (offestformuiltplerecords >=24) {
-                    offestformuiltplerecords -= 36;
+                if (offestformuiltplerecords >=40) {
+                    offestformuiltplerecords -= 60;
                     refresh();
                 }
                 break;
