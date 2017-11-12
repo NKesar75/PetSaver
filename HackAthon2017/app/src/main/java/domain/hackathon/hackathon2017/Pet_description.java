@@ -129,7 +129,7 @@ public class Pet_description extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.fav_btn:
-                myRef.child(userID).child("Favs").child("Fav" + amountofchildren + 1).setValue(Home.petNumber);
+                myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).setValue(Home.petNumber);
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -41,7 +41,7 @@ public class Favorite extends AppCompatActivity
     private GridView gridView;
     private GridViewAdapter gridViewAdapter;
 
-    private List<PetInfo> petList = new ArrayList<>();
+    public static List<PetInfo> petList = new ArrayList<>();
     public  static PetInfo temppet;
     private DrawerLayout draw;
     private ActionBarDrawerToggle toggle;
@@ -110,7 +110,6 @@ public class Favorite extends AppCompatActivity
             HandlexmlFav obj = new HandlexmlFav(urlbase + id);
             obj.FetchXml();
             while(obj.parsingcomplete);
-            petList.add(new PetInfo(temppet.getImageid(),temppet.getAge(),temppet.getPetnumber()));
         }
         gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
         gridView.setAdapter(gridViewAdapter);
@@ -121,7 +120,7 @@ public class Favorite extends AppCompatActivity
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             petNumber = petList.get(position).getPetnumber();
-            startActivity(new Intent(Favorite.this, Pet_description.class));
+            startActivity(new Intent(Favorite.this, Fav_Desc.class));
         }
     };
 
