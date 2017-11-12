@@ -44,36 +44,36 @@ public class Fav_ShelterInfo extends AppCompatActivity {
         obj.FetchXml();
         while(obj.parsingcomplete);
 
-        if (!tempholder.getSheletername().equals(null)) {
+        if (!tempholder.getSheletername().equals(null)||!tempholder.getSheletername().equals(" ")) {
             sname.setText(tempholder.getSheletername());
         }
         else{
             sname.setText("N/A");
         }
 
-        if (!tempholder.getAdress().equals(null)) {
+        if (!tempholder.getAdress().equals(null)||!tempholder.getAdress().equals(" ")) {
             sAddress.setText(tempholder.getAdress());
         }
         else{
             sAddress.setText("N/A");
         }
 
-        if (!tempholder.getCity().equals(null)|| !tempholder.getState().equals("")) {
+        if (!tempholder.getCity().equals(null)|| !tempholder.getState().equals("")||!tempholder.getCity().equals(" ")||!tempholder.getState().equals(" ")) {
             sCity.setText(tempholder.getCity()+", " + tempholder.getState() + " " + tempholder.getZipcode());
         }
         else{
             sCity.setText("N/A");
         }
 
-        if (!tempholder.getPhonenumber().equals(null)) {
-            sNumber.setText(tempholder.getPhonenumber());
+        if (!tempholder.getPhonenumber().equals(null)||!tempholder.getPhonenumber().equals(" ")) {
+            sNumber.setText("Phone Number: "+tempholder.getPhonenumber());
         }
         else{
             sNumber.setText("N/A");
         }
 
-        if (!tempholder.getEmailaccount().equals(null)) {
-            sEmail.setText(tempholder.getEmailaccount());
+        if (!tempholder.getEmailaccount().equals(null)||!tempholder.getEmailaccount().equals(" ")) {
+            sEmail.setText("Email: "+tempholder.getEmailaccount());
         }
         else{
             sEmail.setText("N/A");
