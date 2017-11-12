@@ -230,7 +230,7 @@ if(refreshcount == 0) {
                 break;
             case home_back:
                 if (offestformuiltplerecords >=24) {
-                    offestformuiltplerecords -= 12;
+                    offestformuiltplerecords -= 36;
                     refresh();
                 }
                 break;
