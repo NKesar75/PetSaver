@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
@@ -177,7 +178,7 @@ public class Home extends AppCompatActivity
         } else {
             Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
             petObj.FetchXml();
-            while (petObj.parsingcomplete) ;
+            while (petObj.parsingcomplete);
             gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
             gridView.setAdapter(gridViewAdapter);
         }
@@ -194,7 +195,23 @@ public class Home extends AppCompatActivity
     };
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.favorite_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.home_next:
+                //next page code
+                break;
+            case R.id.home_back:
+                //back page code
+                break;
+        }
+
         switch (item.getItemId()) {
             case R.id.nav_home:
                 return true;

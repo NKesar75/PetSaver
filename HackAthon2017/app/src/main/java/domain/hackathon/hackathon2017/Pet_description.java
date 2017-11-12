@@ -117,6 +117,12 @@ public class Pet_description extends AppCompatActivity {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+
+        if(getSupportActionBar()!= null)
+        {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 
     @Override
@@ -132,6 +138,10 @@ public class Pet_description extends AppCompatActivity {
                 myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).setValue(Home.petNumber);
                 break;
         }
+
+        if(item.getItemId()==android.R.id.home)
+            finish();
+        
         return super.onOptionsItemSelected(item);
     }
 }

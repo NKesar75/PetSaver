@@ -29,7 +29,8 @@
         <activity android:name=".createLoginatstart" />
         <activity android:name=".resetpassword" />
         <activity android:name=".Login" />
-        <activity android:name=".info"></activity>
+        <activity android:name=".info" />
+        <activity android:name=".Fav_ShelterInfo"></activity>
     </application>
 
 </manifest>

@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="domain.hackathon.hackathon2017.ShelterInfo"
+    tools:context="domain.hackathon.hackathon2017.Fav_ShelterInfo"
     android:paddingBottom="10dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingTop="10dp"
     android:background="@color/colorPrimaryDark">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,32 +17,32 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/Name_SI"
+            android:id="@+id/Name_SI_fav"
             style="@style/EditText_style"
             android:enabled="false"
             android:hint="Name" />
 
         <EditText
-            android:id="@+id/Address_SI"
+            android:id="@+id/Address_SI_fav"
             style="@style/EditText_style"
             android:enabled="false"
             android:hint="Address" />
 
         <EditText
-            android:id="@+id/City_State_Zip_SI"
+            android:id="@+id/City_State_Zip_SI_fav"
             style="@style/EditText_style"
             android:enabled="false"
             android:hint="City State Zip"/>
 
         <EditText
-            android:id="@+id/Number_SI"
+            android:id="@+id/Number_SI_fav"
             style="@style/EditText_style"
             android:editable="false"
             android:hint="(800) 000-0000"
             android:textColor="@android:color/holo_blue_light"/>
 
         <EditText
-            android:id="@+id/Email_SI"
+            android:id="@+id/Email_SI_fav"
             style="@style/EditText_style"
             android:editable="false"
             android:hint="youremail@example.com" />
