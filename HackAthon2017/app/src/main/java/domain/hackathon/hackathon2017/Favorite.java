@@ -1,11 +1,13 @@
 package domain.hackathon.hackathon2017;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,7 +43,7 @@ public class Favorite extends AppCompatActivity
     private GridView gridView;
     private GridViewAdapter gridViewAdapter;
 
-    private List<PetInfo> petList = new ArrayList<>();
+    public static List<PetInfo> petList = new ArrayList<>();
     public  static PetInfo temppet;
     private DrawerLayout draw;
     private ActionBarDrawerToggle toggle;
@@ -110,7 +112,6 @@ public class Favorite extends AppCompatActivity
             HandlexmlFav obj = new HandlexmlFav(urlbase + id);
             obj.FetchXml();
             while(obj.parsingcomplete);
-            petList.add(new PetInfo(temppet.getImageid(),temppet.getAge(),temppet.getPetnumber()));
         }
         gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
         gridView.setAdapter(gridViewAdapter);
@@ -121,7 +122,7 @@ public class Favorite extends AppCompatActivity
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             petNumber = petList.get(position).getPetnumber();
-            startActivity(new Intent(Favorite.this, Pet_description.class));
+            startActivity(new Intent(Favorite.this, Fav_Desc.class));
         }
     };
 
@@ -177,8 +178,18 @@ public class Favorite extends AppCompatActivity
 
         else if(id== R.id.nav_logout)
         {
-            //startActivity(new Intent(Home.this,Profile.class));
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(Favorite.this);
+            builder.setMessage("Are you Sure you want to Logout?")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mAuth.signOut();
+                            startActivity(new Intent(Favorite.this,Login.class));
+                        }
+                    })
+                    .setNegativeButton("Cancel",null);
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.activity_favorite);
         drawer.closeDrawer(GravityCompat.START);
