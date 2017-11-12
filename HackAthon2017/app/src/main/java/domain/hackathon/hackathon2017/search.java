@@ -19,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -386,9 +387,11 @@ public class search extends AppCompatActivity
 
                 if (Temp){//.equals("true")) {
                     //breedtxt.setText(Temp);
+                    breed.setChecked(true);
                     breedtxt.setVisibility(View.VISIBLE);
                 } else if (!Temp){//.equals("false")) {
                     //breedtxt.setText(Temp);
+                    breed.setChecked(false);
                     breedtxt.setVisibility(View.GONE);
                 }
             }
@@ -405,8 +408,10 @@ public class search extends AppCompatActivity
                 boolean Temp = dataSnapshot.getValue(boolean.class);
 
                 if (Temp){//.equals("true")) {
+                    animaltype.setChecked(true);
                     animaltypespinner.setVisibility(View.VISIBLE);
                 } else if (!Temp){//.equals("false")) {
+                    animaltype.setChecked(false);
                     animaltypespinner.setVisibility(View.GONE);
                 }
             }
@@ -423,8 +428,10 @@ public class search extends AppCompatActivity
                 boolean Temp = dataSnapshot.getValue(boolean.class);
 
                 if (Temp){//.equals("true")) {
+                    gender.setChecked(true);
                     Genderspinner.setVisibility(View.VISIBLE);
                 } else if (!Temp){//.equals("false")) {
+                    gender.setChecked(false);
                     Genderspinner.setVisibility(View.GONE);
                 }
 
@@ -443,8 +450,10 @@ public class search extends AppCompatActivity
                 boolean Temp = dataSnapshot.getValue(boolean.class);
 
                 if (Temp){//.equals("true")) {
+                    age.setChecked(true);
                     Agespinner.setVisibility(View.VISIBLE);
                 } else if (!Temp){//.equals("false")) {
+                    age.setChecked(false);
                     Agespinner.setVisibility(View.GONE);
                 }
             }
@@ -461,8 +470,10 @@ public class search extends AppCompatActivity
 
                 if (Temp){//.equals("true")) {
                     Sizespinner.setVisibility(View.VISIBLE);
+                    size.setChecked(true);
                 } else if (!Temp){//.equals("false")) {
                     Sizespinner.setVisibility(View.GONE);
+                    size.setChecked(false);
                 }
             }
 
@@ -480,7 +491,9 @@ public class search extends AppCompatActivity
                 if (Temp){//.equals("true")) {
                     citystate.setVisibility(View.VISIBLE);
                     Zipcode.setVisibility(View.VISIBLE);
+                    local.setChecked(true);
                 } else if (!Temp){//.equals("false")) {
+                    local.setChecked(false);
                     Citytxt.setVisibility(View.GONE);
                     Statetxt.setVisibility(View.GONE);
                     ZipcodetxtED.setVisibility(View.GONE);
@@ -525,11 +538,19 @@ public class search extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String Temp = dataSnapshot.getValue(String.class);
-                for (int i = 0; i < Agespinner.getCount(); i++) {
-                    if (Agespinner.getItemAtPosition(i).equals(Temp)) {
-                        Agespinner.setSelection(i);
+                switch (Temp){
+                    case "Baby":
+                        Agespinner.setSelection(0);
                         break;
-                    }
+                    case "Young":
+                        Agespinner.setSelection(1);
+                        break;
+                    case "Adult":
+                        Agespinner.setSelection(2);
+                        break;
+                    case "Senior":
+                        Agespinner.setSelection(3);
+                        break;
                 }
             }
 
@@ -544,12 +565,21 @@ public class search extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String Temp = dataSnapshot.getValue(String.class);
-                for (int i = 0; i < Sizespinner.getCount(); i++) {
-                    if (Sizespinner.getItemAtPosition(i).equals(Temp)) {
-                        Sizespinner.setSelection(i);
+                switch (Temp){
+                    case "S":
+                        Sizespinner.setSelection(0);
                         break;
-                    }
+                    case "M":
+                        Sizespinner.setSelection(1);
+                        break;
+                    case "L":
+                        Sizespinner.setSelection(2);
+                        break;
+                    case "XL":
+                        Sizespinner.setSelection(3);
+                        break;
                 }
+
             }
 
 
@@ -563,12 +593,15 @@ public class search extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String Temp = dataSnapshot.getValue(String.class);
-                for (int i = 0; i < Genderspinner.getCount(); i++) {
-                    if (Genderspinner.getItemAtPosition(i).equals(Temp)) {
-                        Genderspinner.setSelection(i);
+                switch (Temp){
+                    case "M":
+                        Genderspinner.setSelection(0);
                         break;
-                    }
+                    case "F":
+                        Genderspinner.setSelection(1);
+                        break;
                 }
+
             }
 
 
@@ -582,11 +615,30 @@ public class search extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String Temp = dataSnapshot.getValue(String.class);
-                for (int i = 0; i < animaltypespinner.getCount(); i++) {
-                    if (animaltypespinner.getItemAtPosition(i).equals(Temp)) {
-                        animaltypespinner.setSelection(i);
+
+                switch(Temp){
+                    case "barnyard":
+                        animaltypespinner.setSelection(0);
                         break;
-                    }
+                    case "bird":
+                        animaltypespinner.setSelection(1);
+                        break;
+                    case "cat":
+                        animaltypespinner.setSelection(2);
+                        break;
+                    case "dog":
+                        animaltypespinner.setSelection(3);
+                        break;
+                    case "horse":
+                        animaltypespinner.setSelection(4);
+                        break;
+                    case "reptile":
+                        animaltypespinner.setSelection(5);
+                        break;
+                    case "smallfurry":
+                        animaltypespinner.setSelection(6);
+                        break;
+
                 }
             }
 
