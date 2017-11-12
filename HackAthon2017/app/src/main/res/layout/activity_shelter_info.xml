@@ -38,14 +38,14 @@
         <EditText
             android:id="@+id/Number_SI"
             style="@style/EditText_style"
-            android:enabled="false"
+            android:editable="false"
             android:hint="(800) 000-0000"
             android:textColor="@android:color/holo_blue_light"/>
 
         <EditText
             android:id="@+id/Email_SI"
             style="@style/EditText_style"
-            android:enabled="false"
+            android:editable="false"
             android:hint="youremail@example.com" />
 
     </LinearLayout>
