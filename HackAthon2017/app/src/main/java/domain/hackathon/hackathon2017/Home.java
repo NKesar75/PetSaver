@@ -31,6 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static domain.hackathon.hackathon2017.R.id.home_back;
+
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private String urlbase = "http://api.petfinder.com/"; //base url
@@ -167,8 +169,9 @@ public class Home extends AppCompatActivity
             urlargforpetrecord += "&location=" + ZipCodeFB;
         }
         petList.clear();
-        urlargforpetrecord += "&count=9";
+        urlargforpetrecord += "&count=";
         offestformuiltplerecords += 9;
+        urlargforpetrecord += offestformuiltplerecords;
         if (offestformuiltplerecords <= 9) {
             Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
             petObj.FetchXml();
@@ -205,10 +208,13 @@ public class Home extends AppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.home_next:
-                //next page code
+                offestformuiltplerecords += 9;
                 break;
-            case R.id.home_back:
-                //back page code
+            case home_back:
+                if (offestformuiltplerecords >=18) {
+                    offestformuiltplerecords -= 9;
+
+                }
                 break;
         }
 
