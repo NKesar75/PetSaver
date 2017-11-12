@@ -34,7 +34,7 @@ public class Fav_ShelterInfo extends AppCompatActivity {
         sNumber = (EditText)findViewById(R.id.Number_SI_fav);
         sEmail = (EditText)findViewById(R.id.Email_SI_fav);
 
-        HandlexmlShelter obj = new HandlexmlShelter(urlShelter + Fav_Desc.shelterid);
+        favshelterxmlhandler obj = new favshelterxmlhandler(urlShelter + Fav_Desc.shelterid);
         obj.FetchXml();
         while(obj.parsingcomplete);
 
