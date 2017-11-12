@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="100dp"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
+    android:paddingTop="100dp"
+    android:background="@color/colorPrimaryDark"
+    tools:context="domain.hackathon.hackathon2017.SplashScreen">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            app:srcCompat="@mipmap/app_logo" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:text="Pet Saver"
+            style="@style/txtview_style"
+            android:textSize="50sp"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:text="Powered by Pet Finder"
+            style="@style/txtview_style"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+</RelativeLayout>

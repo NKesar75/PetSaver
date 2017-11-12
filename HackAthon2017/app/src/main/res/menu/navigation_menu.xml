@@ -14,6 +14,10 @@
             android:icon="@drawable/ic_action_name"
             android:title="Favorites" />
         <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/developer_icon"
+            android:title="Developers" />
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout_icon"
             android:title="Log Out" />

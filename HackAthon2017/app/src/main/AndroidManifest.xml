@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login">
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,6 +28,8 @@
         <activity android:name=".Fav_Desc" />
         <activity android:name=".createLoginatstart" />
         <activity android:name=".resetpassword" />
+        <activity android:name=".Login" />
+        <activity android:name=".info"></activity>
     </application>
 
 </manifest>
