@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class Fav_ShelterInfo extends AppCompatActivity {
@@ -22,6 +23,11 @@ public class Fav_ShelterInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fav__shelter_info);
 
+        Button hider =(Button)findViewById(R.id.invisible_FAvshelter);
+        hider.setFocusable(true);
+        hider.setFocusableInTouchMode(true);
+        hider.requestFocus();
+        hider.setVisibility(View.GONE);
         if(getSupportActionBar()!= null)
         {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
