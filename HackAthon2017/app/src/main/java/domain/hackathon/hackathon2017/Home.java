@@ -44,14 +44,12 @@ public class Home extends AppCompatActivity
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     String USerid = user.getUid();
-    private Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord );
     public static int petNumber;
     public static List<PetInfo> petList = new ArrayList<>();
 
     private ViewStub stubGrid;
     private GridView gridView;
     private GridViewAdapter gridViewAdapter;
-
 
 
     private DrawerLayout draw;
@@ -90,7 +88,7 @@ public class Home extends AppCompatActivity
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-    }
+                }
                 // ...
             }
         };
@@ -112,14 +110,14 @@ public class Home extends AppCompatActivity
 
     private void showdata(DataSnapshot dataSnapshot) {
 
-        petList.clear();
-       String breedfb;
-       String animaltypefb;
-       String genderfb;
-       String agefb;
-       String sizefb;
-       String localfb;
-       String citystatefb;
+
+        String breedfb;
+        String animaltypefb;
+        String genderfb;
+        String agefb;
+        String sizefb;
+        String localfb;
+        String citystatefb;
         String breedtxtfb;
         String CityFb;
         String StateFB;
@@ -165,21 +163,22 @@ public class Home extends AppCompatActivity
         } else {
             urlargforpetrecord += "&location=" + ZipCodeFB;
         }
+        petList.clear();
         urlargforpetrecord += "&count=9";
         offestformuiltplerecords += 9;
         if (offestformuiltplerecords <= 9) {
             Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
             petObj.FetchXml();
-            while(petObj.parsingcomplete);
-        }
-        else {
+            while (petObj.parsingcomplete) ;
+            gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
+            gridView.setAdapter(gridViewAdapter);
+        } else {
             Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
             petObj.FetchXml();
-            while(petObj.parsingcomplete);
+            while (petObj.parsingcomplete) ;
+            gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
+            gridView.setAdapter(gridViewAdapter);
         }
-
-        gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
-        gridView.setAdapter(gridViewAdapter);
 
     }
 
@@ -188,7 +187,6 @@ public class Home extends AppCompatActivity
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             petNumber = petList.get(position).getPetnumber();
-            
             startActivity(new Intent(Home.this, Pet_description.class));
         }
     };
@@ -213,8 +211,8 @@ public class Home extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.activity_home);
-        if(drawerLayout.isDrawerOpen((GravityCompat.START)))
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.activity_home);
+        if (drawerLayout.isDrawerOpen((GravityCompat.START)))
             drawerLayout.closeDrawer(GravityCompat.START);
         else
             super.onBackPressed();
@@ -225,12 +223,12 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.activity_home);
+            DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.activity_home);
             drawerLayout.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_Search) {
-            startActivity(new Intent(Home.this,search.class));
+            startActivity(new Intent(Home.this, search.class));
         } else if (id == R.id.nav_favorite) {
-            startActivity(new Intent(Home.this,Favorite.class));
+            startActivity(new Intent(Home.this, Favorite.class));
         } else if (id == R.id.nav_logout) {
             //startActivity(new Intent(Home.this,Profile.class));
 

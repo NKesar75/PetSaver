@@ -6,14 +6,12 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by Hector on 11/11/2017.
+ * Created by Hector on 11/12/2017.
  */
 
-public class Handlexml {
+public class HandlexmlFav {
     private String breed = "";
     private String age = "";
     private String animalname = "";
@@ -31,7 +29,7 @@ public class Handlexml {
 
 
 
-    public Handlexml(String url) {
+    public HandlexmlFav(String url) {
         urlstring = url;
     }
 
@@ -115,7 +113,7 @@ public class Handlexml {
                             case "photo":
                                 if (hasbeencalledimage == false) {
                                     image = text;
-                                    Home.petList.add(new PetInfo(image,age,Integer.parseInt(petid)));
+
                                     hasbeencalledimage = true;
                                 }
                                 break;

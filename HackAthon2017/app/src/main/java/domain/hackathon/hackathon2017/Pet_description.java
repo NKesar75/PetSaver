@@ -2,16 +2,25 @@ package domain.hackathon.hackathon2017;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Pet_description extends AppCompatActivity {
 
@@ -23,11 +32,91 @@ public class Pet_description extends AppCompatActivity {
 
     FirebaseUser user = mAuth.getCurrentUser();
     String userID = user.getUid();
-    
+
+    private EditText Pet_name;
+    private EditText Pet_age;
+    private EditText Pet_gender;
+    private EditText Pet_type;
+    private EditText Pet_size;
+    private EditText Pet_breed;
+    private ImageView Pet_image;
+    private Button Shelterinfobtn;
+    long amountofchildren = 0;
+
+    public static PetInfo petdescinfo;
+    public static String shelterid;
+
+
+    private String urlbase = "http://api.petfinder.com/"; //base url
+    private String urlkey = "key=58fe2e272bebddbc0f5e66901f239055"; //key for api
+    private String urlmethodfindmuiltplerecords = "pet.get?"; //used for getting a random pet
+    private int offestformuiltplerecords = 0; //used to get more records if they want to keep looking
+    private String urlargforpetrecord = ""; //argumentpassedintoparmaert
+    private String urlShelter = "http://api.petfinder.com/shelter.get?key=58fe2e272bebddbc0f5e66901f239055&id=";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_description);
+        Pet_image = (ImageView)findViewById(R.id.PD_IMAGe);
+        Pet_name   = (EditText)findViewById(R.id.Name_pd);
+        Pet_age    = (EditText)findViewById(R.id.Age_pd);
+        Pet_gender = (EditText)findViewById(R.id.Gender_pd);
+        Pet_type   = (EditText)findViewById(R.id.Type_pd);
+        Pet_size   = (EditText)findViewById(R.id.Size_pd);
+        Pet_breed  = (EditText)findViewById(R.id.Breed_pd);
+        Shelterinfobtn = (Button)findViewById(R.id.Shelter_Info);
+        urlargforpetrecord += "&id="+ Home.petNumber;
+        HandlexmlDesc petObj = new HandlexmlDesc(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
+        petObj.FetchXml();
+        while(petObj.parsingcomplete);
+        shelterid = petdescinfo.getShelterid();
+        Pet_name.setText(petdescinfo.getAnimalname());
+        Pet_age.setText(petdescinfo.getAge());
+        Pet_gender.setText(petdescinfo.getGender());
+        Pet_type.setText(petdescinfo.getAnimaltype());
+        Pet_size.setText(petdescinfo.getSize());
+        Pet_breed.setText(petdescinfo.getBreed());
+        Glide.with(Pet_description.this).load(petdescinfo.getImageid().toString()).into(Pet_image);
+
+        Shelterinfobtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Pet_description.this,ShelterInfo.class));
+            }
+        });
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference();
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+               amountofchildren = dataSnapshot.child("Favs").getChildrenCount();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
     }
 
     @Override
@@ -40,7 +129,7 @@ public class Pet_description extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.fav_btn:
-
+                myRef.child(userID).child("Favs").child("Fav" + amountofchildren + 1).setValue(Home.petNumber);
                 break;
         }
         return super.onOptionsItemSelected(item);

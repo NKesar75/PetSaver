@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="domain.hackathon.hackathon2017.ShelterInfo"
-    android:orientation="vertical"
-    android:paddingBottom="10dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="10dp"
-    android:background="@color/colorPrimaryDark">
+    tools:context="domain.hackathon.hackathon2017.ShelterInfo">
 
 
     <LinearLayout
@@ -19,35 +13,55 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/Name"
-            style="@style/EditText_style"
-            android:enabled="false"
-            android:hint="Name" />
+            android:id="@+id/Name_SI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="84dp"
+            tools:layout_editor_absoluteY="152dp" />
 
         <EditText
-            android:id="@+id/Address"
-            style="@style/EditText_style"
-            android:enabled="false"
-            android:hint="Address"/>
+            android:id="@+id/Address_SI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Address"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="85dp"
+            tools:layout_editor_absoluteY="206dp" />
 
         <EditText
-            android:id="@+id/Address2"
-            style="@style/EditText_style"
-            android:enabled="false"
-            android:hint="City State Zip"/>
+            android:id="@+id/City_State_Zip_SI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="City State Zip"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="85dp"
+            tools:layout_editor_absoluteY="259dp" />
 
         <EditText
-            android:id="@+id/Number"
-            style="@style/EditText_style"
-            android:enabled="false"
-            android:hint="Phone Number"/>
+            android:id="@+id/Number_SI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="(800) 000-0000"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="85dp"
+            tools:layout_editor_absoluteY="313dp" />
 
         <EditText
-            android:id="@+id/Emal"
-            style="@style/EditText_style"
-            android:enabled="false"
-            android:hint="youremail@example.com" />
+            android:id="@+id/Email_SI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="xxx@xxx.com"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="85dp"
+            tools:layout_editor_absoluteY="367dp" />
 
     </LinearLayout>
 
-</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>

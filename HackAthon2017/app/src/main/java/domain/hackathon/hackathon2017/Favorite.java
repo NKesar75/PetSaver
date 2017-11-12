@@ -8,11 +8,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.GridView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +30,24 @@ public class Favorite extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     public static int petNumber;
-
+    private static final String TAG = "Favorite";
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference myRef;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = mAuth.getCurrentUser();
+    String USerid = user.getUid();
     private ViewStub stubGrid;
     private GridView gridView;
     private GridViewAdapter gridViewAdapter;
 
     private List<PetInfo> petList = new ArrayList<>();
-
+    public  static PetInfo temppet;
     private DrawerLayout draw;
     private ActionBarDrawerToggle toggle;
+
+
+    private String urlbase = "http://api.petfinder.com/pet.get?key=58fe2e272bebddbc0f5e66901f239055&id="; //base url
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +67,53 @@ public class Favorite extends AppCompatActivity
 
         NavigationView navigation = (NavigationView) findViewById(R.id.nav_view);
         navigation.setNavigationItemSelectedListener(this);
+
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference();
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                showdata(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void showdata(DataSnapshot dataSnapshot) {
+        int index = 1;
+        int id = 0;
+        for (int i = 0; i < dataSnapshot.child(USerid).child("Favs").getChildrenCount(); i++){
+            id = dataSnapshot.child(USerid).child("Favs").child("Fav" + index).getValue(int.class).intValue();
+            HandlexmlFav obj = new HandlexmlFav(urlbase + id);
+            obj.FetchXml();
+            while(obj.parsingcomplete);
+            petList.add(new PetInfo(temppet.getImageid(),temppet.getAge(),temppet.getPetnumber()));
+        }
+        gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
+        gridView.setAdapter(gridViewAdapter);
     }
 
     AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {

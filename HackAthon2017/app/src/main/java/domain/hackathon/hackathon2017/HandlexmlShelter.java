@@ -100,6 +100,7 @@ public class HandlexmlShelter {
                                 break;
                             case "email":
                                 Emailaccount = text;
+                                ShelterInfo.tempholder = new Shelterholder(Sheletername,Adress,state,city,country,zipcode,phonenumber,Emailaccount);
                                 break;
                             default:
                                 break;
