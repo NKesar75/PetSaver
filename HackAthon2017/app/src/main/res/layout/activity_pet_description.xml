@@ -1,152 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="domain.hackathon.hackathon2017.Pet_description">
+    tools:context="domain.hackathon.hackathon2017.Pet_description"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:background="@color/colorPrimaryDark">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="368dp"
-        android:layout_height="495dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
             <ImageView
                 android:id="@+id/PD_IMAGe"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
-                android:layout_weight="1"
-                app:srcCompat="@mipmap/ic_launcher"
-                tools:layout_editor_absoluteX="128dp"
-                tools:layout_editor_absoluteY="16dp" android:contentDescription="TODO"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                style="@style/image_style"
+                app:srcCompat="@mipmap/ic_launcher"/>
 
             <EditText
                 android:id="@+id/Name_pd"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:editable="false"
-                android:ems="10"
-                android:hint="Name"
-                android:inputType="textPersonName"
-                tools:layout_editor_absoluteX="85dp"
-                tools:layout_editor_absoluteY="157dp" />
+                style="@style/EditText_style"
+                android:enabled="false"
+                android:hint="Name"/>
 
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/Age_pd"
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:layout_weight="1"
-                android:editable="false"
-                android:ems="10"
-                android:hint="Age"
-                android:inputType="textPersonName"
-                tools:layout_editor_absoluteX="85dp"
-                tools:layout_editor_absoluteY="217dp" />
+                style="@style/EditText_style"
+                android:enabled="false"
+                android:hint="Age"/>
 
             <EditText
                 android:id="@+id/Gender_pd"
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:layout_weight="1"
-                android:editable="false"
-                android:ems="10"
-                android:hint="M/F"
-                android:inputType="textPersonName"
-                tools:layout_editor_absoluteX="195dp"
-                tools:layout_editor_absoluteY="217dp" />
+                style="@style/EditText_style"
+                android:enabled="false"
+                android:hint="M/F"/>
 
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/Type_pd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:editable="false"
-                android:ems="10"
-                android:hint="Type"
-                android:inputType="textPersonName"
-                tools:layout_editor_absoluteX="85dp"
-                tools:layout_editor_absoluteY="275dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                style="@style/EditText_style"
+                android:enabled="false"
+                android:hint="Type"/>
 
             <EditText
                 android:id="@+id/Size_pd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:editable="false"
-                android:ems="10"
-                android:hint="Size"
-                android:inputType="textPersonName"
-                tools:layout_editor_absoluteX="85dp"
-                tools:layout_editor_absoluteY="335dp" />
-        </LinearLayout>
+                style="@style/EditText_style"
+                android:enabled="false"
+                android:hint="Size"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/Breed_pd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:editable="false"
-                android:ems="10"
-                android:hint="Breed"
-                android:inputType="textPersonName"
-                tools:layout_editor_absoluteX="85dp"
-                tools:layout_editor_absoluteY="396dp" />
-        </LinearLayout>
+                style="@style/EditText_style"
+                android:enabled="false"
+                android:hint="Breed" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/Shelter_Info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Shelter Info"
-                tools:layout_editor_absoluteX="133dp"
-                tools:layout_editor_absoluteY="447dp" />
-        </LinearLayout>
+                style="@style/button_style"
+                android:text="Shelter Info"/>
 
     </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
+</ScrollView>>
+</RelativeLayout>

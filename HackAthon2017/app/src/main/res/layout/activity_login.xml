@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="10dp"
+    android:paddingBottom="100dp"
     android:paddingLeft="48dp"
     android:paddingRight="48dp"
-    android:paddingTop="10dp"
+    android:paddingTop="100dp"
     tools:context="domain.hackathon.hackathon2017.Login"
     android:background="@color/colorPrimaryDark">
 
@@ -17,8 +17,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:weightSum="1">
+        android:layout_centerHorizontal="true">
 
         <ImageView
             android:id="@+id/imageView"
