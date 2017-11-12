@@ -7,7 +7,7 @@
     tools:context="domain.hackathon.hackathon2017.Login">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/PD_IMAGe"
         android:layout_width="190dp"
         android:layout_height="75dp"
         android:layout_marginEnd="8dp"
@@ -84,7 +84,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/PD_IMAGe"
         app:layout_constraintVertical_bias="0.434" />
 
     <EditText
@@ -136,7 +136,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/PD_IMAGe" />
 
     <EditText
         android:id="@+id/registerpassword_password"

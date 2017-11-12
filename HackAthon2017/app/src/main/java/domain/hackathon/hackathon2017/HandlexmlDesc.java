@@ -8,57 +8,66 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by Hector on 11/11/2017.
+ * Created by Hector on 11/12/2017.
  */
 
-public class HandlexmlShelter {
-    private String Sheletername = "";
-    private String Adress = "";
-    private String state = "";
-    private String city = "";
-    private String country = "";
-    private String zipcode= "";
-    private String phonenumber = "";
-    private String Emailaccount = "";
+public class HandlexmlDesc {
+
+    private String breed = "";
+    private String age = "";
+    private String animalname = "";
+    private String shelterid = "";
+    private String animaltype = "";
+    private String petid = "";
+    private String gender = "";
+    private String Size = "";
+    private String image = "";
+    private boolean hasbeencalledbreed = false;
+    private boolean hasbeencalledimage = false;
     private String urlstring = null;
-
-    public String getSheletername() {
-        return Sheletername;
-    }
-
-    public String getAdress() {
-        return Adress;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public String getZipcode() {
-        return zipcode;
-    }
-
-    public String getPhonenumber() {
-        return phonenumber;
-    }
-
-    public String getEmailaccount() {
-        return Emailaccount;
-    }
-
     XmlPullParserFactory xmlfactoryobj;
     public volatile boolean parsingcomplete = true;
 
-    public HandlexmlShelter(String url) {
+
+
+    public HandlexmlDesc(String url) {
         urlstring = url;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public String getPetid() {
+        return petid;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getSize() {
+        return Size;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public String getAnimaltype() {
+        return animaltype;
+    }
+
+    public String getName() {
+        return animalname;
+    }
+
+    public String getShelterid() {
+        return shelterid;
     }
 
     public void ParseXmlAndStoreit(XmlPullParser myparser) {
@@ -78,34 +87,41 @@ public class HandlexmlShelter {
 
                         switch (name) {
                             case "name":
-                                Sheletername = text;
+                                animalname = text;
                                 break;
-                            case "address1":
-                                Adress += text;
+                            case "breed":
+                                if (hasbeencalledbreed == false) {
+                                    breed += text; //text;
+                                    hasbeencalledbreed = true;
+                                    break;
+                                } else {
+                                    breed += " " + "and " + text;
+                                    break;
+                                }
+                            case "age":
+                                age = text;
                                 break;
-                            case "city":
-                                city = text;
+                            case "shelterId":
+                                shelterid = text;
                                 break;
-                            case "state":
-                                state = text;
+                            case "animal":
+                                animaltype = text;
                                 break;
-                            case "zip":
-                                zipcode = text;
+                            case "id":
+                                petid = text;
+                                hasbeencalledimage = false;
                                 break;
-                            case "country":
-                                country = text;
-                                break;
-                            case "phone":
-                                phonenumber = text;
-                                break;
-                            case "email":
-                                Emailaccount = text;
-                                ShelterInfo.tempholder = new Shelterholder(Sheletername,Adress,state,city,country,zipcode,phonenumber,Emailaccount);
+                            case "photo":
+                                if (hasbeencalledimage == false) {
+                                    image = text;
+                                    Pet_description.petdescinfo = new PetInfo(image,age,Integer.parseInt(petid),breed,animalname,Integer.parseInt(shelterid),animaltype,gender,Size);
+                                    hasbeencalledimage = true;
+                                }
                                 break;
                             default:
                                 break;
-                        }
 
+                        }
                 }
                 event = myparser.next();
             }
@@ -141,4 +157,5 @@ public class HandlexmlShelter {
         });
         thread.start();
     }
+
 }

@@ -19,7 +19,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/PD_IMAGe"
                 android:layout_width="128dp"
                 android:layout_height="128dp"
                 android:layout_weight="1"
@@ -34,7 +34,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/Name"
+                android:id="@+id/Name_pd"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -52,7 +52,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/Age"
+                android:id="@+id/Age_pd"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:layout_weight="1"
@@ -63,7 +63,7 @@
                 tools:layout_editor_absoluteY="217dp" />
 
             <EditText
-                android:id="@+id/Gender"
+                android:id="@+id/Gender_pd"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:layout_weight="1"
@@ -81,7 +81,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/Type"
+                android:id="@+id/Type_pd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -98,7 +98,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/Size"
+                android:id="@+id/Size_pd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -115,7 +115,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/Breed"
+                android:id="@+id/Breed_pd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -175,17 +175,63 @@ public class search extends AppCompatActivity
                 }
             }
         });
-        local.setOnClickListener(new View.OnClickListener() {
+
+        citystate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (local.isChecked() == true && Zipcode.isChecked()) {
-                    ZipcodetxtED.setVisibility(View.VISIBLE);
-                    Citytxt.setVisibility(View.GONE);
-                    Statetxt.setVisibility(View.GONE);
-                } else {
+                if (citystate.isChecked()){
                     ZipcodetxtED.setVisibility(View.GONE);
                     Citytxt.setVisibility(View.VISIBLE);
                     Statetxt.setVisibility(View.VISIBLE);
+                }
+                else{
+                    ZipcodetxtED.setVisibility(View.VISIBLE);
+                    Citytxt.setVisibility(View.GONE);
+                    Statetxt.setVisibility(View.GONE);
+                }
+            }
+        });
+        Zipcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Zipcode.isChecked()){
+                    ZipcodetxtED.setVisibility(View.VISIBLE);
+                    Citytxt.setVisibility(View.GONE);
+                    Statetxt.setVisibility(View.GONE);
+                }
+                else{
+                    ZipcodetxtED.setVisibility(View.GONE);
+                    Citytxt.setVisibility(View.VISIBLE);
+                    Statetxt.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+        local.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (local.isChecked()) {
+                    Zipcode.setVisibility(View.VISIBLE);
+                    citystate.setVisibility(View.VISIBLE);
+                    if (Zipcode.isChecked()){
+                        ZipcodetxtED.setVisibility(View.VISIBLE);
+                        Citytxt.setVisibility(View.GONE);
+                        Statetxt.setVisibility(View.GONE);
+                    }
+                    else{
+                        ZipcodetxtED.setVisibility(View.GONE);
+                        Citytxt.setVisibility(View.VISIBLE);
+                        Statetxt.setVisibility(View.VISIBLE);
+                    }
+
+                 }
+                else{
+                    Zipcode.setVisibility(View.GONE);
+                    citystate.setVisibility(View.GONE);
+                    ZipcodetxtED.setVisibility(View.GONE);
+                    Citytxt.setVisibility(View.GONE);
+                    Statetxt.setVisibility(View.GONE);
                 }
             }
         });
@@ -433,7 +479,9 @@ public class search extends AppCompatActivity
                     citystate.setVisibility(View.VISIBLE);
                     Zipcode.setVisibility(View.VISIBLE);
                 } else if (Temp.equals("false")) {
-
+                    Citytxt.setVisibility(View.GONE);
+                    Statetxt.setVisibility(View.GONE);
+                    ZipcodetxtED.setVisibility(View.GONE);
                     citystate.setVisibility(View.GONE);
                     Zipcode.setVisibility(View.GONE);
                 }
@@ -551,19 +599,25 @@ public class search extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String Temp = dataSnapshot.getValue(String.class);
-
-                if (Temp.equals("true")) {
-                    citystate.setChecked(true);
-                    Zipcode.setChecked(false);
-                    Citytxt.setVisibility(View.VISIBLE);
-                    Statetxt.setVisibility(View.VISIBLE);
-                    ZipcodetxtED.setVisibility(View.GONE);
-                } else if (Temp.equals("false")) {
-                    citystate.setChecked(false);
-                    Zipcode.setChecked(true);
+                if (local.isChecked()) {
+                    if (Temp.equals("true")) {
+                        citystate.setChecked(true);
+                        Zipcode.setChecked(false);
+                        Citytxt.setVisibility(View.VISIBLE);
+                        Statetxt.setVisibility(View.VISIBLE);
+                        ZipcodetxtED.setVisibility(View.GONE);
+                    } else if (Temp.equals("false")) {
+                        citystate.setChecked(false);
+                        Zipcode.setChecked(true);
+                        Citytxt.setVisibility(View.GONE);
+                        Statetxt.setVisibility(View.GONE);
+                        ZipcodetxtED.setVisibility(View.VISIBLE);
+                    }
+                }
+                else{
                     Citytxt.setVisibility(View.GONE);
                     Statetxt.setVisibility(View.GONE);
-                    ZipcodetxtED.setVisibility(View.VISIBLE);
+                    ZipcodetxtED.setVisibility(View.GONE);
                 }
             }
 
