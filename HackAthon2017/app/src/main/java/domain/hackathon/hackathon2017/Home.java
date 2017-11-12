@@ -31,12 +31,7 @@ public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private String urlbase = "http://api.petfinder.com/"; //base url
     private String urlkey = "key=58fe2e272bebddbc0f5e66901f239055"; //key for api
-    private String urlmethodrandom = "pet.getRandom?"; //used for getting a random pet
     private String urlmethodfindmuiltplerecords = "pet.find"; //used for getting a random pet
-    private String animaltype = "";
-    private String size = "";
-    private String breed = "";
-    private String gender = "";
     private int offestformuiltplerecords = 0; //used to get more records if they want to keep looking
     private String urlargforpetrecord = "&output=basic"; //argumentpassedintoparmaert
     private String urlShelter = "http://api.petfinder.com/shelter.get?key=58fe2e272bebddbc0f5e66901f239055&id=";
@@ -123,27 +118,54 @@ public class Home extends AppCompatActivity
         boolean localfb;
         boolean citystatefb;
         String breedtxtfb;
-        String localtxtfb;
+        String CityFb;
+        String StateFB;
+        String ZipCodeFB;
         String agetxtfb;
         String sizetxtfb;
         String gendertxtfb;
         String animaltypetxtfb;
 
-       breedfb = dataSnapshot.child(USerid) .child("Search").child("breedcb").getValue(boolean.class).booleanValue();
-       breedtxtfb = dataSnapshot.child(USerid).child("Search").child("breedtext").getValue(String.class).toString();
-       animaltypefb = dataSnapshot.child(USerid).child("Search").child("animaltypecb").getValue(boolean.class).booleanValue();
-       animaltypetxtfb = dataSnapshot.child(USerid).child("Search").child("animaltypetext").getValue(String.class).toString();
-       genderfb = dataSnapshot.child(USerid).child("Search").child("gendercb").getValue(boolean.class).booleanValue();
-       gendertxtfb = dataSnapshot.child(USerid).child("Search").child("gendertxt").getValue(String.class).toString();
-       agefb = dataSnapshot.child(USerid).child("Search").child("agecb").getValue(boolean.class).booleanValue();
-       agetxtfb = dataSnapshot.child(USerid).child("Search").child("agetxt").getValue(String.class).toString();
-       sizefb = dataSnapshot.child(USerid).child("Search").child("sizecb").getValue(boolean.class).booleanValue();
-       sizetxtfb = dataSnapshot.child(USerid).child("Search").child("sizetxt").getValue(String.class).toString();
-       localfb = dataSnapshot.child(USerid).child("Search").child("locationcb").getValue(boolean.class).booleanValue();
-       citystatefb = dataSnapshot.child(USerid).child("Search").child("locationrb").getValue(boolean.class).booleanValue();
-       localtxtfb = dataSnapshot.child(USerid).child("Search").child("locationtxt").getValue(String.class).toString();
+        breedfb = dataSnapshot.child(USerid).child("Search").child("breedcb").getValue(boolean.class).booleanValue();
+        breedtxtfb = dataSnapshot.child(USerid).child("Search").child("breedtext").getValue(String.class).toString();
+        animaltypefb = dataSnapshot.child(USerid).child("Search").child("animaltypecb").getValue(boolean.class).booleanValue();
+        animaltypetxtfb = dataSnapshot.child(USerid).child("Search").child("animaltypetext").getValue(String.class).toString();
+        genderfb = dataSnapshot.child(USerid).child("Search").child("gendercb").getValue(boolean.class).booleanValue();
+        gendertxtfb = dataSnapshot.child(USerid).child("Search").child("gendertxt").getValue(String.class).toString();
+        agefb = dataSnapshot.child(USerid).child("Search").child("agecb").getValue(boolean.class).booleanValue();
+        agetxtfb = dataSnapshot.child(USerid).child("Search").child("agetxt").getValue(String.class).toString();
+        sizefb = dataSnapshot.child(USerid).child("Search").child("sizecb").getValue(boolean.class).booleanValue();
+        sizetxtfb = dataSnapshot.child(USerid).child("Search").child("sizetxt").getValue(String.class).toString();
+        localfb = dataSnapshot.child(USerid).child("Search").child("locationcb").getValue(boolean.class).booleanValue();
+        citystatefb = dataSnapshot.child(USerid).child("Search").child("locationrb").getValue(boolean.class).booleanValue();
+        CityFb = dataSnapshot.child(USerid).child("Search").child("Citytxt").getValue(String.class).toString();
+        StateFB = dataSnapshot.child(USerid).child("Search").child("Statetxt").getValue(String.class).toString();
+        ZipCodeFB = dataSnapshot.child(USerid).child("Search").child("Zipcodetxt").getValue(String.class).toString();
 
-                
+        if (breedfb) {
+            urlargforpetrecord += "&breed=" + breedtxtfb;
+        }
+        if (animaltypefb) {
+            urlargforpetrecord += "&animal=" + animaltypetxtfb;
+        }
+        if (genderfb) {
+            urlargforpetrecord += "&sex=" + gendertxtfb;
+        }
+        if (agefb) {
+            urlargforpetrecord += "&age=" + agetxtfb;
+        }
+        if (sizefb) {
+            urlargforpetrecord += "&size=" + sizetxtfb;
+        }
+        if (localfb) {
+            if (citystatefb) {
+                urlargforpetrecord += "&location=" + CityFb + ',' + StateFB;
+            } else {
+                urlargforpetrecord += "&location=" + ZipCodeFB;
+            }
+        }
+
+
 
     }
 
@@ -157,10 +179,8 @@ public class Home extends AppCompatActivity
     };
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.nav_home:
                 return true;
             case R.id.nav_Search:
@@ -170,44 +190,33 @@ public class Home extends AppCompatActivity
             case R.id.nav_logout:
                 return true;
         }
-        if(toggle.onOptionsItemSelected(item))
-        {
+        if (toggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onBackPressed()
-    {
-        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.activity_home);
-        if(drawerLayout.isDrawerOpen((GravityCompat.START)))
+    public void onBackPressed() {
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.activity_home);
+        if (drawerLayout.isDrawerOpen((GravityCompat.START)))
             drawerLayout.closeDrawer(GravityCompat.START);
         else
             super.onBackPressed();
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item)
-    {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if(id==R.id.nav_home)
-        {
-            DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.activity_home);
+        if (id == R.id.nav_home) {
+            DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.activity_home);
             drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else if(id==R.id.nav_Search)
-        {
-            startActivity(new Intent(Home.this,search.class));
-        }
-        else if(id == R.id.nav_favorite)
-        {
-            startActivity(new Intent(Home.this,Favorite.class));
-        }
-
-        else if(id== R.id.nav_logout)
-        {
+        } else if (id == R.id.nav_Search) {
+            startActivity(new Intent(Home.this, search.class));
+        } else if (id == R.id.nav_favorite) {
+            startActivity(new Intent(Home.this, Favorite.class));
+        } else if (id == R.id.nav_logout) {
             //startActivity(new Intent(Home.this,Profile.class));
 
         }
