@@ -50,6 +50,7 @@ public class Home extends AppCompatActivity
     FirebaseUser user = mAuth.getCurrentUser();
     String USerid = user.getUid();
     public static int petNumber;
+    public static boolean invaildarg;
     public static List<PetInfo> petList = new ArrayList<>();
 
     private ViewStub stubGrid;
@@ -192,12 +193,18 @@ if(refreshcount == 0) {
         Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
         petObj.FetchXml();
         while (petObj.parsingcomplete) ;
+        if (invaildarg){
+            startActivity(new Intent(Home.this, InvaildPage.class));
+        }
         gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
         gridView.setAdapter(gridViewAdapter);
     } else {
         Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
         petObj.FetchXml();
         while (petObj.parsingcomplete) ;
+        if (invaildarg){
+            startActivity(new Intent(Home.this, InvaildPage.class));
+        }
         gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
         gridView.setAdapter(gridViewAdapter);
     }

@@ -76,6 +76,7 @@ public class Handlexml {
         String text = null;
         try {
             event = myparser.getEventType();
+            Home.invaildarg = false;
             while (event != XmlPullParser.END_DOCUMENT) {
                 String name = myparser.getName();
                 switch (event) {
@@ -101,6 +102,10 @@ public class Handlexml {
                                 }
                             case "age":
                                 age = text;
+                                break;
+                            case "message":
+                                if (text.contains("invalid arguments"))
+                                    Home.invaildarg = true;
                                 break;
                             case "shelterId":
                                 shelterid = text;

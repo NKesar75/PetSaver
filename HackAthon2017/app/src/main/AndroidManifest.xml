@@ -30,7 +30,8 @@
         <activity android:name=".resetpassword" />
         <activity android:name=".Login" />
         <activity android:name=".info" />
-        <activity android:name=".Fav_ShelterInfo"></activity>
+        <activity android:name=".Fav_ShelterInfo" />
+        <activity android:name=".InvaildPage"></activity>
     </application>
 
 </manifest>
