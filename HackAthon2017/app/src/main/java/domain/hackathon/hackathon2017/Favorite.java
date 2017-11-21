@@ -31,7 +31,7 @@ import java.util.List;
 import static domain.hackathon.hackathon2017.R.id.home_back;
 
 public class Favorite extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     public static int petNumber1;
     private static final String TAG = "Favorite";
@@ -106,13 +106,14 @@ public class Favorite extends AppCompatActivity
     }
 
     private void showdata(DataSnapshot dataSnapshot) {
+        petList.clear();
         int index = 1;
         int id = 0;
-        for (int i = 0; i < dataSnapshot.child(USerid).child("Favs").getChildrenCount(); i++){
-            id = dataSnapshot.child(USerid).child("Favs").child("Fav" + index).getValue(int.class).intValue();
+        for (int i = 0; i < dataSnapshot.child(USerid).child("Favs").getChildrenCount(); i++) {
+            id = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index++)).getValue(int.class).intValue();
             HandlexmlFav obj = new HandlexmlFav(urlbase + id);
             obj.FetchXml();
-            while(obj.parsingcomplete);
+            while (obj.parsingcomplete) ;
         }
         gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
         gridView.setAdapter(gridViewAdapter);
@@ -128,10 +129,8 @@ public class Favorite extends AppCompatActivity
     };
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.nav_home:
                 return true;
             case R.id.nav_Search:
@@ -144,60 +143,47 @@ public class Favorite extends AppCompatActivity
                 return true;
         }
 
-        if(toggle.onOptionsItemSelected(item))
-        {
+        if (toggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onBackPressed()
-    {
-        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.activity_home);
-        if(drawerLayout.isDrawerOpen((GravityCompat.START)))
+    public void onBackPressed() {
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.activity_home);
+        if (drawerLayout.isDrawerOpen((GravityCompat.START)))
             drawerLayout.closeDrawer(GravityCompat.START);
         else
             super.onBackPressed();
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item)
-    {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if(id==R.id.nav_home)
-        {
-            startActivity(new Intent(Favorite.this,Home.class));
-        }
-        else if(id==R.id.nav_Search)
-        {
-            startActivity(new Intent(Favorite.this,search.class));
-        }
-        else if(id == R.id.nav_favorite)
-        {
-            DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.activity_favorite);
+        if (id == R.id.nav_home) {
+            startActivity(new Intent(Favorite.this, Home.class));
+        } else if (id == R.id.nav_Search) {
+            startActivity(new Intent(Favorite.this, search.class));
+        } else if (id == R.id.nav_favorite) {
+            DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.activity_favorite);
             drawerLayout.closeDrawer(GravityCompat.START);
-        }
-
-        else if(id== R.id.nav_logout)
-        {
+        } else if (id == R.id.nav_logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Favorite.this);
             builder.setMessage("Are you Sure you want to Logout?")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mAuth.signOut();
-                            startActivity(new Intent(Favorite.this,Login.class));
+                            startActivity(new Intent(Favorite.this, Login.class));
                         }
                     })
-                    .setNegativeButton("Cancel",null);
+                    .setNegativeButton("Cancel", null);
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
-        }
-        else if(id == R.id.nav_info)
-        {
-            startActivity(new Intent(Favorite.this,info.class));
+        } else if (id == R.id.nav_info) {
+            startActivity(new Intent(Favorite.this, info.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.activity_favorite);
         drawer.closeDrawer(GravityCompat.START);

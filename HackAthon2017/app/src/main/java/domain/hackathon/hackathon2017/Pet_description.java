@@ -113,7 +113,7 @@ public class Pet_description extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-               amountofchildren = dataSnapshot.child("Favs").getChildrenCount();
+               amountofchildren = dataSnapshot.child(userID).child("Favs").getChildrenCount();
             }
 
             @Override
