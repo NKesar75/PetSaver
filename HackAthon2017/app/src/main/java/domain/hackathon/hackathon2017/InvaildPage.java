@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.EditText;
 
@@ -31,9 +32,6 @@ public class InvaildPage extends AppCompatActivity {
     FirebaseUser user = mAuth.getCurrentUser();
     String USerid = user.getUid();
     private EditText invalidMessage;
-    private DrawerLayout draw;
-    private ActionBarDrawerToggle toggle;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,5 +40,23 @@ public class InvaildPage extends AppCompatActivity {
         invalidMessage = (EditText) findViewById(R.id.invaildpagetxt);
 
         invalidMessage.setText("Please Check Your Spelling");
+
+        if(getSupportActionBar()!= null)
+        {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home)
+            finish();
+            startActivity(new Intent(this,search.class));
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
+

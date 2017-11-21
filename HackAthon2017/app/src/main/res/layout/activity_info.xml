@@ -33,26 +33,36 @@
             android:textSize="40sp"/>
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/textView16"
             style="@style/txtview_style"
-            android:text="Nilesh Kesar"
-            android:textSize="20sp"/>
-        <TextView
-            android:id="@+id/textView13"
-            style="@style/txtview_style"
-            android:text="Raj Chandan"
-            android:textSize="20sp"/>
+            android:text="Allen Kendrik"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView15"
             style="@style/txtview_style"
             android:text="Andy Lam"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
+
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/textView12"
             style="@style/txtview_style"
-            android:text="Allen Kendrik"
-            android:textSize="20sp"/>
+            android:text="Nilesh Kesar"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView13"
+            style="@style/txtview_style"
+            android:text="Raj Chandan"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/txtview_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sean Ermish"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView17"
