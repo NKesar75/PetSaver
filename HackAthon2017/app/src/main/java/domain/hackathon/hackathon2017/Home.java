@@ -38,7 +38,7 @@ public class Home extends AppCompatActivity
     private String urlbase = "http://api.petfinder.com/"; //base url
     private String urlkey = "key=58fe2e272bebddbc0f5e66901f239055"; //key for api
     private String urlmethodfindmuiltplerecords = "pet.find?"; //used for getting a random pet
-    private int offestformuiltplerecords = 0; //used to get more records if they want to keep looking
+    public static int offestformuiltplerecords = 0; //used to get more records if they want to keep looking
     private String urlargforpetrecord = "&output=basic"; //argumentpassedintoparmaert
     private String urlShelter = "http://api.petfinder.com/shelter.get?key=58fe2e272bebddbc0f5e66901f239055&id=";
 
@@ -56,7 +56,7 @@ public class Home extends AppCompatActivity
     private GridView gridView;
     private GridViewAdapter gridViewAdapter;
 
-    private int numberofpets = 21;
+    public static int numberofpets = 18;
 
     private DrawerLayout draw;
     private ActionBarDrawerToggle toggle;
@@ -158,6 +158,8 @@ if(refreshcount == 0) {
     StateFB = dataSnapshot.child(USerid).child("Search").child("Statetxt").getValue(String.class).toString();
     ZipCodeFB = dataSnapshot.child(USerid).child("Search").child("Zipcodetxt").getValue(String.class).toString();
 
+    urlargforpetrecord = "&output=basic";
+
     if (breedfb){
         urlargforpetrecord += "&breed=" + breedtxtfb;
     }
@@ -187,7 +189,7 @@ if(refreshcount == 0) {
     petList.clear();
     urlargforpetrecord += "&count=";
     offestformuiltplerecords += numberofpets;
-    urlargforpetrecord += offestformuiltplerecords;
+    urlargforpetrecord += numberofpets;
     if (offestformuiltplerecords <= numberofpets) {
         Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
         petObj.FetchXml();
