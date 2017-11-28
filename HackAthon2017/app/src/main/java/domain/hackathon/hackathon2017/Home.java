@@ -52,11 +52,11 @@ public class Home extends AppCompatActivity
     public static int petNumber;
     public static boolean invaildarg;
     public static List<PetInfo> petList = new ArrayList<>();
-
     private ViewStub stubGrid;
     private GridView gridView;
     private GridViewAdapter gridViewAdapter;
 
+    private int numberofpets = 21;
 
     private DrawerLayout draw;
     private ActionBarDrawerToggle toggle;
@@ -158,25 +158,23 @@ if(refreshcount == 0) {
     StateFB = dataSnapshot.child(USerid).child("Search").child("Statetxt").getValue(String.class).toString();
     ZipCodeFB = dataSnapshot.child(USerid).child("Search").child("Zipcodetxt").getValue(String.class).toString();
 
-    if (breedfb){//.equals("true")) {
+    if (breedfb){
         urlargforpetrecord += "&breed=" + breedtxtfb;
     }
-    if (animaltypefb){//.equals("true")) {
+    if (animaltypefb){
         urlargforpetrecord += "&animal=" + animaltypetxtfb.toString();
     }
-    if (genderfb){//.equals("true")) {
+    if (genderfb){
         urlargforpetrecord += "&sex=" + gendertxtfb.toString();
     }
-    if (agefb){//.equals("true")) {
+    if (agefb){
         urlargforpetrecord += "&age=" + agetxtfb.toString();
     }
-    if (sizefb){//.equals("true")) {
+    if (sizefb){
         urlargforpetrecord += "&size=" + sizetxtfb.toString();
     }
-    if (localfb){//.equals("true")) {
-
-
-        if (citystatefb){//.equals("true")) {
+    if (localfb){
+        if (citystatefb){
             urlargforpetrecord += "&location=" + CityFb.toString() + ',' + StateFB.toString();
         } else {
             urlargforpetrecord += "&location=" + ZipCodeFB.toString();
@@ -187,9 +185,9 @@ if(refreshcount == 0) {
     }
     petList.clear();
     urlargforpetrecord += "&count=";
-    offestformuiltplerecords += 20;
+    offestformuiltplerecords += numberofpets;
     urlargforpetrecord += offestformuiltplerecords;
-    if (offestformuiltplerecords <= 20) {
+    if (offestformuiltplerecords <= numberofpets) {
         Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
         petObj.FetchXml();
         while (petObj.parsingcomplete) ;
@@ -232,12 +230,12 @@ if(refreshcount == 0) {
 
         switch (item.getItemId()) {
             case R.id.home_next:
-                offestformuiltplerecords += 20;
+                offestformuiltplerecords += numberofpets;
                 refresh();
                 break;
             case home_back:
-                if (offestformuiltplerecords >=40) {
-                    offestformuiltplerecords -= 60;
+                if (offestformuiltplerecords >=(numberofpets * 2)) {
+                    offestformuiltplerecords -= (numberofpets * 3);
                     refresh();
                 }
                 break;

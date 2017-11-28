@@ -14,15 +14,15 @@ import java.util.List;
  */
 
 public class Handlexml {
-    private String breed = "";
-    private String age = "";
-    private String animalname = "";
-    private String shelterid = "";
-    private String animaltype = "";
-    private String petid = "";
-    private String gender = "";
-    private String Size = "";
-    private String image = "";
+    private String breed = null;
+    private String age = null;
+    private String animalname = null;
+    private String shelterid = null;
+    private String animaltype = null;
+    private String petid = null;
+    private String gender = null;
+    private String Size = null;
+    private String image = null;
     private boolean hasbeencalledbreed = false;
     private boolean hasbeencalledimage = false;
     private String urlstring = null;
@@ -104,7 +104,7 @@ public class Handlexml {
                                 age = text;
                                 break;
                             case "message":
-                                if (text.contains("invalid arguments"))
+                                if (text.contains("invalid arguments") || text.contains("Invalid geographical location"))
                                     Home.invaildarg = true;
                                 break;
                             case "shelterId":
@@ -120,11 +120,16 @@ public class Handlexml {
                             case "photo":
                                 if (hasbeencalledimage == false) {
                                     image = text;
+                                    Home.invaildarg = false;
                                     Home.petList.add(new PetInfo(image,age,Integer.parseInt(petid)));
                                     hasbeencalledimage = true;
                                 }
                                 break;
                             default:
+                                if(hasbeencalledimage == false)
+                                {
+                                    Home.invaildarg = true;
+                                }
                                 break;
 
                         }
