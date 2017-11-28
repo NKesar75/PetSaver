@@ -84,6 +84,12 @@ public class Login extends AppCompatActivity {
                 if (user != null) {
 
                     // User is signed in
+                    String userID = user.getUid();
+                    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                    getLocation();
+                    myRef.child(userID).child("Search").child("Zipcodetxt").setValue(Zipcode.toString());
+                    myRef.child(userID).child("Search").child("Citytxt").setValue(city.toString());
+                    myRef.child(userID).child("Search").child("Statetxt").setValue(state.toString());
                     startActivity(new Intent(Login.this, Home.class));
                     Toast.makeText(Login.this, "Successfully logged in",
                             Toast.LENGTH_SHORT).show();
@@ -108,13 +114,6 @@ public class Login extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
 
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                String userID = user.getUid();
-                                locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                                getLocation();
-                                myRef.child(userID).child("Search").child("Zipcodetxt").setValue(Zipcode.toString());
-                                myRef.child(userID).child("Search").child("Citytxt").setValue(city.toString());
-                                myRef.child(userID).child("Search").child("Statetxt").setValue(state.toString());
 
                                 if (!task.isSuccessful()) {
                                     Log.w(TAG, "signInWithEmail:failed", task.getException());
