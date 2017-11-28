@@ -84,10 +84,10 @@ public class Login extends AppCompatActivity {
                 if (user != null) {
 
                     // User is signed in
-                    startActivity(new Intent(Login.this,Home.class));
+                    startActivity(new Intent(Login.this, Home.class));
                     Toast.makeText(Login.this, "Successfully logged in",
                             Toast.LENGTH_SHORT).show();
-                    Log.d(TAG,"Logged in");
+                    Log.d(TAG, "Logged in");
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -112,6 +112,9 @@ public class Login extends AppCompatActivity {
                                 String userID = user.getUid();
                                 locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                                 getLocation();
+                                myRef.child(userID).child("Search").child("Zipcodetxt").setValue(Zipcode.toString());
+                                myRef.child(userID).child("Search").child("Citytxt").setValue(city.toString());
+                                myRef.child(userID).child("Search").child("Statetxt").setValue(state.toString());
 
                                 if (!task.isSuccessful()) {
                                     Log.w(TAG, "signInWithEmail:failed", task.getException());
@@ -123,8 +126,7 @@ public class Login extends AppCompatActivity {
 
 
                         });
-                    }
-                    else {
+                    } else {
                         Email.setError("Email can not contain spaces");
                         Email.requestFocus();
                     }
@@ -161,11 +163,13 @@ public class Login extends AppCompatActivity {
         }));
 
     }
+
     @Override
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -174,234 +178,227 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    void getLocation()
-    {
-        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+    void getLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
-        }
-        else
-        {
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        } else {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if(location != null)
-            {
+            if (location != null) {
                 lat = location.getLatitude();
                 lon = location.getLongitude();
 
                 geocoder = new Geocoder(this, Locale.getDefault());
-                try
-                {
-                    addressList = geocoder.getFromLocation(lat,lon,1);
+                try {
+                    addressList = geocoder.getFromLocation(lat, lon, 1);
                     city = addressList.get(0).getLocality();
                     Zipcode = addressList.get(0).getPostalCode();
                     String x = addressList.get(0).getAdminArea();
-                    switch(x)
-                    {
-                        case"Alabama":
-                            x="AL";
+                    switch (x) {
+                        case "Alabama":
+                            x = "AL";
                             break;
 
-                        case"Alaska":
-                            x="AK";
+                        case "Alaska":
+                            x = "AK";
                             break;
 
-                        case"Arizona":
-                            x="AZ";
+                        case "Arizona":
+                            x = "AZ";
                             break;
 
-                        case"Arkansas":
-                            x="AR";
+                        case "Arkansas":
+                            x = "AR";
                             break;
 
-                        case"California":
-                            x="CA";
+                        case "California":
+                            x = "CA";
                             break;
 
-                        case"Colorado":
-                            x="CO";
+                        case "Colorado":
+                            x = "CO";
                             break;
 
-                        case"Connecticut":
-                            x="CT";
+                        case "Connecticut":
+                            x = "CT";
                             break;
 
-                        case"Delaware":
-                            x="DE";
+                        case "Delaware":
+                            x = "DE";
                             break;
 
-                        case"District of Columbia":
-                            x="DC";
+                        case "District of Columbia":
+                            x = "DC";
                             break;
 
-                        case"Florida":
-                            x="FL";
+                        case "Florida":
+                            x = "FL";
                             break;
 
-                        case"Georgia":
-                            x="GA";
+                        case "Georgia":
+                            x = "GA";
                             break;
 
-                        case"Hawaii":
-                            x="HI";
+                        case "Hawaii":
+                            x = "HI";
                             break;
 
-                        case"Idaho":
-                            x="ID";
+                        case "Idaho":
+                            x = "ID";
                             break;
 
-                        case"Illinois":
-                            x="IL";
+                        case "Illinois":
+                            x = "IL";
                             break;
 
-                        case"Indiana":
-                            x="IN";
+                        case "Indiana":
+                            x = "IN";
                             break;
 
-                        case"Iowa":
-                            x="IA";
+                        case "Iowa":
+                            x = "IA";
                             break;
 
-                        case"Kansas":
-                            x="KS";
+                        case "Kansas":
+                            x = "KS";
                             break;
 
-                        case"Kentucky":
-                            x="KY";
+                        case "Kentucky":
+                            x = "KY";
                             break;
 
-                        case"Louisiana":
-                            x="LA";
+                        case "Louisiana":
+                            x = "LA";
                             break;
 
-                        case"Maine":
-                            x="ME";
+                        case "Maine":
+                            x = "ME";
                             break;
 
-                        case"Maryland":
-                            x="MD";
+                        case "Maryland":
+                            x = "MD";
                             break;
 
-                        case"Massachusetts":
-                            x="MA";
+                        case "Massachusetts":
+                            x = "MA";
                             break;
 
-                        case"Michigan":
-                            x="MI";
+                        case "Michigan":
+                            x = "MI";
                             break;
 
-                        case"Minnesota":
-                            x="MN";
+                        case "Minnesota":
+                            x = "MN";
                             break;
 
-                        case"Mississippi":
-                            x="MS";
+                        case "Mississippi":
+                            x = "MS";
                             break;
 
-                        case"Missouri":
-                            x="MO";
+                        case "Missouri":
+                            x = "MO";
                             break;
 
-                        case"Montana":
-                            x="MT";
+                        case "Montana":
+                            x = "MT";
                             break;
 
-                        case"Nebraska":
-                            x="NE";
+                        case "Nebraska":
+                            x = "NE";
                             break;
 
-                        case"Nevada":
-                            x="NV";
+                        case "Nevada":
+                            x = "NV";
                             break;
 
-                        case"New Hampshire":
-                            x="NH";
+                        case "New Hampshire":
+                            x = "NH";
                             break;
 
-                        case"New Jersey":
-                            x="NJ";
+                        case "New Jersey":
+                            x = "NJ";
                             break;
 
-                        case"New Mexico":
-                            x="NM";
+                        case "New Mexico":
+                            x = "NM";
                             break;
 
-                        case"New York":
-                            x="NY";
+                        case "New York":
+                            x = "NY";
                             break;
 
-                        case"North Carolina":
-                            x="NC";
+                        case "North Carolina":
+                            x = "NC";
                             break;
 
-                        case"North Dakota":
-                            x="ND";
+                        case "North Dakota":
+                            x = "ND";
                             break;
 
-                        case"Ohio":
-                            x="OH";
+                        case "Ohio":
+                            x = "OH";
                             break;
 
-                        case"Oklahoma":
-                            x="OK";
+                        case "Oklahoma":
+                            x = "OK";
                             break;
 
-                        case"Oregon":
-                            x="OR";
+                        case "Oregon":
+                            x = "OR";
                             break;
 
-                        case"Pennsylvania":
-                            x="PA";
+                        case "Pennsylvania":
+                            x = "PA";
                             break;
 
 
-                        case"Rhode Island":
-                            x="RI";
+                        case "Rhode Island":
+                            x = "RI";
                             break;
 
-                        case"South Carolina":
-                            x="SC";
+                        case "South Carolina":
+                            x = "SC";
                             break;
 
-                        case"South Dakota":
-                            x="SD";
+                        case "South Dakota":
+                            x = "SD";
                             break;
 
-                        case"Tennessee":
-                            x="TN";
+                        case "Tennessee":
+                            x = "TN";
                             break;
 
-                        case"Texas":
-                            x="TX";
+                        case "Texas":
+                            x = "TX";
                             break;
 
-                        case"Utah":
-                            x="UT";
+                        case "Utah":
+                            x = "UT";
                             break;
 
-                        case"Vermont":
-                            x="VT";
+                        case "Vermont":
+                            x = "VT";
                             break;
 
-                        case"Virginia":
-                            x="VA";
+                        case "Virginia":
+                            x = "VA";
                             break;
 
-                        case"Washington":
-                            x="WA";
+                        case "Washington":
+                            x = "WA";
                             break;
 
-                        case"West Virginia":
-                            x="WV";
+                        case "West Virginia":
+                            x = "WV";
                             break;
 
-                        case"Wisconsin":
-                            x="WI";
+                        case "Wisconsin":
+                            x = "WI";
                             break;
 
-                        case"Wyoming":
-                            x="WY";
+                        case "Wyoming":
+                            x = "WY";
                             break;
 
                         default:
@@ -409,9 +406,7 @@ public class Login extends AppCompatActivity {
                     }
                     state = x;
 
-                }
-                catch(IOException e)
-                {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -419,12 +414,10 @@ public class Login extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
-    {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        switch (requestCode)
-        {
+        switch (requestCode) {
             case REQUEST_LOCATION:
                 getLocation();
                 break;

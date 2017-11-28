@@ -53,8 +53,6 @@ public class InvaildPage extends AppCompatActivity {
         if(item.getItemId()==android.R.id.home)
             finish();
             startActivity(new Intent(this,search.class));
-
-
         return super.onOptionsItemSelected(item);
     }
 
