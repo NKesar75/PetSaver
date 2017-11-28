@@ -38,9 +38,12 @@ public class InvaildPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invaild_page);
         invalidMessage = (EditText) findViewById(R.id.invaildpagetxt);
-
-        invalidMessage.setText("Please Check Your Spelling");
-
+        if (Home.invaildarg == 1) {
+            invalidMessage.setText("Please Check Your Spelling");
+        }
+        else {
+            invalidMessage.setText("Could Not Find Results");
+        }
         if(getSupportActionBar()!= null)
         {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -50,7 +50,7 @@ public class Home extends AppCompatActivity
     FirebaseUser user = mAuth.getCurrentUser();
     String USerid = user.getUid();
     public static int petNumber;
-    public static boolean invaildarg;
+    public static int invaildarg;
     public static List<PetInfo> petList = new ArrayList<>();
     private ViewStub stubGrid;
     private GridView gridView;
@@ -181,8 +181,8 @@ if(refreshcount == 0) {
         }
     }
     else{
-        urlargforpetrecord += "&location=" + CityFb.toString() + ',' + StateFB.toString();
-        //urlargforpetrecord += "&location=" + ZipCodeFB.toString();
+        //urlargforpetrecord += "&location=" + CityFb.toString() + ',' + StateFB.toString();
+        urlargforpetrecord += "&location=" + ZipCodeFB.toString();
     }
     petList.clear();
     urlargforpetrecord += "&count=";
@@ -192,7 +192,7 @@ if(refreshcount == 0) {
         Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
         petObj.FetchXml();
         while (petObj.parsingcomplete) ;
-        if (invaildarg){
+        if (invaildarg == 1 || invaildarg == 2){
             startActivity(new Intent(Home.this, InvaildPage.class));
         }
         gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
@@ -201,7 +201,7 @@ if(refreshcount == 0) {
         Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
         petObj.FetchXml();
         while (petObj.parsingcomplete) ;
-        if (invaildarg){
+        if (invaildarg == 1 || invaildarg == 2){
             startActivity(new Intent(Home.this, InvaildPage.class));
         }
         gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
