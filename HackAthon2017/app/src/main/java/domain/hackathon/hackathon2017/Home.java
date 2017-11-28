@@ -181,7 +181,8 @@ if(refreshcount == 0) {
         }
     }
     else{
-        urlargforpetrecord += "&location=" + ZipCodeFB.toString();
+        urlargforpetrecord += "&location=" + CityFb.toString() + ',' + StateFB.toString();
+        //urlargforpetrecord += "&location=" + ZipCodeFB.toString();
     }
     petList.clear();
     urlargforpetrecord += "&count=";
