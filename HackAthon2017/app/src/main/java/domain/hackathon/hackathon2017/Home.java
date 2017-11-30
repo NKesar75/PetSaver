@@ -315,10 +315,8 @@ public class Home extends AppCompatActivity
             DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.activity_home);
             drawerLayout.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_Search) {
-            finish();
             startActivity(new Intent(Home.this, search.class));
         } else if (id == R.id.nav_favorite) {
-            finish();
             startActivity(new Intent(Home.this, Favorite.class));
         } else if (id == R.id.nav_logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
@@ -327,7 +325,6 @@ public class Home extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mAuth.signOut();
-                            finish();
                             startActivity(new Intent(Home.this, Login.class));
                         }
                     })
@@ -336,7 +333,6 @@ public class Home extends AppCompatActivity
             alertDialog.show();
 
         } else if (id == R.id.nav_info) {
-            finish();
             startActivity(new Intent(Home.this, info.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.activity_home);
