@@ -31,6 +31,7 @@ public class Pet_description extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
     private boolean isitinthedaatabase = false;
+    private boolean databaseisflase = false;
     FirebaseUser user = mAuth.getCurrentUser();
     String userID = user.getUid();
 
@@ -125,7 +126,10 @@ public class Pet_description extends AppCompatActivity {
                     id = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class).intValue();
                     if(dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class) != null)
                     isitstillfav = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class).booleanValue();
-                    if (id == Home.petNumber && isitstillfav == true){
+                    if (id == Home.petNumber ){
+                        if (isitstillfav == true){
+                            databaseisflase = true;
+                        }
                         isitinthedaatabase = true;
                     }
                     index++;
@@ -156,12 +160,16 @@ public class Pet_description extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.fav_btn:
-                if (isitinthedaatabase == false) {
+                if (isitinthedaatabase == false && databaseisflase == false) {
                     myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).child("Id").setValue(Home.petNumber);
                     myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).child("FavOrNot").setValue(true);
                     Toast.makeText(Pet_description.this, "Added to Favorites!!!",
                             Toast.LENGTH_SHORT).show();
                     break;
+                }else if (isitinthedaatabase == true && databaseisflase == false){
+                    myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).child("FavOrNot").setValue(true);
+                    Toast.makeText(Pet_description.this, "Added to Favorites!!!",
+                            Toast.LENGTH_SHORT).show();
                 }
                 else{
                     Toast.makeText(Pet_description.this, "Already added to favs",

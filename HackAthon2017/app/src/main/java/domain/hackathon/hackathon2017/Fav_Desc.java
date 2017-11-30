@@ -150,7 +150,7 @@ public class Fav_Desc extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.fav_btn:
-
+                
                    myRef.child(userID).child("Favs").child("Fav" + (isitinthedaatabase)).child("FavOrNot").setValue(false);
                     Toast.makeText(this, "Removed From Favorites!!!",
                             Toast.LENGTH_SHORT).show();
