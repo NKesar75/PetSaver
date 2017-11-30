@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.gcm.PeriodicTask;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,7 +68,6 @@ public class Home extends AppCompatActivity
 
     int refreshcount = 0;
     DataSnapshot mdatasnapshot;
-    GestureDetectorCompat gestureObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +79,16 @@ public class Home extends AppCompatActivity
         stubGrid.inflate();
         gridView = (GridView) findViewById(R.id.mygridview);
         gridView.setOnItemClickListener(onItemClick);
+        gridView.setOnTouchListener(new OnSwipeTouchListener(this) {
+            @Override
+            public void onSwipeRight() {
+                Toast.makeText(Home.this, "right", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onSwipeLeft() {
+                Toast.makeText(Home.this, "left", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         draw = (DrawerLayout) findViewById(R.id.activity_home);
         toggle = new ActionBarDrawerToggle(this, draw, R.string.open, R.string.close);
@@ -122,7 +132,6 @@ public class Home extends AppCompatActivity
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-        gestureObject = new GestureDetectorCompat(this, new LearnGesture());
 
     }
 
@@ -313,34 +322,5 @@ public class Home extends AppCompatActivity
     }
 
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
-        this.gestureObject.onTouchEvent(event);
-        return super.onTouchEvent(event);
-    }
 
-    class LearnGesture extends GestureDetector.SimpleOnGestureListener {
-
-        @Override
-        public boolean onFling(MotionEvent event1, MotionEvent event2, float VelocityX, float VelocityY){
-            if (event2.getX() > event1.getX())
-            {
-                if (offestformuiltplerecords >= (numberofpets * 2))
-                {
-                    offestformuiltplerecords -= (numberofpets * 3);
-                    refresh();
-                }
-            }
-            else
-            {
-                if (event2.getX() < event1.getX())
-                {
-                    offestformuiltplerecords += numberofpets;
-                    refresh();
-                }
-            }
-            return true;
-        }
-    }
 }
