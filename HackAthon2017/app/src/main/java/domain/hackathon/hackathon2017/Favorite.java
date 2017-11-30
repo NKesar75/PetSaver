@@ -172,8 +172,10 @@ public class Favorite extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
+            finish();
             startActivity(new Intent(Favorite.this, Home.class));
         } else if (id == R.id.nav_Search) {
+            finish();
             startActivity(new Intent(Favorite.this, search.class));
         } else if (id == R.id.nav_favorite) {
             DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.activity_favorite);
@@ -185,6 +187,7 @@ public class Favorite extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mAuth.signOut();
+                            finish();
                             startActivity(new Intent(Favorite.this, Login.class));
                         }
                     })
@@ -192,6 +195,7 @@ public class Favorite extends AppCompatActivity
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         } else if (id == R.id.nav_info) {
+            finish();
             startActivity(new Intent(Favorite.this, info.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.activity_favorite);

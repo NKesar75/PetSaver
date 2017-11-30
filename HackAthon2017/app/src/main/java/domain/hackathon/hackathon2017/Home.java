@@ -147,36 +147,51 @@ public class Home extends AppCompatActivity
     private void showdata(DataSnapshot dataSnapshot) {
 
         if (refreshcount == 0) {
-            boolean breedfb;
-            boolean animaltypefb;
-            boolean genderfb;
-            boolean agefb;
-            boolean sizefb;
-            boolean localfb;
-            boolean citystatefb;
-            String breedtxtfb;
-            String CityFb;
-            String StateFB;
-            String ZipCodeFB;
-            String agetxtfb;
-            String sizetxtfb;
-            String gendertxtfb;
-            String animaltypetxtfb;
+            boolean breedfb = false;
+            boolean animaltypefb = false;
+            boolean genderfb = false;
+            boolean agefb = false;
+            boolean sizefb = false;
+            boolean localfb = false;
+            boolean citystatefb = false;
+            String breedtxtfb = "";
+            String CityFb = "";
+            String StateFB = "";
+            String ZipCodeFB = "";
+            String agetxtfb = "";
+            String sizetxtfb = "";
+            String gendertxtfb = "";
+            String animaltypetxtfb = "";
 
+            if (dataSnapshot.child(USerid).child("Search").child("breedcb").getValue(boolean.class) != null)
             breedfb = dataSnapshot.child(USerid).child("Search").child("breedcb").getValue(boolean.class).booleanValue();
+            if (dataSnapshot.child(USerid).child("Search").child("breedtext").getValue(String.class).toString() != null)
             breedtxtfb = dataSnapshot.child(USerid).child("Search").child("breedtext").getValue(String.class).toString();
+            if (dataSnapshot.child(USerid).child("Search").child("animaltypecb").getValue(boolean.class) != null)
             animaltypefb = dataSnapshot.child(USerid).child("Search").child("animaltypecb").getValue(boolean.class).booleanValue();
+            if (dataSnapshot.child(USerid).child("Search").child("animaltypetext").getValue(String.class) != null)
             animaltypetxtfb = dataSnapshot.child(USerid).child("Search").child("animaltypetext").getValue(String.class).toString();
+            if (dataSnapshot.child(USerid).child("Search").child("gendercb").getValue(boolean.class) != null)
             genderfb = dataSnapshot.child(USerid).child("Search").child("gendercb").getValue(boolean.class).booleanValue();
+            if (dataSnapshot.child(USerid).child("Search").child("gendertxt").getValue(String.class) != null)
             gendertxtfb = dataSnapshot.child(USerid).child("Search").child("gendertxt").getValue(String.class).toString();
+            if (dataSnapshot.child(USerid).child("Search").child("agecb").getValue(boolean.class) != null)
             agefb = dataSnapshot.child(USerid).child("Search").child("agecb").getValue(boolean.class).booleanValue();
+            if (dataSnapshot.child(USerid).child("Search").child("agetxt").getValue(String.class) != null)
             agetxtfb = dataSnapshot.child(USerid).child("Search").child("agetxt").getValue(String.class).toString();
+            if (dataSnapshot.child(USerid).child("Search").child("sizecb").getValue(boolean.class) != null)
             sizefb = dataSnapshot.child(USerid).child("Search").child("sizecb").getValue(boolean.class).booleanValue();
+            if (dataSnapshot.child(USerid).child("Search").child("sizetxt").getValue(String.class) != null)
             sizetxtfb = dataSnapshot.child(USerid).child("Search").child("sizetxt").getValue(String.class).toString();
+            if (dataSnapshot.child(USerid).child("Search").child("locationcb").getValue(boolean.class) != null)
             localfb = dataSnapshot.child(USerid).child("Search").child("locationcb").getValue(boolean.class).booleanValue();
+            if (dataSnapshot.child(USerid).child("Search").child("locationrb").getValue(boolean.class) != null)
             citystatefb = dataSnapshot.child(USerid).child("Search").child("locationrb").getValue(boolean.class).booleanValue();
+            if (dataSnapshot.child(USerid).child("Search").child("Citytxt").getValue(String.class) != null)
             CityFb = dataSnapshot.child(USerid).child("Search").child("Citytxt").getValue(String.class).toString();
+            if (dataSnapshot.child(USerid).child("Search").child("Statetxt").getValue(String.class) != null)
             StateFB = dataSnapshot.child(USerid).child("Search").child("Statetxt").getValue(String.class).toString();
+            if (dataSnapshot.child(USerid).child("Search").child("Zipcodetxt").getValue(String.class) != null)
             ZipCodeFB = dataSnapshot.child(USerid).child("Search").child("Zipcodetxt").getValue(String.class).toString();
 
     urlargforpetrecord = "&output=basic";
@@ -300,8 +315,10 @@ public class Home extends AppCompatActivity
             DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.activity_home);
             drawerLayout.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_Search) {
+            finish();
             startActivity(new Intent(Home.this, search.class));
         } else if (id == R.id.nav_favorite) {
+            finish();
             startActivity(new Intent(Home.this, Favorite.class));
         } else if (id == R.id.nav_logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
@@ -310,6 +327,7 @@ public class Home extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mAuth.signOut();
+                            finish();
                             startActivity(new Intent(Home.this, Login.class));
                         }
                     })
@@ -318,6 +336,7 @@ public class Home extends AppCompatActivity
             alertDialog.show();
 
         } else if (id == R.id.nav_info) {
+            finish();
             startActivity(new Intent(Home.this, info.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.activity_home);
