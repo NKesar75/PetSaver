@@ -1,27 +1,38 @@
 package domain.hackathon.hackathon2017;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Fav_Desc extends AppCompatActivity {
 
     private static final String TAG = "Fav_Desc";
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference myRef;
+    private int isitinthedaatabase = 0;
     FirebaseUser user = mAuth.getCurrentUser();
     String userID = user.getUid();
-
+    long amountofchildren = 0;
     private EditText Pet_name;
     private EditText Pet_age;
     private EditText Pet_gender;
@@ -79,13 +90,75 @@ public class Fav_Desc extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference();
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                amountofchildren = dataSnapshot.child(userID).child("Favs").getChildrenCount();
+                FirebaseUser user = mAuth.getCurrentUser();
+                String USerid = user.getUid();
+                int index = 1;
+                int id = 0;
+                isitinthedaatabase = 0;
+                for (int i = 0; i <amountofchildren; i++) {
+                    if(dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class) != null) {
+                        id = dataSnapshot.child(USerid).child("Favs").child("Fav" + index).child("Id").getValue(int.class).intValue();
+                    }
 
+                    if (id == Favorite.petNumber1){
+                        isitinthedaatabase = index;
+                       break;
+                    }
+                    index++;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.favorite_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==android.R.id.home)
+        switch (item.getItemId()) {
+            case R.id.fav_btn:
 
+                   myRef.child(userID).child("Favs").child("Fav" + (isitinthedaatabase)).child("FavOrNot").setValue(false);
+                    Toast.makeText(this, "Removed From Favorites!!!",
+                            Toast.LENGTH_SHORT).show();
+               break;
+
+        }
+
+        if(item.getItemId()==android.R.id.home)
             finish();
 
         return super.onOptionsItemSelected(item);

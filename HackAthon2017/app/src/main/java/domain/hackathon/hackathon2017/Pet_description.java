@@ -118,12 +118,17 @@ public class Pet_description extends AppCompatActivity {
                 String USerid = user.getUid();
                 int index = 1;
                 int id = 0;
+                boolean isitstillfav = false;
                 isitinthedaatabase = false;
-                for (int i = 0; i < dataSnapshot.child(USerid).child("Favs").getChildrenCount(); i++) {
-                    id = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index++)).getValue(int.class).intValue();
-                    if (id == Home.petNumber){
+                for (int i = 0; i <amountofchildren; i++) {
+                    if(dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class) != null)
+                    id = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class).intValue();
+                    if(dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class) != null)
+                    isitstillfav = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class).booleanValue();
+                    if (id == Home.petNumber && isitstillfav == true){
                         isitinthedaatabase = true;
                     }
+                    index++;
                 }
             }
 
@@ -152,7 +157,8 @@ public class Pet_description extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.fav_btn:
                 if (isitinthedaatabase == false) {
-                    myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).setValue(Home.petNumber);
+                    myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).child("Id").setValue(Home.petNumber);
+                    myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).child("FavOrNot").setValue(true);
                     Toast.makeText(Pet_description.this, "Added to Favorites!!!",
                             Toast.LENGTH_SHORT).show();
                     break;

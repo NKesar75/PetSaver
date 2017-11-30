@@ -109,11 +109,20 @@ public class Favorite extends AppCompatActivity
         petList.clear();
         int index = 1;
         int id = 0;
-        for (int i = 0; i < dataSnapshot.child(USerid).child("Favs").getChildrenCount(); i++) {
-            id = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index++)).getValue(int.class).intValue();
-            HandlexmlFav obj = new HandlexmlFav(urlbase + id);
-            obj.FetchXml();
-            while (obj.parsingcomplete) ;
+        boolean isitstillfav = false;
+        for (int i = 0; i < dataSnapshot.child(USerid).child("Favs").getChildrenCount(); i++)
+        {
+            if(dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class) != null)
+            isitstillfav =  dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class).booleanValue();
+            if (isitstillfav)
+            {
+                if(dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class) != null)
+                id = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class).intValue();
+                HandlexmlFav obj = new HandlexmlFav(urlbase + id);
+                obj.FetchXml();
+                while (obj.parsingcomplete) ;
+            }
+            index++;
         }
         gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
         gridView.setAdapter(gridViewAdapter);
