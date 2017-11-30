@@ -38,22 +38,37 @@ public class InvaildPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invaild_page);
         invalidMessage = (EditText) findViewById(R.id.invaildpagetxt);
-
-        invalidMessage.setText("Please Check Your Spelling");
-
-        if(getSupportActionBar()!= null)
-        {
+        if (Home.invaildarg == 1) {
+            invalidMessage.setText("Please Check Your Spelling");
+        } else {
+            invalidMessage.setText("Could Not Find Results");
+        }
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==android.R.id.home)
-            finish();
-            startActivity(new Intent(this,search.class));
+        if (item.getItemId() == android.R.id.home) {
+            if (Home.invaildarg == 1) {
+                finish();
+                startActivity(new Intent(this, search.class));
+            } else {
+                if (Home.offestformuiltplerecords >= Home.numberofpets) {
+                    Home.offestformuiltplerecords -= (Home.numberofpets * 3);
+                    finish();
+                    startActivity(new Intent(this, Home.class));
+                } else {
+                    finish();
+                    startActivity(new Intent(this, search.class));
+                }
+            }
+        }
         return super.onOptionsItemSelected(item);
+
     }
 
 }

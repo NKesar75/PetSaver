@@ -42,7 +42,7 @@ public class Home extends AppCompatActivity
     private String urlbase = "http://api.petfinder.com/"; //base url
     private String urlkey = "key=58fe2e272bebddbc0f5e66901f239055"; //key for api
     private String urlmethodfindmuiltplerecords = "pet.find?"; //used for getting a random pet
-    private int offestformuiltplerecords = 0; //used to get more records if they want to keep looking
+    public static int offestformuiltplerecords = 0; //used to get more records if they want to keep looking
     private String urlargforpetrecord = "&output=basic"; //argumentpassedintoparmaert
     private String urlShelter = "http://api.petfinder.com/shelter.get?key=58fe2e272bebddbc0f5e66901f239055&id=";
 
@@ -54,13 +54,13 @@ public class Home extends AppCompatActivity
     FirebaseUser user = mAuth.getCurrentUser();
     String USerid = user.getUid();
     public static int petNumber;
-    public static boolean invaildarg;
+    public static int invaildarg;
     public static List<PetInfo> petList = new ArrayList<>();
     private ViewStub stubGrid;
     private GridView gridView;
     private GridViewAdapter gridViewAdapter;
 
-    private int numberofpets = 21;
+    public static int numberofpets = 18;
 
     private DrawerLayout draw;
     private ActionBarDrawerToggle toggle;
@@ -166,56 +166,59 @@ public class Home extends AppCompatActivity
             StateFB = dataSnapshot.child(USerid).child("Search").child("Statetxt").getValue(String.class).toString();
             ZipCodeFB = dataSnapshot.child(USerid).child("Search").child("Zipcodetxt").getValue(String.class).toString();
 
-            if (breedfb) {
-                urlargforpetrecord += "&breed=" + breedtxtfb;
-            }
-            if (animaltypefb) {
-                urlargforpetrecord += "&animal=" + animaltypetxtfb.toString();
-            }
-            if (genderfb) {
-                urlargforpetrecord += "&sex=" + gendertxtfb.toString();
-            }
-            if (agefb) {
-                urlargforpetrecord += "&age=" + agetxtfb.toString();
-            }
-            if (sizefb) {
-                urlargforpetrecord += "&size=" + sizetxtfb.toString();
-            }
-            if (localfb) {
-                if (citystatefb) {
-                    urlargforpetrecord += "&location=" + CityFb.toString() + ',' + StateFB.toString();
-                } else {
-                    urlargforpetrecord += "&location=" + ZipCodeFB.toString();
-                }
-            } else {
-                urlargforpetrecord += "&location=" + CityFb.toString() + ',' + StateFB.toString();
-                //urlargforpetrecord += "&location=" + ZipCodeFB.toString();
-            }
-            petList.clear();
-            urlargforpetrecord += "&count=";
-            offestformuiltplerecords += numberofpets;
-            urlargforpetrecord += offestformuiltplerecords;
-            if (offestformuiltplerecords <= numberofpets) {
-                Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
-                petObj.FetchXml();
-                while (petObj.parsingcomplete) ;
-                if (invaildarg) {
-                    startActivity(new Intent(Home.this, InvaildPage.class));
-                }
-                gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
-                gridView.setAdapter(gridViewAdapter);
-            } else {
-                Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
-                petObj.FetchXml();
-                while (petObj.parsingcomplete) ;
-                if (invaildarg) {
-                    startActivity(new Intent(Home.this, InvaildPage.class));
-                }
-                gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
-                gridView.setAdapter(gridViewAdapter);
-            }
-            refreshcount = 1;
+    urlargforpetrecord = "&output=basic";
+
+    if (breedfb){
+        urlargforpetrecord += "&breed=" + breedtxtfb;
+    }
+    if (animaltypefb){
+        urlargforpetrecord += "&animal=" + animaltypetxtfb.toString();
+    }
+    if (genderfb){
+        urlargforpetrecord += "&sex=" + gendertxtfb.toString();
+    }
+    if (agefb){
+        urlargforpetrecord += "&age=" + agetxtfb.toString();
+    }
+    if (sizefb){
+        urlargforpetrecord += "&size=" + sizetxtfb.toString();
+    }
+    if (localfb){
+        if (citystatefb){
+            urlargforpetrecord += "&location=" + CityFb.toString() + ',' + StateFB.toString();
+        } else {
+            urlargforpetrecord += "&location=" + ZipCodeFB.toString();
         }
+    }
+    else{
+        //urlargforpetrecord += "&location=" + CityFb.toString() + ',' + StateFB.toString();
+        urlargforpetrecord += "&location=" + ZipCodeFB.toString();
+    }
+    petList.clear();
+    urlargforpetrecord += "&count=";
+    offestformuiltplerecords += numberofpets;
+    urlargforpetrecord += numberofpets;
+    if (offestformuiltplerecords <= numberofpets) {
+        Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
+        petObj.FetchXml();
+        while (petObj.parsingcomplete) ;
+        if (invaildarg == 1 || invaildarg == 2){
+            startActivity(new Intent(Home.this, InvaildPage.class));
+        }
+        gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
+        gridView.setAdapter(gridViewAdapter);
+    } else {
+        Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
+        petObj.FetchXml();
+        while (petObj.parsingcomplete) ;
+        if (invaildarg == 1 || invaildarg == 2){
+            startActivity(new Intent(Home.this, InvaildPage.class));
+        }
+        gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
+        gridView.setAdapter(gridViewAdapter);
+    }
+    refreshcount = 1;
+}
     }
 
     AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {

@@ -76,7 +76,7 @@ public class Handlexml {
         String text = null;
         try {
             event = myparser.getEventType();
-            Home.invaildarg = false;
+            Home.invaildarg = 0;
             while (event != XmlPullParser.END_DOCUMENT) {
                 String name = myparser.getName();
                 switch (event) {
@@ -105,7 +105,7 @@ public class Handlexml {
                                 break;
                             case "message":
                                 if (text.contains("invalid arguments") || text.contains("Invalid geographical location"))
-                                    Home.invaildarg = true;
+                                    Home.invaildarg = 1;
                                 break;
                             case "shelterId":
                                 shelterid = text;
@@ -120,7 +120,7 @@ public class Handlexml {
                             case "photo":
                                 if (hasbeencalledimage == false) {
                                     image = text;
-                                    Home.invaildarg = false;
+                                    Home.invaildarg = 0;
                                     Home.petList.add(new PetInfo(image,age,Integer.parseInt(petid)));
                                     hasbeencalledimage = true;
                                 }
@@ -128,7 +128,7 @@ public class Handlexml {
                             default:
                                 if(hasbeencalledimage == false)
                                 {
-                                    Home.invaildarg = true;
+                                    Home.invaildarg = 2;
                                 }
                                 break;
 

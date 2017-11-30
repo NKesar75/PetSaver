@@ -363,6 +363,7 @@ public class search extends AppCompatActivity
                 mRootRef.child(USerid).child("Search").child("Statetxt").setValue(Statelocaltext);
 
                 startActivity(new Intent(search.this, Home.class));
+                Home.offestformuiltplerecords = 0;
             }
         });
 
