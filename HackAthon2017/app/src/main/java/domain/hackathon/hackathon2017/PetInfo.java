@@ -83,7 +83,7 @@ public class PetInfo
         this.petnumber = petnumber;
         this.breed = breed;
         this.animalname = animalname;
-        shelterid = shleterid;
+        this.shelterid = shleterid;
         this.animaltype = animaltype;
         this.gender = gender;
         this.Size = size;
