@@ -30,7 +30,7 @@ public class Pet_description extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
-
+    private boolean isitinthedaatabase = false;
     FirebaseUser user = mAuth.getCurrentUser();
     String userID = user.getUid();
 
@@ -113,7 +113,18 @@ public class Pet_description extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-               amountofchildren = dataSnapshot.child(userID).child("Favs").getChildrenCount();
+                amountofchildren = dataSnapshot.child(userID).child("Favs").getChildrenCount();
+                FirebaseUser user = mAuth.getCurrentUser();
+                String USerid = user.getUid();
+                int index = 1;
+                int id = 0;
+                isitinthedaatabase = false;
+                for (int i = 0; i < dataSnapshot.child(USerid).child("Favs").getChildrenCount(); i++) {
+                    id = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index++)).getValue(int.class).intValue();
+                    if (id == Home.petNumber){
+                        isitinthedaatabase = true;
+                    }
+                }
             }
 
             @Override
@@ -140,10 +151,16 @@ public class Pet_description extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.fav_btn:
-                myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).setValue(Home.petNumber);
-                Toast.makeText(Pet_description.this, "Added to Favorites!!!",
-                        Toast.LENGTH_SHORT).show();
-                break;
+                if (isitinthedaatabase == false) {
+                    myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).setValue(Home.petNumber);
+                    Toast.makeText(Pet_description.this, "Added to Favorites!!!",
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                else{
+                    Toast.makeText(Pet_description.this, "Already added to favs",
+                            Toast.LENGTH_SHORT).show();
+                }
         }
 
         if(item.getItemId()==android.R.id.home)
