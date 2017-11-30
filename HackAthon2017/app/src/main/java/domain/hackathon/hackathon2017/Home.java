@@ -82,11 +82,15 @@ public class Home extends AppCompatActivity
         gridView.setOnTouchListener(new OnSwipeTouchListener(this) {
             @Override
             public void onSwipeRight() {
-                Toast.makeText(Home.this, "right", Toast.LENGTH_SHORT).show();
+                if (offestformuiltplerecords >= (numberofpets * 2)) {
+                    offestformuiltplerecords -= (numberofpets * 3);
+                    refresh();
+                }
             }
             @Override
             public void onSwipeLeft() {
-                Toast.makeText(Home.this, "left", Toast.LENGTH_SHORT).show();
+                offestformuiltplerecords += numberofpets;
+                refresh();
             }
         });
 
