@@ -114,6 +114,7 @@ public class info extends AppCompatActivity
                             public void onClick(DialogInterface dialog, int which) {
                                 mAuth.signOut();
                                 startActivity(new Intent(info.this,Login.class));
+                                finish();
                             }
                         })
                         .setNegativeButton("Cancel",null);

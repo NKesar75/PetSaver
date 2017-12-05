@@ -186,6 +186,7 @@ public class Favorite extends AppCompatActivity
                         public void onClick(DialogInterface dialog, int which) {
                             mAuth.signOut();
                             startActivity(new Intent(Favorite.this, Login.class));
+                            finish();
                         }
                     })
                     .setNegativeButton("Cancel", null);
