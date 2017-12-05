@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,11 +33,27 @@ public class InvaildPage extends AppCompatActivity {
     FirebaseUser user = mAuth.getCurrentUser();
     String USerid = user.getUid();
     private EditText invalidMessage;
+    TextView swipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invaild_page);
+        swipe = (TextView) findViewById(R.id.txtviewforswipe);
+        swipe.setOnTouchListener(new OnSwipeTouchListener(this) {
+            @Override
+            public void onSwipeRight() {
+                if (Home.offestformuiltplerecords >= (Home.numberofpets * 2)) {
+                    Home.offestformuiltplerecords -= (Home.numberofpets * 3);
+                    finish();
+                    startActivity(new Intent(InvaildPage.this, Home.class));
+
+                }
+            }
+            @Override
+            public void onSwipeLeft() {
+            }
+        });
         invalidMessage = (EditText) findViewById(R.id.invaildpagetxt);
         if (Home.invaildarg == 1) {
             invalidMessage.setText("Please Check Your Spelling");

@@ -231,7 +231,18 @@ public class Home extends AppCompatActivity
                 petObj.FetchXml();
                 while (petObj.parsingcomplete) ;
                 if (invaildarg == 1 || invaildarg == 2) {
-                    startActivity(new Intent(Home.this, InvaildPage.class));
+                    AlertDialog alertDialog = new AlertDialog.Builder(Home.this).create();
+                    alertDialog.setTitle("Error Could not find information");
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "okay",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    startActivity(new Intent(Home.this, search.class));
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                   // startActivity(new Intent(Home.this, InvaildPage.class));
                 }
                 gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
                 gridView.setAdapter(gridViewAdapter);
@@ -240,7 +251,20 @@ public class Home extends AppCompatActivity
                 petObj.FetchXml();
                 while (petObj.parsingcomplete) ;
                 if (invaildarg == 1 || invaildarg == 2) {
-                    startActivity(new Intent(Home.this, InvaildPage.class));
+                    AlertDialog alertDialog = new AlertDialog.Builder(Home.this).create();
+                    alertDialog.setTitle("Error Could not find information");
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "okay",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (offestformuiltplerecords >= (numberofpets * 2)) {
+                                        offestformuiltplerecords -= (numberofpets * 3);
+                                        refresh();
+                                    }
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                   // startActivity(new Intent(Home.this, InvaildPage.class));
                 }
                 gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
                 gridView.setAdapter(gridViewAdapter);
