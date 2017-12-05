@@ -326,6 +326,7 @@ public class Home extends AppCompatActivity
                         public void onClick(DialogInterface dialog, int which) {
                             mAuth.signOut();
                             startActivity(new Intent(Home.this, Login.class));
+                            finish();
                         }
                     })
                     .setNegativeButton("Cancel", null);

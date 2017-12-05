@@ -767,6 +767,7 @@ public class search extends AppCompatActivity
                         public void onClick(DialogInterface dialog, int which) {
                             mAuth.signOut();
                             startActivity(new Intent(search.this,Login.class));
+                            finish();
                         }
                     })
                     .setNegativeButton("Cancel",null);
