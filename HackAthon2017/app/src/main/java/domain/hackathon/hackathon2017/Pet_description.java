@@ -32,9 +32,13 @@ public class Pet_description extends AppCompatActivity {
     private DatabaseReference myRef;
     private boolean isitinthedaatabase = false;
     private boolean databaseisflase = false;
+    private DataSnapshot mdatasnap;
+    private int refreshcount = 0;
     FirebaseUser user = mAuth.getCurrentUser();
     String userID = user.getUid();
-
+    private int tempfavnumber;
+    private Menu mMenu;
+    private boolean favonoroff = false;
     private EditText Pet_name;
     private EditText Pet_age;
     private EditText Pet_gender;
@@ -60,31 +64,31 @@ public class Pet_description extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_description);
-        Pet_image = (ImageView)findViewById(R.id.PD_IMAGe);
-        Pet_name   = (EditText)findViewById(R.id.Name_pd);
-        Pet_age    = (EditText)findViewById(R.id.Age_pd);
-        Pet_gender = (EditText)findViewById(R.id.Gender_pd);
-        Pet_type   = (EditText)findViewById(R.id.Type_pd);
-        Pet_size   = (EditText)findViewById(R.id.Size_pd);
-        Pet_breed  = (EditText)findViewById(R.id.Breed_pd);
-        Shelterinfobtn = (Button)findViewById(R.id.Shelter_Info);
-        urlargforpetrecord += "&id="+ Home.petNumber;
+        Pet_image = (ImageView) findViewById(R.id.PD_IMAGe);
+        Pet_name = (EditText) findViewById(R.id.Name_pd);
+        Pet_age = (EditText) findViewById(R.id.Age_pd);
+        Pet_gender = (EditText) findViewById(R.id.Gender_pd);
+        Pet_type = (EditText) findViewById(R.id.Type_pd);
+        Pet_size = (EditText) findViewById(R.id.Size_pd);
+        Pet_breed = (EditText) findViewById(R.id.Breed_pd);
+        Shelterinfobtn = (Button) findViewById(R.id.Shelter_Info);
+        urlargforpetrecord += "&id=" + Home.petNumber;
         HandlexmlDesc petObj = new HandlexmlDesc(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
         petObj.FetchXml();
-        while(petObj.parsingcomplete);
+        while (petObj.parsingcomplete) ;
         shelterid = petdescinfo.getShelterid();
-        Pet_name.setText("NAME: "+ petdescinfo.getAnimalname());
-        Pet_age.setText("AGE: "+ petdescinfo.getAge());
-        Pet_gender.setText("GENDER: "+ petdescinfo.getGender());
-        Pet_type.setText("TYPE: "+ petdescinfo.getAnimaltype());
-        Pet_size.setText("SIZE: "+ petdescinfo.getSize());
-        Pet_breed.setText("BREED: "+ petdescinfo.getBreed());
+        Pet_name.setText("NAME: " + petdescinfo.getAnimalname());
+        Pet_age.setText("AGE: " + petdescinfo.getAge());
+        Pet_gender.setText("GENDER: " + petdescinfo.getGender());
+        Pet_type.setText("TYPE: " + petdescinfo.getAnimaltype());
+        Pet_size.setText("SIZE: " + petdescinfo.getSize());
+        Pet_breed.setText("BREED: " + petdescinfo.getBreed());
         Glide.with(Pet_description.this).load(petdescinfo.getImageid().toString()).into(Pet_image);
 
         Shelterinfobtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Pet_description.this,ShelterInfo.class));
+                startActivity(new Intent(Pet_description.this, ShelterInfo.class));
             }
         });
 
@@ -114,26 +118,8 @@ public class Pet_description extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                amountofchildren = dataSnapshot.child(userID).child("Favs").getChildrenCount();
-                FirebaseUser user = mAuth.getCurrentUser();
-                String USerid = user.getUid();
-                int index = 1;
-                int id = 0;
-                boolean isitstillfav = false;
-                isitinthedaatabase = false;
-                for (int i = 0; i <amountofchildren; i++) {
-                    if(dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class) != null)
-                    id = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class).intValue();
-                    if(dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class) != null)
-                    isitstillfav = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class).booleanValue();
-                    if (id == Home.petNumber ){
-                        if (isitstillfav == true){
-                            databaseisflase = true;
-                        }
-                        isitinthedaatabase = true;
-                    }
-                    index++;
-                }
+                mdatasnap = dataSnapshot;
+                showdata(dataSnapshot);
             }
 
             @Override
@@ -143,8 +129,7 @@ public class Pet_description extends AppCompatActivity {
             }
         });
 
-        if(getSupportActionBar()!= null)
-        {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -152,34 +137,77 @@ public class Pet_description extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.favorite_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        mMenu = menu;
+        menu.clear();
+        if (favonoroff == true) {
+            getMenuInflater().inflate(R.menu.unfav_menu, menu);
+            return super.onCreateOptionsMenu(menu);
+        }
+        else {
+            getMenuInflater().inflate(R.menu.favorite_menu, menu);
+            return super.onCreateOptionsMenu(menu);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        refresh();
         switch (item.getItemId()) {
-            case R.id.fav_btn:
+            case R.id.fav_btn: {
                 if (isitinthedaatabase == false && databaseisflase == false) {
                     myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).child("Id").setValue(Home.petNumber);
                     myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).child("FavOrNot").setValue(true);
-                    Toast.makeText(Pet_description.this, "Added to Favorites!!!",
-                            Toast.LENGTH_SHORT).show();
                     break;
-                }else if (isitinthedaatabase == true && databaseisflase == false){
-                    myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).child("FavOrNot").setValue(true);
-                    Toast.makeText(Pet_description.this, "Added to Favorites!!!",
-                            Toast.LENGTH_SHORT).show();
+                } else if (isitinthedaatabase == true && databaseisflase == false) {
+                    myRef.child(userID).child("Favs").child("Fav" + (tempfavnumber)).child("FavOrNot").setValue(true);
                 }
-                else{
-                    Toast.makeText(Pet_description.this, "Already added to favs",
-                            Toast.LENGTH_SHORT).show();
-                }
+                favonoroff = true;
+                onCreateOptionsMenu(mMenu);
+                break;
+            }
+            case R.id.unfavorite_btn: {
+                myRef.child(userID).child("Favs").child("Fav" + (tempfavnumber)).child("FavOrNot").setValue(false);
+                favonoroff = false;
+                onCreateOptionsMenu(mMenu);
+                break;
+            }
         }
 
-        if(item.getItemId()==android.R.id.home)
+        if (item.getItemId() == android.R.id.home)
             finish();
 
         return super.onOptionsItemSelected(item);
+    }
+    private void refresh() {
+        refreshcount = 0;
+        showdata(mdatasnap);
+    }
+    private void showdata(DataSnapshot dataSnapshot){
+        if (refreshcount == 0) {
+            amountofchildren = dataSnapshot.child(userID).child("Favs").getChildrenCount();
+            FirebaseUser user = mAuth.getCurrentUser();
+            String USerid = user.getUid();
+            int index = 1;
+            int id = 0;
+            boolean isitstillfav = false;
+            isitinthedaatabase = false;
+            for (int i = 0; i < amountofchildren; i++) {
+                if (dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class) != null)
+                    id = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class).intValue();
+                if (dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class) != null)
+                    isitstillfav = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class).booleanValue();
+                if (id == Home.petNumber) {
+                    if (isitstillfav == true) {
+                        databaseisflase = true;
+                    }
+                    else{
+                        databaseisflase = false;
+                    }
+                    tempfavnumber = index;
+                    isitinthedaatabase = true;
+                }
+                index++;
+            }
+        }
     }
 }
