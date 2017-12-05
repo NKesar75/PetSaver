@@ -8,5 +8,5 @@
             android:icon="@android:drawable/star_big_on"
             android:title="Favorite"
             app:showAsAction="always" />
-    </group>>
+    </group>
 </menu>

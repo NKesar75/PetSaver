@@ -142,7 +142,7 @@ public class Fav_Desc extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.favorite_menu, menu);
+        getMenuInflater().inflate(R.menu.unfav_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
