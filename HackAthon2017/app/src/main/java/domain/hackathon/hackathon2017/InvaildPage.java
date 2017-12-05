@@ -72,7 +72,7 @@ public class InvaildPage extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        
+
     }
 
 
