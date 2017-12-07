@@ -1,5 +1,7 @@
 package domain.hackathon.hackathon2017;
 
+import android.util.Log;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -28,7 +30,6 @@ public class Handlexml {
     private String urlstring = null;
     XmlPullParserFactory xmlfactoryobj;
     public volatile boolean parsingcomplete = true;
-
 
 
     public Handlexml(String url) {
@@ -120,8 +121,8 @@ public class Handlexml {
                             case "photo":
                                 if (hasbeencalledimage == false) {
                                     image = text;
+                                    Home.petList.add( new PetInfo(image,age,Integer.parseInt(petid)));
                                     Home.invaildarg = 0;
-                                    Home.petList.add(new PetInfo(image,age,Integer.parseInt(petid)));
                                     hasbeencalledimage = true;
                                 }
                                 break;

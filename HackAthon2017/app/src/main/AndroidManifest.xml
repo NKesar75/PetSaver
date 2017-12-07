@@ -31,7 +31,7 @@
         <activity android:name=".Login" />
         <activity android:name=".info" />
         <activity android:name=".Fav_ShelterInfo" />
-        <activity android:name=".InvaildPage"></activity>
+        <activity android:name=".InvaildPage" />
     </application>
 
 </manifest>

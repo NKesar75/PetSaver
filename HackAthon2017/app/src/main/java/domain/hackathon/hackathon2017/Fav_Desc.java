@@ -39,6 +39,8 @@ public class Fav_Desc extends AppCompatActivity {
     private EditText Pet_type;
     private EditText Pet_size;
     private EditText Pet_breed;
+    private boolean favonoroff = true;
+    private Menu mMenu;
     private ImageView Pet_image;
     private Button Shelterinfobtn;
     public static String shelterid;
@@ -47,7 +49,7 @@ public class Fav_Desc extends AppCompatActivity {
     private String urlkey = "key=58fe2e272bebddbc0f5e66901f239055"; //key for api
     private String urlmethodfindmuiltplerecords = "pet.get?"; //used for getting a random pet
     private String urlargforpetrecord = ""; //argumentpassedintoparmaert
-    private String urlShelter = "http://api.petfinder.com/shelter.get?key=58fe2e272bebddbc0f5e66901f239055&id=";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,10 +125,10 @@ public class Fav_Desc extends AppCompatActivity {
                         id = dataSnapshot.child(USerid).child("Favs").child("Fav" + index).child("Id").getValue(int.class).intValue();
                     }
 
-                    if (id == Favorite.petNumber1){
-                        isitinthedaatabase = index;
-                       break;
-                    }
+                   if (id == Favorite.petNumber1){
+                       isitinthedaatabase = index;
+                      break;
+                   }
                     index++;
                 }
 
@@ -142,20 +144,31 @@ public class Fav_Desc extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.favorite_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        mMenu = menu;
+        menu.clear();
+        if (favonoroff == true) {
+         getMenuInflater().inflate(R.menu.favorite_menu, menu);
+            return super.onCreateOptionsMenu(menu);
+        }
+        else {
+            getMenuInflater().inflate(R.menu.unfav_menu, menu);
+            return super.onCreateOptionsMenu(menu);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.fav_btn:
-                
+            case R.id.unfavorite_btn:
                    myRef.child(userID).child("Favs").child("Fav" + (isitinthedaatabase)).child("FavOrNot").setValue(false);
-                    Toast.makeText(this, "Removed From Favorites!!!",
-                            Toast.LENGTH_SHORT).show();
+                    favonoroff = false;
+                onCreateOptionsMenu(mMenu);
                break;
-
+            case R.id.fav_btn:
+                favonoroff = true;
+                myRef.child(userID).child("Favs").child("Fav" + (isitinthedaatabase)).child("FavOrNot").setValue(true);
+                onCreateOptionsMenu(mMenu);
+                break;
         }
 
         if(item.getItemId()==android.R.id.home)
