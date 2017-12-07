@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -146,6 +147,8 @@ public class Home extends AppCompatActivity
     }
 
     private void showdata(DataSnapshot dataSnapshot) {
+        petList.clear();
+
 
         if (refreshcount == 0) {
             boolean breedfb = false;
@@ -222,7 +225,6 @@ public class Home extends AppCompatActivity
                 //urlargforpetrecord += "&location=" + CityFb.toString() + ',' + StateFB.toString();
                 urlargforpetrecord += "&location=" + ZipCodeFB.toString();
             }
-            petList.clear();
             urlargforpetrecord += "&count=";
             offestformuiltplerecords += numberofpets;
             urlargforpetrecord += numberofpets;
@@ -269,6 +271,7 @@ public class Home extends AppCompatActivity
                 gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
                 gridView.setAdapter(gridViewAdapter);
             }
+
             refreshcount = 1;
         }
     }
@@ -278,9 +281,12 @@ public class Home extends AppCompatActivity
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             petNumber = petList.get(position).getPetnumber();
-            startActivity(new Intent(Home.this, Pet_description.class));
+            Log.d("Home", "position " + position);
+            //startActivity(new Intent(Home.this, Pet_description.class));
         }
     };
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
