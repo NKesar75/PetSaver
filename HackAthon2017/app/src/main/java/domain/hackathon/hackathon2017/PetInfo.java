@@ -16,6 +16,12 @@ public class PetInfo
     private String gender = "";
     private String Size = "";
 
+    public int getPetpostion() {
+        return petpostion;
+    }
+
+    private int petpostion;
+
     public String getBreed() {
         return breed;
     }
@@ -75,6 +81,13 @@ public class PetInfo
         this.imageid = imageid;
         this.age = age;
         this.petnumber = petnumber;
+    }
+    public PetInfo(String imageid, String age, int petnumber, int petposition)
+    {
+        this.imageid = imageid;
+        this.age = age;
+        this.petnumber = petnumber;
+        this.petpostion = petposition;
     }
     public PetInfo(String imageid, String age, int petnumber, String breed, String animalname, String shleterid, String animaltype, String gender, String size)
     {

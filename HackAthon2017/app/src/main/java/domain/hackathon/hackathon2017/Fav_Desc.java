@@ -49,7 +49,7 @@ public class Fav_Desc extends AppCompatActivity {
     private String urlkey = "key=58fe2e272bebddbc0f5e66901f239055"; //key for api
     private String urlmethodfindmuiltplerecords = "pet.get?"; //used for getting a random pet
     private String urlargforpetrecord = ""; //argumentpassedintoparmaert
-    private String urlShelter = "http://api.petfinder.com/shelter.get?key=58fe2e272bebddbc0f5e66901f239055&id=";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,10 +125,10 @@ public class Fav_Desc extends AppCompatActivity {
                         id = dataSnapshot.child(USerid).child("Favs").child("Fav" + index).child("Id").getValue(int.class).intValue();
                     }
 
-                    if (id == Favorite.petNumber1){
-                        isitinthedaatabase = index;
-                       break;
-                    }
+                   if (id == Favorite.petNumber1){
+                       isitinthedaatabase = index;
+                      break;
+                   }
                     index++;
                 }
 
@@ -147,11 +147,11 @@ public class Fav_Desc extends AppCompatActivity {
         mMenu = menu;
         menu.clear();
         if (favonoroff == true) {
-            getMenuInflater().inflate(R.menu.unfav_menu, menu);
+         getMenuInflater().inflate(R.menu.favorite_menu, menu);
             return super.onCreateOptionsMenu(menu);
         }
         else {
-            getMenuInflater().inflate(R.menu.favorite_menu, menu);
+            getMenuInflater().inflate(R.menu.unfav_menu, menu);
             return super.onCreateOptionsMenu(menu);
         }
     }

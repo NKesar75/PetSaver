@@ -140,11 +140,11 @@ public class Pet_description extends AppCompatActivity {
         mMenu = menu;
         menu.clear();
         if (favonoroff == true) {
-            getMenuInflater().inflate(R.menu.unfav_menu, menu);
+            getMenuInflater().inflate(R.menu.favorite_menu, menu);
             return super.onCreateOptionsMenu(menu);
         }
         else {
-            getMenuInflater().inflate(R.menu.favorite_menu, menu);
+            getMenuInflater().inflate(R.menu.unfav_menu, menu);
             return super.onCreateOptionsMenu(menu);
         }
     }

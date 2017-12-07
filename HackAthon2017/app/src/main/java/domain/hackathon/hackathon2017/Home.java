@@ -17,7 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
@@ -36,16 +38,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static domain.hackathon.hackathon2017.R.id.Search_BTN;
 import static domain.hackathon.hackathon2017.R.id.home_back;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private String urlbase = "http://api.petfinder.com/"; //base url
-    private String urlkey = "key=58fe2e272bebddbc0f5e66901f239055"; //key for api
-    private String urlmethodfindmuiltplerecords = "pet.find?"; //used for getting a random pet
+    private String urlbase = "http://api.petfinder.com/pet.find?key=58fe2e272bebddbc0f5e66901f239055"; //base url
     public static int offestformuiltplerecords = 0; //used to get more records if they want to keep looking
     private String urlargforpetrecord = "&output=basic"; //argumentpassedintoparmaert
-    private String urlShelter = "http://api.petfinder.com/shelter.get?key=58fe2e272bebddbc0f5e66901f239055&id=";
 
     private static final String TAG = "Home";
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -58,42 +58,48 @@ public class Home extends AppCompatActivity
     public static int invaildarg;
     public static List<PetInfo> petList = new ArrayList<>();
     private ViewStub stubGrid;
+
     private GridView gridView;
     private GridViewAdapter gridViewAdapter;
 
-    public static int numberofpets = 18;
+    public static int numberofpets = 201;
 
     private DrawerLayout draw;
     private ActionBarDrawerToggle toggle;
 
     int refreshcount = 0;
+    private int prelast;
     DataSnapshot mdatasnapshot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        petList.clear();
 
         stubGrid = (ViewStub) findViewById(R.id.stub_grid);
         stubGrid.inflate();
         gridView = (GridView) findViewById(R.id.mygridview);
         gridView.setOnItemClickListener(onItemClick);
-        gridView.setOnTouchListener(new OnSwipeTouchListener(this) {
+        gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onSwipeRight() {
-                if (offestformuiltplerecords >= (numberofpets * 2)) {
-                    offestformuiltplerecords -= (numberofpets * 3);
-                    refresh();
-                }
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
             }
 
             @Override
-            public void onSwipeLeft() {
-                offestformuiltplerecords += numberofpets;
-                refresh();
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+               final int lastitem = firstVisibleItem + visibleItemCount;
+
+                if(lastitem == totalItemCount){
+                    if (prelast != lastitem){
+                        prelast = lastitem;
+                        Refresh();
+                    }
+                }
             }
         });
+
 
         draw = (DrawerLayout) findViewById(R.id.activity_home);
         toggle = new ActionBarDrawerToggle(this, draw, R.string.open, R.string.close);
@@ -140,14 +146,17 @@ public class Home extends AppCompatActivity
 
     }
 
-    private void refresh() {
+    private void Refresh(){
         refreshcount = 0;
         showdata(mdatasnapshot);
     }
 
+
+
     private void showdata(DataSnapshot dataSnapshot) {
 
         if (refreshcount == 0) {
+
             boolean breedfb = false;
             boolean animaltypefb = false;
             boolean genderfb = false;
@@ -219,58 +228,44 @@ public class Home extends AppCompatActivity
                     urlargforpetrecord += "&location=" + ZipCodeFB.toString();
                 }
             } else {
-                //urlargforpetrecord += "&location=" + CityFb.toString() + ',' + StateFB.toString();
                 urlargforpetrecord += "&location=" + ZipCodeFB.toString();
             }
-            petList.clear();
+
             urlargforpetrecord += "&count=";
             offestformuiltplerecords += numberofpets;
             urlargforpetrecord += numberofpets;
+            Handlexml petObj;
             if (offestformuiltplerecords <= numberofpets) {
-                Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
-                petObj.FetchXml();
-                while (petObj.parsingcomplete) ;
-                if (invaildarg == 1 || invaildarg == 2) {
-                    AlertDialog alertDialog = new AlertDialog.Builder(Home.this).create();
-                    alertDialog.setTitle("Error Could not find information");
-                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "okay",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    finish();
-                                    startActivity(new Intent(Home.this, search.class));
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                   // startActivity(new Intent(Home.this, InvaildPage.class));
-                }
-                gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
-                gridView.setAdapter(gridViewAdapter);
+                petObj = new Handlexml(urlbase + urlargforpetrecord);
             } else {
-                Handlexml petObj = new Handlexml(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
-                petObj.FetchXml();
-                while (petObj.parsingcomplete) ;
-                if (invaildarg == 1 || invaildarg == 2) {
-                    AlertDialog alertDialog = new AlertDialog.Builder(Home.this).create();
-                    alertDialog.setTitle("Error Could not find information");
-                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "okay",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (offestformuiltplerecords >= (numberofpets * 2)) {
-                                        offestformuiltplerecords -= (numberofpets * 3);
-                                        refresh();
-                                    }
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                   // startActivity(new Intent(Home.this, InvaildPage.class));
-                }
-                gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
-                gridView.setAdapter(gridViewAdapter);
+                petObj = new Handlexml(urlbase + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
             }
+
+            petObj.FetchXml();
+            Log.d(TAG, "url: " + urlbase + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
+            while (petObj.parsingcomplete) ;
+            if ((invaildarg == 1 || invaildarg == 2) && search.searcherror == true) {
+                AlertDialog alertDialog = new AlertDialog.Builder(Home.this).create();
+                alertDialog.setTitle("Error Could not find information");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "okay",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                                startActivity(new Intent(Home.this, search.class));
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+                // startActivity(new Intent(Home.this, InvaildPage.class));
+            }
+            search.searcherror = false;
+
+            gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
+            gridView.setAdapter(gridViewAdapter);
+
             refreshcount = 1;
         }
+
     }
 
     AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
@@ -278,9 +273,14 @@ public class Home extends AppCompatActivity
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             petNumber = petList.get(position).getPetnumber();
-            startActivity(new Intent(Home.this, Pet_description.class));
+            Log.d(TAG, "petnum: " + petNumber );
+            Log.d(TAG, "petid: " + id);
+            Log.d(TAG, "petpostion: " + position);
+            // startActivity(new Intent(Home.this, Pet_description.class));
         }
     };
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -291,18 +291,18 @@ public class Home extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case R.id.home_next:
-                offestformuiltplerecords += numberofpets;
-                refresh();
-                break;
-            case home_back:
-                if (offestformuiltplerecords >= (numberofpets * 2)) {
-                    offestformuiltplerecords -= (numberofpets * 3);
-                    refresh();
-                }
-                break;
-        }
+//        switch (item.getItemId()) {
+//            case R.id.home_next:
+//                offestformuiltplerecords += numberofpets;
+//                //      refresh();
+//                break;
+//            case home_back:
+//                if (offestformuiltplerecords >= (numberofpets * 2)) {
+//                    offestformuiltplerecords -= (numberofpets * 3);
+//                    //    refresh();
+//                }
+//                break;
+//        }
 
         switch (item.getItemId()) {
             case R.id.nav_home:

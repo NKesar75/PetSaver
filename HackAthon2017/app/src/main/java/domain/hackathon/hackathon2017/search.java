@@ -39,6 +39,7 @@ public class search extends AppCompatActivity
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     String USerid = user.getUid();
+    public static boolean searcherror;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mbreed = mRootRef.child(USerid).child("Search").child("breedcb");
@@ -83,6 +84,7 @@ public class search extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        searcherror = true;
         breed = (CheckBox) findViewById(R.id.Breed_CB);
         animaltype = (CheckBox) findViewById(R.id.Animal_Type_CB);
         gender = (CheckBox) findViewById(R.id.Gender_CB);

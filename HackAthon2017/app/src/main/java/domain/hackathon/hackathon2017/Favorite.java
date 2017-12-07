@@ -45,7 +45,7 @@ public class Favorite extends AppCompatActivity
     private GridView gridView;
     private GridViewAdapter gridViewAdapter;
 
-    public static List<PetInfo> petList = new ArrayList<>();
+    public static List<PetInfo> petList1 = new ArrayList<>();
     private DrawerLayout draw;
     private ActionBarDrawerToggle toggle;
 
@@ -106,25 +106,25 @@ public class Favorite extends AppCompatActivity
     }
 
     private void showdata(DataSnapshot dataSnapshot) {
-        petList.clear();
+        petList1.clear();
         int index = 1;
         int id = 0;
         boolean isitstillfav = false;
         for (int i = 0; i < dataSnapshot.child(USerid).child("Favs").getChildrenCount(); i++)
         {
             if(dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class) != null)
-            isitstillfav =  dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class).booleanValue();
+                isitstillfav =  dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class).booleanValue();
             if (isitstillfav)
             {
                 if(dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class) != null)
-                id = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class).intValue();
+                    id = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class).intValue();
                 HandlexmlFav obj = new HandlexmlFav(urlbase + id);
                 obj.FetchXml();
                 while (obj.parsingcomplete) ;
             }
             index++;
         }
-        gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
+        gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList1);
         gridView.setAdapter(gridViewAdapter);
     }
 
@@ -132,7 +132,7 @@ public class Favorite extends AppCompatActivity
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            petNumber1 = petList.get(position).getPetnumber();
+            petNumber1 = petList1.get(position).getPetnumber();
             startActivity(new Intent(Favorite.this, Fav_Desc.class));
         }
     };
@@ -186,7 +186,6 @@ public class Favorite extends AppCompatActivity
                         public void onClick(DialogInterface dialog, int which) {
                             mAuth.signOut();
                             startActivity(new Intent(Favorite.this, Login.class));
-                            finish();
                         }
                     })
                     .setNegativeButton("Cancel", null);
