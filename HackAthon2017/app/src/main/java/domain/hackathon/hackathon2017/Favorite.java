@@ -116,11 +116,12 @@ public class Favorite extends AppCompatActivity
                 isitstillfav =  dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class).booleanValue();
             if (isitstillfav)
             {
-                if(dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class) != null)
+                if(dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class) != null) {
                     id = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class).intValue();
-                HandlexmlFav obj = new HandlexmlFav(urlbase + id);
-                obj.FetchXml();
-                while (obj.parsingcomplete) ;
+                    HandlexmlFav obj = new HandlexmlFav(urlbase + id);
+                    obj.FetchXml();
+                    while (obj.parsingcomplete) ;
+                }
             }
             index++;
         }

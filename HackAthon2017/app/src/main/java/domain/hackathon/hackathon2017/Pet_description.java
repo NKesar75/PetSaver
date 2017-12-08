@@ -38,7 +38,7 @@ public class Pet_description extends AppCompatActivity {
     String userID = user.getUid();
     private int tempfavnumber;
     private Menu mMenu;
-    private boolean favonoroff = false;
+    private boolean favonoroff = true;
     private EditText Pet_name;
     private EditText Pet_age;
     private EditText Pet_gender;
@@ -139,11 +139,10 @@ public class Pet_description extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         mMenu = menu;
         menu.clear();
-        if (favonoroff == true) {
+        if (favonoroff == false) {
             getMenuInflater().inflate(R.menu.favorite_menu, menu);
             return super.onCreateOptionsMenu(menu);
-        }
-        else {
+        } else {
             getMenuInflater().inflate(R.menu.unfav_menu, menu);
             return super.onCreateOptionsMenu(menu);
         }
@@ -153,7 +152,7 @@ public class Pet_description extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         refresh();
         switch (item.getItemId()) {
-            case R.id.fav_btn: {
+            case R.id.unfavorite_btn: {
                 if (isitinthedaatabase == false && databaseisflase == false) {
                     myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).child("Id").setValue(Home.petNumber);
                     myRef.child(userID).child("Favs").child("Fav" + (amountofchildren + 1)).child("FavOrNot").setValue(true);
@@ -161,13 +160,13 @@ public class Pet_description extends AppCompatActivity {
                 } else if (isitinthedaatabase == true && databaseisflase == false) {
                     myRef.child(userID).child("Favs").child("Fav" + (tempfavnumber)).child("FavOrNot").setValue(true);
                 }
-                favonoroff = true;
+                favonoroff = false;
                 onCreateOptionsMenu(mMenu);
                 break;
             }
-            case R.id.unfavorite_btn: {
+            case R.id.fav_btn: {
                 myRef.child(userID).child("Favs").child("Fav" + (tempfavnumber)).child("FavOrNot").setValue(false);
-                favonoroff = false;
+                favonoroff = true;
                 onCreateOptionsMenu(mMenu);
                 break;
             }
@@ -178,15 +177,17 @@ public class Pet_description extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     private void refresh() {
         refreshcount = 0;
         showdata(mdatasnap);
     }
-    private void showdata(DataSnapshot dataSnapshot){
+
+    private void showdata(DataSnapshot dataSnapshot) {
         if (refreshcount == 0) {
-            amountofchildren = dataSnapshot.child(userID).child("Favs").getChildrenCount();
             FirebaseUser user = mAuth.getCurrentUser();
             String USerid = user.getUid();
+            amountofchildren = dataSnapshot.child(userID).child("Favs").getChildrenCount();
             int index = 1;
             int id = 0;
             boolean isitstillfav = false;
@@ -199,8 +200,7 @@ public class Pet_description extends AppCompatActivity {
                 if (id == Home.petNumber) {
                     if (isitstillfav == true) {
                         databaseisflase = true;
-                    }
-                    else{
+                    } else {
                         databaseisflase = false;
                     }
                     tempfavnumber = index;

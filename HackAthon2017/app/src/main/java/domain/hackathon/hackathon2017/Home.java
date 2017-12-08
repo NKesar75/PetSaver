@@ -273,20 +273,18 @@ public class Home extends AppCompatActivity
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             petNumber = petList.get(position).getPetnumber();
-            Log.d(TAG, "petnum: " + petNumber );
-            Log.d(TAG, "petid: " + id);
-            Log.d(TAG, "petpostion: " + position);
-            // startActivity(new Intent(Home.this, Pet_description.class));
+
+             startActivity(new Intent(Home.this, Pet_description.class));
         }
     };
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home_changepage, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.home_changepage, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
