@@ -38,7 +38,7 @@ public class Pet_description extends AppCompatActivity {
     String userID = user.getUid();
     private int tempfavnumber;
     private Menu mMenu;
-    private boolean favonoroff = false;
+    private boolean favonoroff = true;
     private EditText Pet_name;
     private EditText Pet_age;
     private EditText Pet_gender;
@@ -196,7 +196,9 @@ public class Pet_description extends AppCompatActivity {
                     id = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class).intValue();
                 if (dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class) != null)
                     isitstillfav = dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class).booleanValue();
-                if (id == Home.petNumber) {
+                if (dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("FavOrNot").getValue(boolean.class) != null)
+
+                    if (id == Home.petNumber) {
                     if (isitstillfav == true) {
                         databaseisflase = true;
                     }

@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import static android.R.id.toggle;
-import static domain.hackathon.hackathon2017.R.id.home_back;
+//import static domain.hackathon.hackathon2017.R.id.home_back;
 
 public class InvaildPage extends AppCompatActivity {
     private static final String TAG = "InvaildPage";

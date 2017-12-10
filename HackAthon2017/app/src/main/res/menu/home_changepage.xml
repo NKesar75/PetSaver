@@ -4,15 +4,6 @@
     <group
         android:checkableBehavior="single"
         app:showAsAction="always">
-        <item
-            android:id="@+id/home_back"
-            android:icon="@mipmap/left_arrow"
-            android:title="Back"
-            app:showAsAction="always" />
-        <item
-            android:id="@+id/home_next"
-            android:icon="@mipmap/right_arrow"
-            android:title="Next"
-            app:showAsAction="always" />
+
     </group>
 </menu>

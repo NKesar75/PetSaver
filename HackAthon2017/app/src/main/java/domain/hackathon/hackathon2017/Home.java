@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static domain.hackathon.hackathon2017.R.id.Search_BTN;
-import static domain.hackathon.hackathon2017.R.id.home_back;
+//import static domain.hackathon.hackathon2017.R.id.home_back;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -256,7 +256,7 @@ public class Home extends AppCompatActivity
                             }
                         });
                 alertDialog.show();
-                // startActivity(new Intent(Home.this, InvaildPage.class));
+                 //startActivity(new Intent(Home.this, InvaildPage.class));
             }
             search.searcherror = false;
 
@@ -276,7 +276,7 @@ public class Home extends AppCompatActivity
             Log.d(TAG, "petnum: " + petNumber );
             Log.d(TAG, "petid: " + id);
             Log.d(TAG, "petpostion: " + position);
-            // startActivity(new Intent(Home.this, Pet_description.class));
+            startActivity(new Intent(Home.this, Pet_description.class));
         }
     };
 
