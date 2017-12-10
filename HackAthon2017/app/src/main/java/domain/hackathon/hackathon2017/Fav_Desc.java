@@ -39,7 +39,7 @@ public class Fav_Desc extends AppCompatActivity {
     private EditText Pet_type;
     private EditText Pet_size;
     private EditText Pet_breed;
-    private boolean favonoroff = true;
+    private boolean favonoroff = false;
     private Menu mMenu;
     private ImageView Pet_image;
     private Button Shelterinfobtn;
@@ -55,25 +55,25 @@ public class Fav_Desc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fav__desc);
 
-        Pet_image = (ImageView)findViewById(R.id.image_fav);
-        Pet_name   = (EditText)findViewById(R.id.Name_fav);
-        Pet_age    = (EditText)findViewById(R.id.Age_fav);
-        Pet_gender = (EditText)findViewById(R.id.Gender_fav);
-        Pet_type   = (EditText)findViewById(R.id.Type_fav);
-        Pet_size   = (EditText)findViewById(R.id.Size_fav);
-        Pet_breed  = (EditText)findViewById(R.id.Breed_fav);
-        Shelterinfobtn = (Button)findViewById(R.id.Shelter_Info_fav);
-        urlargforpetrecord = "&id="+ Favorite.petNumber1;
+        Pet_image = (ImageView) findViewById(R.id.image_fav);
+        Pet_name = (EditText) findViewById(R.id.Name_fav);
+        Pet_age = (EditText) findViewById(R.id.Age_fav);
+        Pet_gender = (EditText) findViewById(R.id.Gender_fav);
+        Pet_type = (EditText) findViewById(R.id.Type_fav);
+        Pet_size = (EditText) findViewById(R.id.Size_fav);
+        Pet_breed = (EditText) findViewById(R.id.Breed_fav);
+        Shelterinfobtn = (Button) findViewById(R.id.Shelter_Info_fav);
+        urlargforpetrecord = "&id=" + Favorite.petNumber1;
         HandlexmlFavDesc petObj = new HandlexmlFavDesc(urlbase + urlmethodfindmuiltplerecords + urlkey + urlargforpetrecord);
         petObj.FetchXml();
-        while(petObj.parsingcomplete);
+        while (petObj.parsingcomplete) ;
         shelterid = petdescinfo.getShelterid();
-        Pet_name.setText("NAME: "+ petdescinfo.getAnimalname());
-        Pet_age.setText("AGE: "+ petdescinfo.getAge());
-        Pet_gender.setText("GENDER: "+ petdescinfo.getGender());
-        Pet_type.setText("TYPE: "+ petdescinfo.getAnimaltype());
-        Pet_size.setText("SIZE: "+ petdescinfo.getSize());
-        Pet_breed.setText("BREED: "+ petdescinfo.getBreed());
+        Pet_name.setText("NAME: " + petdescinfo.getAnimalname());
+        Pet_age.setText("AGE: " + petdescinfo.getAge());
+        Pet_gender.setText("GENDER: " + petdescinfo.getGender());
+        Pet_type.setText("TYPE: " + petdescinfo.getAnimaltype());
+        Pet_size.setText("SIZE: " + petdescinfo.getSize());
+        Pet_breed.setText("BREED: " + petdescinfo.getBreed());
         Glide.with(Fav_Desc.this).load(petdescinfo.getImageid().toString()).into(Pet_image);
 
         Pet_image.setFocusable(true);
@@ -83,12 +83,11 @@ public class Fav_Desc extends AppCompatActivity {
         Shelterinfobtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Fav_Desc.this,Fav_ShelterInfo.class));
+                startActivity(new Intent(Fav_Desc.this, Fav_ShelterInfo.class));
             }
         });
 
-        if(getSupportActionBar()!= null)
-        {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -120,15 +119,15 @@ public class Fav_Desc extends AppCompatActivity {
                 int index = 1;
                 int id = 0;
                 isitinthedaatabase = 0;
-                for (int i = 0; i <amountofchildren; i++) {
-                    if(dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class) != null) {
+                for (int i = 0; i < amountofchildren; i++) {
+                    if (dataSnapshot.child(USerid).child("Favs").child("Fav" + (index)).child("Id").getValue(int.class) != null) {
                         id = dataSnapshot.child(USerid).child("Favs").child("Fav" + index).child("Id").getValue(int.class).intValue();
                     }
 
-                   if (id == Favorite.petNumber1){
-                       isitinthedaatabase = index;
-                      break;
-                   }
+                    if (id == Favorite.petNumber1) {
+                        isitinthedaatabase = index;
+                        break;
+                    }
                     index++;
                 }
 
@@ -142,15 +141,15 @@ public class Fav_Desc extends AppCompatActivity {
         });
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         mMenu = menu;
         menu.clear();
-        if (favonoroff == true) {
-         getMenuInflater().inflate(R.menu.favorite_menu, menu);
+        if (favonoroff == false) {
+            getMenuInflater().inflate(R.menu.favorite_menu, menu);
             return super.onCreateOptionsMenu(menu);
-        }
-        else {
+        } else {
             getMenuInflater().inflate(R.menu.unfav_menu, menu);
             return super.onCreateOptionsMenu(menu);
         }
@@ -159,19 +158,22 @@ public class Fav_Desc extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.unfavorite_btn:
-                   myRef.child(userID).child("Favs").child("Fav" + (isitinthedaatabase)).child("FavOrNot").setValue(false);
-                    favonoroff = false;
-                onCreateOptionsMenu(mMenu);
-               break;
-            case R.id.fav_btn:
-                favonoroff = true;
+            case R.id.unfavorite_btn: {
+
                 myRef.child(userID).child("Favs").child("Fav" + (isitinthedaatabase)).child("FavOrNot").setValue(true);
+                favonoroff = false;
                 onCreateOptionsMenu(mMenu);
                 break;
+            }
+            case R.id.fav_btn: {
+                myRef.child(userID).child("Favs").child("Fav" + (isitinthedaatabase)).child("FavOrNot").setValue(false);
+                favonoroff = true;
+                onCreateOptionsMenu(mMenu);
+                break;
+            }
         }
 
-        if(item.getItemId()==android.R.id.home)
+        if (item.getItemId() == android.R.id.home)
             finish();
 
         return super.onOptionsItemSelected(item);
