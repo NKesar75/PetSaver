@@ -184,12 +184,11 @@ public class search extends AppCompatActivity
         citystate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (citystate.isChecked()){
+                if (citystate.isChecked()) {
                     ZipcodetxtED.setVisibility(View.GONE);
                     Citytxt.setVisibility(View.VISIBLE);
                     Statetxt.setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     ZipcodetxtED.setVisibility(View.VISIBLE);
                     Citytxt.setVisibility(View.GONE);
                     Statetxt.setVisibility(View.GONE);
@@ -199,12 +198,11 @@ public class search extends AppCompatActivity
         Zipcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Zipcode.isChecked()){
+                if (Zipcode.isChecked()) {
                     ZipcodetxtED.setVisibility(View.VISIBLE);
                     Citytxt.setVisibility(View.GONE);
                     Statetxt.setVisibility(View.GONE);
-                }
-                else{
+                } else {
                     ZipcodetxtED.setVisibility(View.GONE);
                     Citytxt.setVisibility(View.VISIBLE);
                     Statetxt.setVisibility(View.VISIBLE);
@@ -217,21 +215,25 @@ public class search extends AppCompatActivity
             public void onClick(View v) {
 
                 if (local.isChecked()) {
+                    Search.setFocusable(true);
+                    Search.setFocusableInTouchMode(true);
+                    Search.requestFocus();
                     Zipcode.setVisibility(View.VISIBLE);
                     citystate.setVisibility(View.VISIBLE);
-                    if (Zipcode.isChecked()){
+                    if (Zipcode.isChecked()) {
                         ZipcodetxtED.setVisibility(View.VISIBLE);
                         Citytxt.setVisibility(View.GONE);
                         Statetxt.setVisibility(View.GONE);
-                    }
-                    else{
+                    } else {
                         ZipcodetxtED.setVisibility(View.GONE);
                         Citytxt.setVisibility(View.VISIBLE);
                         Statetxt.setVisibility(View.VISIBLE);
                     }
 
-                 }
-                else{
+                } else {
+                    breed.setFocusable(true);
+                    breed.setFocusableInTouchMode(true);
+                    breed.requestFocus();
                     Zipcode.setVisibility(View.GONE);
                     citystate.setVisibility(View.GONE);
                     ZipcodetxtED.setVisibility(View.GONE);
@@ -348,6 +350,30 @@ public class search extends AppCompatActivity
                         break;
                 }
 
+                int index = 0;
+                String[] parts = breedtxtfb.split(" ");
+                breedtxtfb = "";
+                String temp;
+                if (parts.length == 1) {
+                    temp  = parts[index].substring(0, 1).toUpperCase();
+                    breedtxtfb = temp + parts[index].substring(1).toLowerCase();
+                } else {
+
+                    while (index != parts.length) {
+                        if (index == 0) {
+
+                            temp = parts[index].substring(0, 1).toUpperCase();
+                            breedtxtfb = temp + parts[index].substring(1).toLowerCase();
+
+                        } else {
+
+                            temp = parts[index].substring(0, 1).toUpperCase();
+                            breedtxtfb += " " + temp + parts[index].substring(1).toLowerCase();
+                        }
+                        index++;
+                    }
+                }
+
                 mRootRef.child(USerid).child("Search").child("breedcb").setValue(breedfb);
                 mRootRef.child(USerid).child("Search").child("breedtext").setValue(breedtxtfb);
                 mRootRef.child(USerid).child("Search").child("animaltypecb").setValue(animaltypefb);
@@ -389,11 +415,11 @@ public class search extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean Temp = dataSnapshot.getValue(boolean.class);
 
-                if (Temp){//.equals("true")) {
+                if (Temp) {//.equals("true")) {
                     //breedtxt.setText(Temp);
                     breed.setChecked(true);
                     breedtxt.setVisibility(View.VISIBLE);
-                } else if (!Temp){//.equals("false")) {
+                } else if (!Temp) {//.equals("false")) {
                     //breedtxt.setText(Temp);
                     breed.setChecked(false);
                     breedtxt.setVisibility(View.GONE);
@@ -411,10 +437,10 @@ public class search extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean Temp = dataSnapshot.getValue(boolean.class);
 
-                if (Temp){//.equals("true")) {
+                if (Temp) {//.equals("true")) {
                     animaltype.setChecked(true);
                     animaltypespinner.setVisibility(View.VISIBLE);
-                } else if (!Temp){//.equals("false")) {
+                } else if (!Temp) {//.equals("false")) {
                     animaltype.setChecked(false);
                     animaltypespinner.setVisibility(View.GONE);
                 }
@@ -431,10 +457,10 @@ public class search extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean Temp = dataSnapshot.getValue(boolean.class);
 
-                if (Temp){//.equals("true")) {
+                if (Temp) {//.equals("true")) {
                     gender.setChecked(true);
                     Genderspinner.setVisibility(View.VISIBLE);
-                } else if (!Temp){//.equals("false")) {
+                } else if (!Temp) {//.equals("false")) {
                     gender.setChecked(false);
                     Genderspinner.setVisibility(View.GONE);
                 }
@@ -453,10 +479,10 @@ public class search extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean Temp = dataSnapshot.getValue(boolean.class);
 
-                if (Temp){//.equals("true")) {
+                if (Temp) {//.equals("true")) {
                     age.setChecked(true);
                     Agespinner.setVisibility(View.VISIBLE);
-                } else if (!Temp){//.equals("false")) {
+                } else if (!Temp) {//.equals("false")) {
                     age.setChecked(false);
                     Agespinner.setVisibility(View.GONE);
                 }
@@ -472,10 +498,10 @@ public class search extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean Temp = dataSnapshot.getValue(boolean.class);
 
-                if (Temp){//.equals("true")) {
+                if (Temp) {//.equals("true")) {
                     Sizespinner.setVisibility(View.VISIBLE);
                     size.setChecked(true);
-                } else if (!Temp){//.equals("false")) {
+                } else if (!Temp) {//.equals("false")) {
                     Sizespinner.setVisibility(View.GONE);
                     size.setChecked(false);
                 }
@@ -492,11 +518,11 @@ public class search extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean Temp = dataSnapshot.getValue(boolean.class);
 
-                if (Temp){//.equals("true")) {
+                if (Temp) {//.equals("true")) {
                     citystate.setVisibility(View.VISIBLE);
                     Zipcode.setVisibility(View.VISIBLE);
                     local.setChecked(true);
-                } else if (!Temp){//.equals("false")) {
+                } else if (!Temp) {//.equals("false")) {
                     local.setChecked(false);
                     Citytxt.setVisibility(View.GONE);
                     Statetxt.setVisibility(View.GONE);
@@ -542,7 +568,7 @@ public class search extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String Temp = dataSnapshot.getValue(String.class);
-                switch (Temp){
+                switch (Temp) {
                     case "Baby":
                         Agespinner.setSelection(0);
                         break;
@@ -569,7 +595,7 @@ public class search extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String Temp = dataSnapshot.getValue(String.class);
-                switch (Temp){
+                switch (Temp) {
                     case "S":
                         Sizespinner.setSelection(0);
                         break;
@@ -597,7 +623,7 @@ public class search extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String Temp = dataSnapshot.getValue(String.class);
-                switch (Temp){
+                switch (Temp) {
                     case "M":
                         Genderspinner.setSelection(0);
                         break;
@@ -620,7 +646,7 @@ public class search extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String Temp = dataSnapshot.getValue(String.class);
 
-                switch(Temp){
+                switch (Temp) {
                     case "barnyard":
                         animaltypespinner.setSelection(0);
                         break;
@@ -658,21 +684,20 @@ public class search extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean Temp = dataSnapshot.getValue(boolean.class);
                 if (local.isChecked()) {
-                    if (Temp){//.equals("true")) {
+                    if (Temp) {//.equals("true")) {
                         citystate.setChecked(true);
                         Zipcode.setChecked(false);
                         Citytxt.setVisibility(View.VISIBLE);
                         Statetxt.setVisibility(View.VISIBLE);
                         ZipcodetxtED.setVisibility(View.GONE);
-                    } else if (!Temp){//.equals("false")) {
+                    } else if (!Temp) {//.equals("false")) {
                         citystate.setChecked(false);
                         Zipcode.setChecked(true);
                         Citytxt.setVisibility(View.GONE);
                         Statetxt.setVisibility(View.GONE);
                         ZipcodetxtED.setVisibility(View.VISIBLE);
                     }
-                }
-                else{
+                } else {
                     Citytxt.setVisibility(View.GONE);
                     Statetxt.setVisibility(View.GONE);
                     ZipcodetxtED.setVisibility(View.GONE);
@@ -768,17 +793,15 @@ public class search extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mAuth.signOut();
-                            startActivity(new Intent(search.this,Login.class));
+                            startActivity(new Intent(search.this, Login.class));
                             finish();
                         }
                     })
-                    .setNegativeButton("Cancel",null);
+                    .setNegativeButton("Cancel", null);
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
 
-        }
-        else if(id == R.id.nav_info)
-        {
+        } else if (id == R.id.nav_info) {
             startActivity(new Intent(search.this, info.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.activity_search);

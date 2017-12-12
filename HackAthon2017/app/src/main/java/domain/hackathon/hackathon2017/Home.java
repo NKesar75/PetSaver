@@ -251,7 +251,6 @@ public class Home extends AppCompatActivity
             }
 
             petObj.FetchXml();
-            Log.d(TAG, "url: " + urlbase + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
 
             while (petObj.parsingcomplete) ;
             progress.dismiss();
