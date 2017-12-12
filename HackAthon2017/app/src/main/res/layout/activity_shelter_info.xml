@@ -46,7 +46,8 @@
             android:id="@+id/Email_SI"
             style="@style/EditText_style"
             android:editable="false"
-            android:hint="youremail@example.com" />
+            android:hint="youremail@example.com"
+            android:textColor="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color" />
 
         <Button
             android:id="@+id/Invisible_Shelter"

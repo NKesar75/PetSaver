@@ -1,5 +1,6 @@
 package domain.hackathon.hackathon2017;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -39,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static domain.hackathon.hackathon2017.R.id.Search_BTN;
-import static domain.hackathon.hackathon2017.R.id.home_back;
+//import static domain.hackathon.hackathon2017.R.id.home_back;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -243,7 +244,13 @@ public class Home extends AppCompatActivity
 
             petObj.FetchXml();
             Log.d(TAG, "url: " + urlbase + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
+            ProgressDialog progress = new ProgressDialog(this);
+            progress.setTitle("Loading");
+            progress.setMessage("Wait while loading...");
+            progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+            progress.show();
             while (petObj.parsingcomplete) ;
+            progress.dismiss();
             if ((invaildarg == 1 || invaildarg == 2) && search.searcherror == true) {
                 AlertDialog alertDialog = new AlertDialog.Builder(Home.this).create();
                 alertDialog.setTitle("Error Could not find information");

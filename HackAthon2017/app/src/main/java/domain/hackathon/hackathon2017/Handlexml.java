@@ -1,5 +1,6 @@
 package domain.hackathon.hackathon2017;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -91,6 +92,8 @@ public class Handlexml {
                         switch (name) {
                             case "name":
                                 animalname = text;
+                                String[] parts = animalname.split("\\(");
+                                animalname = parts[0];
                                 break;
                             case "breed":
                                 if (hasbeencalledbreed == false) {
@@ -121,7 +124,7 @@ public class Handlexml {
                             case "photo":
                                 if (hasbeencalledimage == false) {
                                     image = text;
-                                    Home.petList.add( new PetInfo(image,age,Integer.parseInt(petid)));
+                                    Home.petList.add( new PetInfo(image,animalname,Integer.parseInt(petid)));
                                     Home.invaildarg = 0;
                                     hasbeencalledimage = true;
                                 }

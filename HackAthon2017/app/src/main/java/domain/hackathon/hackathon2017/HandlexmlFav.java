@@ -87,6 +87,8 @@ public class HandlexmlFav {
                         switch (name) {
                             case "name":
                                 animalname = text;
+                                String[] parts = animalname.split("\\(");
+                                animalname = parts[0];
                                 break;
                             case "breed":
                                 if (hasbeencalledbreed == false) {
@@ -113,7 +115,7 @@ public class HandlexmlFav {
                             case "photo":
                                 if (hasbeencalledimage == false) {
                                     image = text;
-                                    Favorite.petList1.add(new PetInfo(image,age,Integer.parseInt(petid)));
+                                    Favorite.petList1.add(new PetInfo(image,animalname,Integer.parseInt(petid)));
                                     hasbeencalledimage = true;
                                 }
                                 break;

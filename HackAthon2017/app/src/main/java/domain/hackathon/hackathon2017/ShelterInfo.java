@@ -34,7 +34,7 @@ public class ShelterInfo extends AppCompatActivity {
         hider.setFocusableInTouchMode(true);
         hider.requestFocus();
         hider.setVisibility(View.GONE);
-        HandlexmlShelter obj = new HandlexmlShelter(urlShelter + Pet_description.shelterid);
+        final HandlexmlShelter obj = new HandlexmlShelter(urlShelter + Pet_description.shelterid);
         obj.FetchXml();
         while(obj.parsingcomplete);
 
@@ -80,6 +80,21 @@ public class ShelterInfo extends AppCompatActivity {
                     intent.setData(Uri.parse("tel:" + tempholder.getPhonenumber()));
                     startActivity(intent);
                 }
+            }
+        });
+
+        sEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /* Create the Intent */
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("message/rfc822");
+                intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] {obj.getEmailaccount()});
+                intent.putExtra(android.content.Intent.EXTRA_SUBJECT,"");
+                intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
+
+/* Send it off to the Activity-Chooser */
+                startActivity(Intent.createChooser(intent,"Send"));
             }
         });
 
