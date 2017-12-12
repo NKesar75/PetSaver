@@ -80,8 +80,9 @@ public class Home extends AppCompatActivity
         progress = new ProgressDialog(this);
         progress.setTitle("Loading");
         progress.setMessage("Wait while loading...");
-        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.setCancelable(false);
         progress.show();
+
         petList.clear();
 
 
@@ -270,9 +271,17 @@ public class Home extends AppCompatActivity
             }
             search.searcherror = false;
 
-            gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
-            gridView.setAdapter(gridViewAdapter);
 
+
+            gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
+            if (gridView.getAdapter() == null)
+            {
+                gridView.setAdapter(gridViewAdapter);
+            }
+            else
+            {
+                gridViewAdapter.notifyDataSetChanged();
+            }
             refreshcount = 1;
         }
 
