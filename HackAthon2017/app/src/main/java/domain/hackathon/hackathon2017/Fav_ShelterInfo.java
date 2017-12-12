@@ -40,54 +40,68 @@ public class Fav_ShelterInfo extends AppCompatActivity {
         sNumber = (EditText)findViewById(R.id.Number_SI_fav);
         sEmail = (EditText)findViewById(R.id.Email_SI_fav);
 
-        favshelterxmlhandler obj = new favshelterxmlhandler(urlShelter + Fav_Desc.shelterid);
+        final favshelterxmlhandler obj = new favshelterxmlhandler(urlShelter + Fav_Desc.shelterid);
         obj.FetchXml();
         while(obj.parsingcomplete);
-
-        if (!tempholder.getSheletername().equals(null)||!tempholder.getSheletername().equals(" ")) {
+        if (!tempholder.getSheletername().contains("\n ")) {
             sname.setText(tempholder.getSheletername());
-        }
-        else{
+        } else {
             sname.setText("N/A");
         }
 
-        if (!tempholder.getAdress().equals(null)||!tempholder.getAdress().equals(" ")) {
+        if (!tempholder.getAdress().contains("\n ")) {
             sAddress.setText(tempholder.getAdress());
-        }
-        else{
+        } else {
             sAddress.setText("N/A");
         }
 
-        if (!tempholder.getCity().equals(null)|| !tempholder.getState().equals("")||!tempholder.getCity().equals(" ")||!tempholder.getState().equals(" ")) {
-            sCity.setText(tempholder.getCity()+", " + tempholder.getState() + " " + tempholder.getZipcode());
-        }
-        else{
+        if (!tempholder.getState().contains("\n ") || !tempholder.getCity().contains("\n ")) {
+            sCity.setText(tempholder.getCity() + ", " + tempholder.getState() + " " + tempholder.getZipcode());
+        } else {
             sCity.setText("N/A");
         }
 
-        if (!tempholder.getPhonenumber().equals(null)||!tempholder.getPhonenumber().equals(" ")) {
-            sNumber.setText("Phone Number: "+tempholder.getPhonenumber());
-        }
-        else{
+        if (!tempholder.getPhonenumber().contains("\n ")) {
+            sNumber.setText("Phone Number: " + tempholder.getPhonenumber());
+        } else {
             sNumber.setText("N/A");
         }
 
-        if (!tempholder.getEmailaccount().equals(null)||!tempholder.getEmailaccount().equals(" ")) {
-            sEmail.setText("Email: "+tempholder.getEmailaccount());
-        }
-        else{
+        if (!tempholder.getEmailaccount().contains("\n ")) {
+            sEmail.setText("Email: " + tempholder.getEmailaccount());
+        } else {
             sEmail.setText("N/A");
         }
         sNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!sNumber.equals("N/A")){
+                if (!tempholder.getPhonenumber().contains("\n ")) {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
                     intent.setData(Uri.parse("tel:" + tempholder.getPhonenumber()));
-                    startActivity(intent);
+                    if (!sNumber.getText().equals("N/A")) {
+                        startActivity(intent);
+                    }
                 }
             }
         });
+
+        sEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /* Create the Intent */
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("message/rfc822");
+                intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{obj.getEmailaccount()});
+                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
+                intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
+
+/* Send it off to the Activity-Chooser */
+                if (!tempholder.getEmailaccount().contains("\n ")) {
+                    startActivity(Intent.createChooser(intent, "Send"));
+                }
+            }
+        });
+
     }
 
     @Override
