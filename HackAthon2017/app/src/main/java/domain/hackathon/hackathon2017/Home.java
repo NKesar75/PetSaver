@@ -59,6 +59,7 @@ public class Home extends AppCompatActivity
     public static int invaildarg;
     public static List<PetInfo> petList = new ArrayList<>();
     private ViewStub stubGrid;
+    ProgressDialog progress;
 
     private GridView gridView;
     private GridViewAdapter gridViewAdapter;
@@ -76,7 +77,13 @@ public class Home extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
         petList.clear();
+
 
         stubGrid = (ViewStub) findViewById(R.id.stub_grid);
         stubGrid.inflate();
@@ -244,11 +251,7 @@ public class Home extends AppCompatActivity
 
             petObj.FetchXml();
             Log.d(TAG, "url: " + urlbase + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
-            ProgressDialog progress = new ProgressDialog(this);
-            progress.setTitle("Loading");
-            progress.setMessage("Wait while loading...");
-            progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
-            progress.show();
+
             while (petObj.parsingcomplete) ;
             progress.dismiss();
             if ((invaildarg == 1 || invaildarg == 2) && search.searcherror == true) {
