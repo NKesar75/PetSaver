@@ -1,5 +1,6 @@
 package domain.hackathon.hackathon2017;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -39,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static domain.hackathon.hackathon2017.R.id.Search_BTN;
-import static domain.hackathon.hackathon2017.R.id.home_back;
+//import static domain.hackathon.hackathon2017.R.id.home_back;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,6 +59,7 @@ public class Home extends AppCompatActivity
     public static int invaildarg;
     public static List<PetInfo> petList = new ArrayList<>();
     private ViewStub stubGrid;
+    ProgressDialog progress;
 
     private GridView gridView;
     private GridViewAdapter gridViewAdapter;
@@ -75,7 +77,14 @@ public class Home extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false);
+        progress.show();
+
         petList.clear();
+
 
         stubGrid = (ViewStub) findViewById(R.id.stub_grid);
         stubGrid.inflate();
@@ -243,7 +252,9 @@ public class Home extends AppCompatActivity
 
             petObj.FetchXml();
             Log.d(TAG, "url: " + urlbase + urlargforpetrecord + "&offset=" + offestformuiltplerecords);
+
             while (petObj.parsingcomplete) ;
+            progress.dismiss();
             if ((invaildarg == 1 || invaildarg == 2) && search.searcherror == true) {
                 AlertDialog alertDialog = new AlertDialog.Builder(Home.this).create();
                 alertDialog.setTitle("Error Could not find information");
@@ -260,9 +271,17 @@ public class Home extends AppCompatActivity
             }
             search.searcherror = false;
 
-            gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
-            gridView.setAdapter(gridViewAdapter);
 
+
+            gridViewAdapter = new GridViewAdapter(this, R.layout.griditem, petList);
+            if (gridView.getAdapter() == null)
+            {
+                gridView.setAdapter(gridViewAdapter);
+            }
+            else
+            {
+                gridViewAdapter.notifyDataSetChanged();
+            }
             refreshcount = 1;
         }
 

@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import static domain.hackathon.hackathon2017.R.id.home_back;
+//import static domain.hackathon.hackathon2017.R.id.home_back;
 
 public class Favorite extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

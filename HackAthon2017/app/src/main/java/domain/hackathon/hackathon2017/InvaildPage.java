@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import static android.R.id.toggle;
-import static domain.hackathon.hackathon2017.R.id.home_back;
+//import static domain.hackathon.hackathon2017.R.id.home_back;
 
 public class InvaildPage extends AppCompatActivity {
     private static final String TAG = "InvaildPage";
@@ -40,20 +40,7 @@ public class InvaildPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invaild_page);
         swipe = (TextView) findViewById(R.id.txtviewforswipe);
-        swipe.setOnTouchListener(new OnSwipeTouchListener(this) {
-            @Override
-            public void onSwipeRight() {
-                if (Home.offestformuiltplerecords >= (Home.numberofpets * 2)) {
-                    Home.offestformuiltplerecords -= (Home.numberofpets * 3);
-                    finish();
-                    startActivity(new Intent(InvaildPage.this, Home.class));
 
-                }
-            }
-            @Override
-            public void onSwipeLeft() {
-            }
-        });
         invalidMessage = (EditText) findViewById(R.id.invaildpagetxt);
         if (Home.invaildarg == 1) {
             invalidMessage.setText("Please Check Your Spelling");
