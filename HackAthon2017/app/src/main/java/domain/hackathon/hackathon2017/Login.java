@@ -87,9 +87,12 @@ public class Login extends AppCompatActivity {
                     String userID = user.getUid();
                     locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                     getLocation();
-                    myRef.child(userID).child("Search").child("Zipcodetxt").setValue(Zipcode.toString());
-                    myRef.child(userID).child("Search").child("Citytxt").setValue(city.toString());
-                    myRef.child(userID).child("Search").child("Statetxt").setValue(state.toString());
+                    if (Zipcode != null)
+                        myRef.child(userID).child("Search").child("Zipcodetxt").setValue(Zipcode.toString());
+                    if (city != null)
+                        myRef.child(userID).child("Search").child("Citytxt").setValue(city.toString());
+                    if (state != null)
+                        myRef.child(userID).child("Search").child("Statetxt").setValue(state.toString());
 
                     startActivity(new Intent(Login.this, Home.class));
                 } else {
