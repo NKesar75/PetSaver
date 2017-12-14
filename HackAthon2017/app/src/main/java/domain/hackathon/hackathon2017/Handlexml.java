@@ -124,7 +124,7 @@ public class Handlexml {
                             case "photo":
                                 if (hasbeencalledimage == false) {
                                     image = text;
-                                    Home.petList.add( new PetInfo(image,animalname,Integer.parseInt(petid)));
+                                    Home.petList.add( new PetInfo(image,animalname.toUpperCase(),Integer.parseInt(petid)));
                                     Home.invaildarg = 0;
                                     hasbeencalledimage = true;
                                 }

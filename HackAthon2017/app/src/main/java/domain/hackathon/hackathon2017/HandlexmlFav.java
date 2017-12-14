@@ -115,7 +115,7 @@ public class HandlexmlFav {
                             case "photo":
                                 if (hasbeencalledimage == false) {
                                     image = text;
-                                    Favorite.petList1.add(new PetInfo(image,animalname,Integer.parseInt(petid)));
+                                    Favorite.petList1.add(new PetInfo(image,animalname.toUpperCase(),Integer.parseInt(petid)));
                                     hasbeencalledimage = true;
                                 }
                                 break;
